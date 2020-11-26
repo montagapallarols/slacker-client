@@ -13,9 +13,18 @@ export type SetLoadingProfile = {
   type: typeof SET_LOADING;
   payload: boolean;
 };
+
+// type Object = {
+//   id: number;
+//   firstName: string;
+//   lastName: string;
+//   imageUrl: string;
+//   type: string;
+// };
+
 export type ProfilesFetched = {
   type: typeof PROFILES_FETCHED;
-  payload: any;
+  payload: object[];
 };
 // ...
 

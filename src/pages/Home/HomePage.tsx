@@ -23,10 +23,10 @@ export default function HomePage() {
   } else {
     return (
       <div>
+        <h1>Welcome to Slacker!</h1>
         <p>
-          Welcome to Slacker! Here you can curate, review and share your
-          favourite films, TV shows, books and podcasts or add them to your wish
-          list.
+          Here you can curate, review and share your favourite films, TV shows,
+          books and podcasts or add them to your wish list.
         </p>
         <p>Sign up to create your profile and connect with your friends!</p>
         <br></br>
@@ -43,8 +43,26 @@ export default function HomePage() {
           <Button variant="outline-dark">Films</Button>{" "}
           <Button variant="outline-dark">Tv Shows</Button>{" "}
         </div>
-
-        <div></div>
+        <br></br>
+        <div>
+          {allProfiles?.map((p: any) => {
+            return (
+              <div key={p.id}>
+                <p>{`${p.firstName} ${p.lastName}`}</p>
+                <img src={p.imageUrl} height="100px" />
+                <em>
+                  <p>
+                    {p.lists.map((list: any) => {
+                      return list.type === `${p.firstName}'s Favourites`
+                        ? list.type
+                        : null;
+                    })}
+                  </p>
+                </em>
+              </div>
+            );
+          })}
+        </div>
       </div>
     );
   }
