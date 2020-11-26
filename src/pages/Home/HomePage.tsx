@@ -18,6 +18,12 @@ export default function HomePage() {
       <p>
         Already have an account? Log in <Link to="/login">here</Link>
       </p>
+
+      <div>
+        <Button variant="outline-dark">All profiles</Button>{" "}
+        <Button variant="outline-dark">Films</Button>{" "}
+        <Button variant="outline-dark">Tv Shows</Button>{" "}
+      </div>
     </div>
   );
 }
