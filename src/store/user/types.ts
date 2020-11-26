@@ -3,7 +3,8 @@ export type UserState = {
   loading: boolean;
   message: string | null;
   token: string | null;
-  name: string | null;
+  firstName: string | null;
+  lastName: string | null;
   email: string | null;
   profile: any | null;
 };
