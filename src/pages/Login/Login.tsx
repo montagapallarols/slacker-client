@@ -58,13 +58,17 @@ export default function SignUp() {
           />
         </Form.Group>
         <Form.Group className="mt-5">
-          <Button variant="primary" type="submit" onSubmit={submitForm}>
+          <Button variant="dark" type="submit" onSubmit={submitForm}>
             Log in
           </Button>
         </Form.Group>
-        <Link to="/signup" style={{ textAlign: "center" }}>
-          Click here to sign up
-        </Link>
+        <p>
+          Click{" "}
+          <Link to="/signup" style={{ textAlign: "center" }}>
+            here{" "}
+          </Link>
+          to sign up
+        </p>
       </Form>
     </Container>
   );

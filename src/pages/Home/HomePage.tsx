@@ -10,9 +10,11 @@ export default function HomePage() {
         films, TV shows, books and podcasts or add them to your wish list.
       </p>
       <p>Sign up to create your profile and connect with your friends!</p>
+      <br></br>
       <Link to="/signup">
         <Button variant="dark">Sign up</Button>
       </Link>
+      <br></br>
       <p>
         Already have an account? Log in <Link to="/login">here</Link>
       </p>
