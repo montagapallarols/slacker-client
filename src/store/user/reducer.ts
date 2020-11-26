@@ -4,7 +4,8 @@ const initialState: UserState = {
   loading: false,
   message: null,
   token: localStorage.getItem("token"),
-  name: null,
+  firstName: null,
+  lastName: null,
   email: null,
   profile: null,
 };
