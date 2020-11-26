@@ -10,10 +10,11 @@ import { useParams } from "react-router-dom";
 export default function LoggedIn() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  //   const { id } = useParams()
+
   return (
     <>
       {/* <NavbarItem exact path={`/${user.id}`} linkText="My Space" /> */}
+      <NavbarItem path="/:userId" linkText="My Profile" />
       <Nav.Item style={{ padding: ".5rem 1rem" }}>{user.firstName}</Nav.Item>
       {/* <Button onClick={() => dispatch(logOut())}>Logout</Button> */}
     </>
