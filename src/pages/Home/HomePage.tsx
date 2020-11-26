@@ -7,6 +7,7 @@ import {
   selectProfilesLoading,
   selectAllProfiles,
 } from "../../store/profile/selectors";
+import { LOADING_USER } from "../../store/user/types";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -17,27 +18,34 @@ export default function HomePage() {
     dispatch(fetchProfiles);
   }, [dispatch]);
 
-  return (
-    <div>
-      <p>
-        Welcome to Slacker! Here you can curate, review and share your favourite
-        films, TV shows, books and podcasts or add them to your wish list.
-      </p>
-      <p>Sign up to create your profile and connect with your friends!</p>
-      <br></br>
-      <Link to="/signup">
-        <Button variant="dark">Sign up</Button>
-      </Link>
-      <br></br>
-      <p>
-        Already have an account? Log in <Link to="/login">here</Link>
-      </p>
-
+  if (profilesLoading) {
+    return <p>"Loading..."</p>;
+  } else {
+    return (
       <div>
-        <Button variant="outline-dark">All profiles</Button>{" "}
-        <Button variant="outline-dark">Films</Button>{" "}
-        <Button variant="outline-dark">Tv Shows</Button>{" "}
+        <p>
+          Welcome to Slacker! Here you can curate, review and share your
+          favourite films, TV shows, books and podcasts or add them to your wish
+          list.
+        </p>
+        <p>Sign up to create your profile and connect with your friends!</p>
+        <br></br>
+        <Link to="/signup">
+          <Button variant="dark">Sign up</Button>
+        </Link>
+        <br></br>
+        <p>
+          Already have an account? Log in <Link to="/login">here</Link>
+        </p>
+
+        <div>
+          <Button variant="outline-dark">All profiles</Button>{" "}
+          <Button variant="outline-dark">Films</Button>{" "}
+          <Button variant="outline-dark">Tv Shows</Button>{" "}
+        </div>
+
+        <div></div>
       </div>
-    </div>
-  );
+    );
+  }
 }

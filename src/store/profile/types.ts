@@ -1,7 +1,7 @@
 // state type
 export type ProfileState = {
   loading: boolean;
-  all: any[] | null;
+  all: object[] | null;
 };
 
 // action types

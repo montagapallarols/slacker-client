@@ -12,9 +12,9 @@ export function setLoading(loading: boolean) {
   };
 }
 
-export function profilesFetched(profiles: any) {
+export function profilesFetched(profiles: object[]) {
   return {
-    type: "SPACES_FETCHED",
+    type: "PROFILES_FETCHED",
     payload: profiles,
   };
 }
