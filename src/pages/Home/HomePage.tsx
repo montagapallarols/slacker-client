@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProfiles, setLoading } from "../../store/profile/actions";
+import {
+  selectProfilesLoading,
+  selectAllProfiles,
+} from "../../store/profile/selectors";
 
 export default function HomePage() {
+  const dispatch = useDispatch();
+  const profilesLoading = useSelector(selectProfilesLoading);
+  const allProfiles = useSelector(selectAllProfiles);
+
+  useEffect(() => {
+    dispatch(fetchProfiles);
+  }, [dispatch]);
+
   return (
     <div>
       <p>
