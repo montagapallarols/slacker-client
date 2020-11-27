@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { selectAllProfiles } from "../../store/profile/selectors";
 import { selectAllListItems } from "../../store/listItems/selectors";
+import Button from "react-bootstrap/Button";
 
 export default function ProfileCard() {
   const allProfiles = useSelector(selectAllProfiles);
@@ -31,6 +32,7 @@ export default function ProfileCard() {
                 </div>
               ) : null;
             })}
+            <Button variant="outline-dark">View Profile</Button>
           </div>
         );
       })}

@@ -23,7 +23,7 @@ export default function HomePage() {
   const allListItems = useSelector(selectAllListItems);
   const allFavourites = useSelector(selectAllFavourites);
 
-  const [sortingList, setSortingList] = useState("profiles");
+  const [filterList, setFilterList] = useState("profiles");
 
   useEffect(() => {
     dispatch(fetchProfiles);
@@ -34,11 +34,11 @@ export default function HomePage() {
   }, [dispatch]);
 
   function onSearchFavourites() {
-    setSortingList("favourites");
+    setFilterList("favourites");
   }
 
   function onSearchProfiles() {
-    setSortingList("profiles");
+    setFilterList("profiles");
   }
 
   if (profilesLoading || listItemsLoading) {
@@ -72,9 +72,9 @@ export default function HomePage() {
         </div>
         <br></br>
         <div>
-          {sortingList === "profiles" ? (
+          {filterList === "profiles" ? (
             <ProfileCard />
-          ) : sortingList === "favourites" ? (
+          ) : filterList === "favourites" ? (
             allFavourites?.map((f: any) => {
               return <div key={f.id}>{f.name}</div>;
             })
