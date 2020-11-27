@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfiles, setLoading } from "../../store/profile/actions";
 import {
+  fetchListItems,
+  setListItemsLoading,
+} from "../../store/listItems/actions";
+import {
   selectProfilesLoading,
   selectAllProfiles,
 } from "../../store/profile/selectors";
@@ -16,6 +20,10 @@ export default function HomePage() {
 
   useEffect(() => {
     dispatch(fetchProfiles);
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchListItems);
   }, [dispatch]);
 
   if (profilesLoading) {

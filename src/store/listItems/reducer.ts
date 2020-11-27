@@ -1,7 +1,7 @@
 import {
   ListItemsState,
   ListItemsActionTypes,
-  SET_LOADING,
+  SET_LIST_ITEMS_LOADING,
   LIST_ITEMS_FETCHED,
 } from "./types";
 
@@ -15,7 +15,7 @@ export default function reducer(
   action: ListItemsActionTypes
 ) {
   switch (action.type) {
-    case "SET_LOADING": {
+    case "SET_LIST_ITEMS_LOADING": {
       return {
         ...state,
         loading: action.payload,

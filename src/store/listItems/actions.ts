@@ -1,13 +1,17 @@
-import { apiUrl, DEFAULT_MESSAGE_TIMEOUT } from "../../config/constants";
+import { serverUrl, DEFAULT_MESSAGE_TIMEOUT } from "../../config/constants";
 import axios from "axios";
-import { SET_LOADING, LIST_ITEMS_FETCHED, ListItemsActionTypes } from "./types";
+import {
+  SET_LIST_ITEMS_LOADING,
+  LIST_ITEMS_FETCHED,
+  ListItemsActionTypes,
+} from "./types";
 import { AppThunk } from "../types";
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
 
-export function setLoading(loading: boolean) {
+export function setListItemsLoading(loading: boolean) {
   return {
-    type: "SET_LOADING",
+    type: "SET_LIST_ITEMS_LOADING",
     payload: loading,
   };
 }
@@ -26,5 +30,5 @@ export async function fetchListItems(dispatch: any, getState: any) {
   console.log("Response", response.data);
 
   dispatch(listItemsFetched(response.data));
-  dispatch(setLoading(false));
+  dispatch(setListItemsLoading(false));
 }

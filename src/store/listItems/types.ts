@@ -5,12 +5,12 @@ export type ListItemsState = {
 };
 
 // action types
-export const SET_LOADING = "SET_LOADING";
+export const SET_LIST_ITEMS_LOADING = "SET_LIST_ITEMS_LOADING";
 export const LIST_ITEMS_FETCHED = "LIST_ITEMS_FETCHED";
 // ...
 
 export type SetLoadingListItems = {
-  type: typeof SET_LOADING;
+  type: typeof SET_LIST_ITEMS_LOADING;
   payload: boolean;
 };
 

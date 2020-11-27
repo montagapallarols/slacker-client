@@ -1,4 +1,4 @@
-import { apiUrl, DEFAULT_MESSAGE_TIMEOUT } from "../../config/constants";
+import { serverUrl, DEFAULT_MESSAGE_TIMEOUT } from "../../config/constants";
 import axios from "axios";
 import { SET_LOADING, PROFILES_FETCHED, ProfileActionTypes } from "./types";
 import { AppThunk } from "../types";
