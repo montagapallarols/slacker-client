@@ -9,6 +9,7 @@ import {
 const initialState: ListItemsState = {
   loading: true,
   all: [],
+  categories: [],
   favouritesByCategory: [],
 };
 
@@ -27,6 +28,12 @@ export default function reducer(
       return {
         ...state,
         all: [...action.payload],
+      };
+    }
+    case "CATEGORIES_FETCHED": {
+      return {
+        ...state,
+        categories: [...action.payload],
       };
     }
     case "FAVOURITES_BY_CATEGORY_FETCHED": {

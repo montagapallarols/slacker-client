@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfiles } from "../../store/profile/actions";
-import { fetchListItems } from "../../store/listItems/actions";
+import { fetchListItems, fetchCategories } from "../../store/listItems/actions";
 import {
   selectProfilesLoading,
   selectAllProfiles,
@@ -25,6 +25,10 @@ export default function HomePage() {
 
   useEffect(() => {
     dispatch(fetchProfiles);
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchCategories);
   }, [dispatch]);
 
   useEffect(() => {

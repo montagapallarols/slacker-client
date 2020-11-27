@@ -23,6 +23,13 @@ export function listItemsFetched(profiles: object[]) {
   };
 }
 
+export function categoriesFetched(profiles: object[]) {
+  return {
+    type: "CATEGORIES_FETCHED",
+    payload: profiles,
+  };
+}
+
 export function favouritesByCategoryFetched(profiles: object[]) {
   return {
     type: "FAVOURITES_BY_CATEGORY_FETCHED",
@@ -34,8 +41,30 @@ export async function fetchListItems(dispatch: any, getState: any) {
   //   dispatch(setLoading(true));
 
   const response = await axios.get("http://localhost:4000/lists/listItems");
-  console.log("List items esponse", response.data);
+  console.log("List items response", response.data);
 
   dispatch(listItemsFetched(response.data));
+  dispatch(setListItemsLoading(false));
+}
+
+export async function fetchCategories(dispatch: any, getState: any) {
+  //   dispatch(setLoading(true));
+
+  const response = await axios.get("http://localhost:4000/categories");
+  console.log("List items response", response.data);
+
+  dispatch(categoriesFetched(response.data));
+  dispatch(setListItemsLoading(false));
+}
+
+export async function fetchFavouritesByCategory(dispatch: any, getState: any) {
+  //   dispatch(setLoading(true));
+
+  const response = await axios.get(
+    "http://localhost:4000/lists/listItems/favourites/:categoryId"
+  );
+  console.log("List items response", response.data);
+
+  dispatch(favouritesByCategoryFetched(response.data));
   dispatch(setListItemsLoading(false));
 }
