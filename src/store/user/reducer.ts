@@ -1,4 +1,10 @@
-import { UserState, UserActionTypes, LOADING_USER } from "./types";
+import {
+  UserState,
+  UserActionTypes,
+  LOADING_USER,
+  LOGIN_SUCCESS,
+  TOKEN_STILL_VALID,
+} from "./types";
 
 const initialState: UserState = {
   loading: false,
@@ -15,12 +21,12 @@ const userReducer = (state = initialState, action: UserActionTypes) => {
     case LOADING_USER:
       return { ...state, loading: true };
 
-    //   case LOGIN_SUCCESS:
-    //     localStorage.setItem("token", action.payload.token);
-    //     return { ...state, loading: false, ...action.payload };
+    case LOGIN_SUCCESS:
+      localStorage.setItem("token", action.payload.token);
+      return { ...state, loading: false, ...action.payload };
 
-    //   case TOKEN_STILL_VALID:
-    //     return { ...state, loading: false, ...action.payload };
+    case TOKEN_STILL_VALID:
+      return { ...state, loading: false, ...action.payload };
 
     default:
       return state;
