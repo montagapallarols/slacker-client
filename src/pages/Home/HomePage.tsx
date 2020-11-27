@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import {
 import {
   selectListItemsLoading,
   selectAllListItems,
+  selectAllFavourites,
 } from "../../store/listItems/selectors";
 
 export default function HomePage() {
@@ -19,6 +20,9 @@ export default function HomePage() {
   const allProfiles = useSelector(selectAllProfiles);
   const listItemsLoading = useSelector(selectListItemsLoading);
   const allListItems = useSelector(selectAllListItems);
+  const allFavourites = useSelector(selectAllFavourites);
+
+  const [sortingList, setSortingList] = useState();
 
   useEffect(() => {
     dispatch(fetchProfiles);
@@ -31,6 +35,7 @@ export default function HomePage() {
   if (profilesLoading || listItemsLoading) {
     return <p>"Loading..."</p>;
   } else {
+    console.log("All favourites", allFavourites);
     return (
       <div>
         <h1>Welcome to Slacker!</h1>
@@ -59,22 +64,21 @@ export default function HomePage() {
             return (
               <div key={p.id}>
                 <h3>{`${p.firstName} ${p.lastName}`}</h3>
-                <img src={p.imageUrl} height="80px" />
+                <img src={p.imageUrl} height="100px" />
                 <br></br>
                 <em>
                   <p>
                     {p.lists.map((list: any) => {
-                      return list.type === `${p.firstName}'s Favourites` ? (
+                      return list.type === "Favourites" ? (
                         <strong>{list.type}</strong>
                       ) : null;
                     })}
                   </p>
                   <p>
                     {allListItems?.map((list: any) => {
-                      return list.list.type ===
-                        `${p.firstName}'s Favourites` ? (
+                      return list.list.type === "Favourites" &&
+                        list.list.profileId === p.id ? (
                         <div>
-                          {/* <p>{list.list.type}</p> */}
                           <p>{list.item.name}</p>
                         </div>
                       ) : null;
