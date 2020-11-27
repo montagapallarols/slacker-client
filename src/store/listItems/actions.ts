@@ -27,7 +27,7 @@ export async function fetchListItems(dispatch: any, getState: any) {
   //   dispatch(setLoading(true));
 
   const response = await axios.get("http://localhost:4000/lists/listItems");
-  console.log("Response", response.data);
+  console.log("List items esponse", response.data);
 
   dispatch(listItemsFetched(response.data));
   dispatch(setListItemsLoading(false));

@@ -2,21 +2,23 @@ import React, { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProfiles, setLoading } from "../../store/profile/actions";
-import {
-  fetchListItems,
-  setListItemsLoading,
-} from "../../store/listItems/actions";
+import { fetchProfiles } from "../../store/profile/actions";
+import { fetchListItems } from "../../store/listItems/actions";
 import {
   selectProfilesLoading,
   selectAllProfiles,
 } from "../../store/profile/selectors";
-import { LOADING_USER } from "../../store/user/types";
+import {
+  selectListItemsLoading,
+  selectAllListItems,
+} from "../../store/listItems/selectors";
 
 export default function HomePage() {
   const dispatch = useDispatch();
   const profilesLoading = useSelector(selectProfilesLoading);
   const allProfiles = useSelector(selectAllProfiles);
+  const listItemsLoading = useSelector(selectListItemsLoading);
+  const allListItems = useSelector(selectAllListItems);
 
   useEffect(() => {
     dispatch(fetchProfiles);
@@ -26,7 +28,7 @@ export default function HomePage() {
     dispatch(fetchListItems);
   }, [dispatch]);
 
-  if (profilesLoading) {
+  if (profilesLoading || listItemsLoading) {
     return <p>"Loading..."</p>;
   } else {
     return (
@@ -56,15 +58,26 @@ export default function HomePage() {
           {allProfiles?.map((p: any) => {
             return (
               <div key={p.id}>
-                <p>{`${p.firstName} ${p.lastName}`}</p>
+                <h3>{`${p.firstName} ${p.lastName}`}</h3>
                 <img src={p.imageUrl} height="80px" />
                 <br></br>
                 <em>
                   <p>
                     {p.lists.map((list: any) => {
-                      return list.type === `${p.firstName}'s Favourites`
-                        ? list.type
-                        : null;
+                      return list.type === `${p.firstName}'s Favourites` ? (
+                        <strong>{list.type}</strong>
+                      ) : null;
+                    })}
+                  </p>
+                  <p>
+                    {allListItems?.map((list: any) => {
+                      return list.list.type ===
+                        `${p.firstName}'s Favourites` ? (
+                        <div>
+                          {/* <p>{list.list.type}</p> */}
+                          <p>{list.item.name}</p>
+                        </div>
+                      ) : null;
                     })}
                   </p>
                 </em>

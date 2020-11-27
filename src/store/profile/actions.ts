@@ -23,7 +23,7 @@ export async function fetchProfiles(dispatch: any, getState: any) {
   //   dispatch(setLoading(true));
 
   const response = await axios.get("http://localhost:4000/profiles");
-  console.log("Response", response.data);
+  console.log("Profiles response", response.data);
 
   dispatch(profilesFetched(response.data));
   dispatch(setLoading(false));
