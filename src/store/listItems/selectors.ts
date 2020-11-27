@@ -12,3 +12,9 @@ export function selectAllListItems(state: RootState) {
 export function selectAllCategories(state: RootState) {
   return state.listItems.categories;
 }
+
+export function selectAllFavouritesByCategoryItems(state: RootState) {
+  return state.listItems.favouritesByCategory?.map((f: any) => {
+    return f.item;
+  });
+}

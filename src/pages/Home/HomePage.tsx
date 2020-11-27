@@ -79,10 +79,6 @@ export default function HomePage() {
               All Favourite {category.name}
             </Button>
           ))}
-          {/* <Button onClick={onSearchFavourites} variant="outline-dark">
-            All Favourite Films
-          </Button>{" "}
-          <Button variant="outline-dark">All Favourite TV Shows</Button>{" "} */}
         </div>
         <br></br>
         <div>
