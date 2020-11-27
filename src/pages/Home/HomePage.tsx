@@ -4,22 +4,18 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfiles } from "../../store/profile/actions";
 import { fetchListItems, fetchCategories } from "../../store/listItems/actions";
-import {
-  selectProfilesLoading,
-  selectAllProfiles,
-} from "../../store/profile/selectors";
+import { selectProfilesLoading } from "../../store/profile/selectors";
 import {
   selectListItemsLoading,
-  selectAllListItems,
+  selectAllCategories,
 } from "../../store/listItems/selectors";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 
 export default function HomePage() {
   const dispatch = useDispatch();
   const profilesLoading = useSelector(selectProfilesLoading);
-  const allProfiles = useSelector(selectAllProfiles);
   const listItemsLoading = useSelector(selectListItemsLoading);
-  const allListItems = useSelector(selectAllListItems);
+  const allCategories = useSelector(selectAllCategories);
 
   const [filterList, setFilterList] = useState("profiles");
 

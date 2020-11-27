@@ -8,3 +8,7 @@ export function selectListItemsLoading(state: RootState) {
 export function selectAllListItems(state: RootState) {
   return state.listItems.all;
 }
+
+export function selectAllCategories(state: RootState) {
+  return state.listItems.categories;
+}
