@@ -40,8 +40,8 @@ export default function HomePage() {
 
         <div>
           <Button variant="outline-dark">All profiles</Button>{" "}
-          <Button variant="outline-dark">Films</Button>{" "}
-          <Button variant="outline-dark">Tv Shows</Button>{" "}
+          <Button variant="outline-dark">Favourite Films</Button>{" "}
+          <Button variant="outline-dark">Favourite TV Shows</Button>{" "}
         </div>
         <br></br>
         <div>
@@ -49,7 +49,8 @@ export default function HomePage() {
             return (
               <div key={p.id}>
                 <p>{`${p.firstName} ${p.lastName}`}</p>
-                <img src={p.imageUrl} height="100px" />
+                <img src={p.imageUrl} height="80px" />
+                <br></br>
                 <em>
                   <p>
                     {p.lists.map((list: any) => {

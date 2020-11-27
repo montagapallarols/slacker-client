@@ -1,18 +1,18 @@
 import {
-  ProfileState,
-  ProfileActionTypes,
+  ListItemsState,
+  ListItemsActionTypes,
   SET_LOADING,
-  PROFILES_FETCHED,
+  LIST_ITEMS_FETCHED,
 } from "./types";
 
-const initialState: ProfileState = {
+const initialState: ListItemsState = {
   loading: true,
   all: [],
 };
 
 export default function reducer(
   state = initialState,
-  action: ProfileActionTypes
+  action: ListItemsActionTypes
 ) {
   switch (action.type) {
     case "SET_LOADING": {
@@ -21,7 +21,7 @@ export default function reducer(
         loading: action.payload,
       };
     }
-    case "PROFILES_FETCHED": {
+    case "LIST_ITEMS_FETCHED": {
       return {
         ...state,
         all: [...action.payload],

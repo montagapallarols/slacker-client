@@ -28,5 +28,5 @@ export type ProfilesFetched = {
 };
 // ...
 
-export type UserActionTypes = SetLoadingProfile | ProfilesFetched;
+export type ProfileActionTypes = SetLoadingProfile | ProfilesFetched;
 // ...
