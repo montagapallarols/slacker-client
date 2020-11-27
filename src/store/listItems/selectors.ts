@@ -13,7 +13,7 @@ export function selectAllCategories(state: RootState) {
   return state.listItems.categories;
 }
 
-export function selectAllFavouritesByCategoryItems(state: RootState) {
+export function selectFavouriteItemsByCategory(state: RootState) {
   return state.listItems.favouritesByCategory?.map((f: any) => {
     return f.item;
   });

@@ -19,7 +19,9 @@ export default function ProfileCard() {
               <p>
                 {p.lists.map((list: any) => {
                   return list.type === "Favourites" ? (
-                    <strong key={list.id}>{list.type}</strong>
+                    <strong key={list.id}>
+                      {`${p.firstName}'s`} {list.type}
+                    </strong>
                   ) : null;
                 })}
               </p>

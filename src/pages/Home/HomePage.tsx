@@ -13,13 +13,16 @@ import {
   selectListItemsLoading,
   selectAllCategories,
 } from "../../store/listItems/selectors";
+import { selectFavouriteItemsByCategory } from "../../store/listItems/selectors";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
+import FavouriteCard from "../../components/FavouriteCard/FavouriteCard";
 
 export default function HomePage() {
   const dispatch = useDispatch();
   const profilesLoading = useSelector(selectProfilesLoading);
   const listItemsLoading = useSelector(selectListItemsLoading);
   const allCategories = useSelector(selectAllCategories);
+  const favouriteItemsByCategory = useSelector(selectFavouriteItemsByCategory);
 
   const [filterList, setFilterList] = useState("Profiles");
   const [categoryFilterId, setCategoryFilterId] = useState("");
@@ -43,6 +46,8 @@ export default function HomePage() {
   useEffect(() => {
     dispatch(fetchFavouritesByCategory(categoryFilterId));
   }, [categoryFilterId]);
+
+  console.log("Favourites by category", favouriteItemsByCategory);
 
   if (profilesLoading || listItemsLoading) {
     return <p>"Loading..."</p>;
@@ -85,8 +90,10 @@ export default function HomePage() {
           {filterList === "Profiles" ? (
             <ProfileCard />
           ) : filterList === "Films" ? (
-            "Favourite Films"
-          ) : null}
+            <FavouriteCard />
+          ) : (
+            <FavouriteCard />
+          )}
         </div>
       </div>
     );
