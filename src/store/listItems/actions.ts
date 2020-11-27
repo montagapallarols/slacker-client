@@ -23,6 +23,13 @@ export function listItemsFetched(profiles: object[]) {
   };
 }
 
+export function favouritesByCategoryFetched(profiles: object[]) {
+  return {
+    type: "FAVOURITES_BY_CATEGORY_FETCHED",
+    payload: profiles,
+  };
+}
+
 export async function fetchListItems(dispatch: any, getState: any) {
   //   dispatch(setLoading(true));
 

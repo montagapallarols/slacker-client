@@ -1,3 +1,4 @@
+import { allowedNodeEnvironmentFlags } from "process";
 import {
   ListItemsState,
   ListItemsActionTypes,
@@ -31,7 +32,7 @@ export default function reducer(
     case "FAVOURITES_BY_CATEGORY_FETCHED": {
       return {
         ...state,
-        all: [...action.payload],
+        favouritesByCategory: [...action.payload],
       };
     }
     default: {
