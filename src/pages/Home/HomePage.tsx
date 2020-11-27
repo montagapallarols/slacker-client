@@ -18,6 +18,8 @@ export default function HomePage() {
   const allCategories = useSelector(selectAllCategories);
 
   const [filterList, setFilterList] = useState("profiles");
+  const [categoryFilter, setCategoryFilter] = useState("");
+  console.log(categoryFilter);
 
   useEffect(() => {
     dispatch(fetchProfiles);
@@ -58,15 +60,25 @@ export default function HomePage() {
         <p>
           Already have an account? Log in <Link to="/login">here</Link>
         </p>
-
+        <h3>Show me</h3>
         <div>
           <Button onClick={onSearchProfiles} variant="outline-dark">
             All profiles
           </Button>{" "}
-          <Button onClick={onSearchFavourites} variant="outline-dark">
-            Favourite Films
+          {allCategories?.map((category: any) => (
+            <Button
+              variant="outline-dark"
+              onClick={() => {
+                setCategoryFilter(category.id);
+              }}
+            >
+              All Favourite {category.name}
+            </Button>
+          ))}
+          {/* <Button onClick={onSearchFavourites} variant="outline-dark">
+            All Favourite Films
           </Button>{" "}
-          <Button variant="outline-dark">Favourite TV Shows</Button>{" "}
+          <Button variant="outline-dark">All Favourite TV Shows</Button>{" "} */}
         </div>
         <br></br>
         <div>
