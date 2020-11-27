@@ -3,7 +3,11 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProfiles } from "../../store/profile/actions";
-import { fetchListItems, fetchCategories } from "../../store/listItems/actions";
+import {
+  fetchListItems,
+  fetchCategories,
+  fetchFavouritesByCategory,
+} from "../../store/listItems/actions";
 import { selectProfilesLoading } from "../../store/profile/selectors";
 import {
   selectListItemsLoading,
@@ -17,9 +21,8 @@ export default function HomePage() {
   const listItemsLoading = useSelector(selectListItemsLoading);
   const allCategories = useSelector(selectAllCategories);
 
-  const [filterList, setFilterList] = useState("profiles");
-  const [categoryFilter, setCategoryFilter] = useState("");
-  console.log(categoryFilter);
+  const [filterList, setFilterList] = useState("Profiles");
+  const [categoryFilterId, setCategoryFilterId] = useState("");
 
   useEffect(() => {
     dispatch(fetchProfiles);
@@ -33,13 +36,13 @@ export default function HomePage() {
     dispatch(fetchListItems);
   }, [dispatch]);
 
-  function onSearchFavourites() {
-    setFilterList("favourites");
+  function onSearchProfiles() {
+    setFilterList("Profiles");
   }
 
-  function onSearchProfiles() {
-    setFilterList("profiles");
-  }
+  useEffect(() => {
+    dispatch(fetchFavouritesByCategory(categoryFilterId));
+  }, [categoryFilterId]);
 
   if (profilesLoading || listItemsLoading) {
     return <p>"Loading..."</p>;
@@ -69,7 +72,8 @@ export default function HomePage() {
             <Button
               variant="outline-dark"
               onClick={() => {
-                setCategoryFilter(category.id);
+                setCategoryFilterId(category.id);
+                setFilterList(`${category.name}`);
               }}
             >
               All Favourite {category.name}
@@ -82,9 +86,9 @@ export default function HomePage() {
         </div>
         <br></br>
         <div>
-          {filterList === "profiles" ? (
+          {filterList === "Profiles" ? (
             <ProfileCard />
-          ) : filterList === "favourites" ? (
+          ) : filterList === "Films" ? (
             "Favourite Films"
           ) : null}
         </div>

@@ -57,14 +57,17 @@ export async function fetchCategories(dispatch: any, getState: any) {
   dispatch(setListItemsLoading(false));
 }
 
-export async function fetchFavouritesByCategory(dispatch: any, getState: any) {
-  //   dispatch(setLoading(true));
+export function fetchFavouritesByCategory(categoryFilterId: string) {
+  return async (dispatch: any, getState: any) => {
+    const categoryIdString = categoryFilterId.toString();
+    console.log(categoryIdString);
 
-  const response = await axios.get(
-    "http://localhost:4000/lists/listItems/favourites/:categoryId"
-  );
-  console.log("List items response", response.data);
+    const response = await axios.get(
+      `http://localhost:4000/lists/listItems/favourites/${categoryIdString}`
+    );
+    console.log("Favourites by category response", response.data);
 
-  dispatch(favouritesByCategoryFetched(response.data));
-  dispatch(setListItemsLoading(false));
+    dispatch(favouritesByCategoryFetched(response.data));
+    dispatch(setListItemsLoading(false));
+  };
 }
