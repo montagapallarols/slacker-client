@@ -11,7 +11,6 @@ import {
 import {
   selectListItemsLoading,
   selectAllListItems,
-  selectAllFavourites,
 } from "../../store/listItems/selectors";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 
@@ -21,7 +20,6 @@ export default function HomePage() {
   const allProfiles = useSelector(selectAllProfiles);
   const listItemsLoading = useSelector(selectListItemsLoading);
   const allListItems = useSelector(selectAllListItems);
-  const allFavourites = useSelector(selectAllFavourites);
 
   const [filterList, setFilterList] = useState("profiles");
 
@@ -75,9 +73,7 @@ export default function HomePage() {
           {filterList === "profiles" ? (
             <ProfileCard />
           ) : filterList === "favourites" ? (
-            allFavourites?.map((f: any) => {
-              return <div key={f.id}>{f.name}</div>;
-            })
+            "Favourite Films"
           ) : null}
         </div>
       </div>

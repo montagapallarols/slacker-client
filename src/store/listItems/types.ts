@@ -2,11 +2,13 @@
 export type ListItemsState = {
   loading: boolean;
   all: object[] | null;
+  favouritesByCategory: object[] | null;
 };
 
 // action types
 export const SET_LIST_ITEMS_LOADING = "SET_LIST_ITEMS_LOADING";
 export const LIST_ITEMS_FETCHED = "LIST_ITEMS_FETCHED";
+export const FAVOURITES_BY_CATEGORY_FETCHED = "FAVOURITES_BY_CATEGORY_FETCHED";
 // ...
 
 export type SetLoadingListItems = {
@@ -18,7 +20,15 @@ export type ListItemsFetched = {
   type: typeof LIST_ITEMS_FETCHED;
   payload: object[];
 };
+
+export type FavouritesByCategory = {
+  type: typeof FAVOURITES_BY_CATEGORY_FETCHED;
+  payload: object[];
+};
 // ...
 
-export type ListItemsActionTypes = SetLoadingListItems | ListItemsFetched;
+export type ListItemsActionTypes =
+  | SetLoadingListItems
+  | ListItemsFetched
+  | FavouritesByCategory;
 // ...
