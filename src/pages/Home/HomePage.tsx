@@ -13,6 +13,7 @@ import {
   selectAllListItems,
   selectAllFavourites,
 } from "../../store/listItems/selectors";
+import ProfileCard from "../../components/ProfileCard/ProfileCard";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ export default function HomePage() {
   const allListItems = useSelector(selectAllListItems);
   const allFavourites = useSelector(selectAllFavourites);
 
-  const [sortingList, setSortingList] = useState();
+  const [sortingList, setSortingList] = useState("profiles");
 
   useEffect(() => {
     dispatch(fetchProfiles);
@@ -32,10 +33,17 @@ export default function HomePage() {
     dispatch(fetchListItems);
   }, [dispatch]);
 
+  function onSearchFavourites() {
+    setSortingList("favourites");
+  }
+
+  function onSearchProfiles() {
+    setSortingList("profiles");
+  }
+
   if (profilesLoading || listItemsLoading) {
     return <p>"Loading..."</p>;
   } else {
-    console.log("All favourites", allFavourites);
     return (
       <div>
         <h1>Welcome to Slacker!</h1>
@@ -54,40 +62,23 @@ export default function HomePage() {
         </p>
 
         <div>
-          <Button variant="outline-dark">All profiles</Button>{" "}
-          <Button variant="outline-dark">Favourite Films</Button>{" "}
+          <Button onClick={onSearchProfiles} variant="outline-dark">
+            All profiles
+          </Button>{" "}
+          <Button onClick={onSearchFavourites} variant="outline-dark">
+            Favourite Films
+          </Button>{" "}
           <Button variant="outline-dark">Favourite TV Shows</Button>{" "}
         </div>
         <br></br>
         <div>
-          {allProfiles?.map((p: any) => {
-            return (
-              <div key={p.id}>
-                <h3>{`${p.firstName} ${p.lastName}`}</h3>
-                <img src={p.imageUrl} height="100px" />
-                <br></br>
-                <em>
-                  <p>
-                    {p.lists.map((list: any) => {
-                      return list.type === "Favourites" ? (
-                        <strong>{list.type}</strong>
-                      ) : null;
-                    })}
-                  </p>
-                  <p>
-                    {allListItems?.map((list: any) => {
-                      return list.list.type === "Favourites" &&
-                        list.list.profileId === p.id ? (
-                        <div>
-                          <p>{list.item.name}</p>
-                        </div>
-                      ) : null;
-                    })}
-                  </p>
-                </em>
-              </div>
-            );
-          })}
+          {sortingList === "profiles" ? (
+            <ProfileCard />
+          ) : sortingList === "favourites" ? (
+            allFavourites?.map((f: any) => {
+              return <div key={f.id}>{f.name}</div>;
+            })
+          ) : null}
         </div>
       </div>
     );
