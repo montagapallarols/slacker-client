@@ -11,8 +11,8 @@ export function selectAllListItems(state: RootState) {
 
 export function selectAllFavourites(state: RootState) {
   return state.listItems.all?.map((i: any) => {
-    if (i.list.type.includes("Favourites")) {
-      return i.list.item;
+    if (i.list.type === "Favourites") {
+      return i.item;
     } else {
       return null;
     }
