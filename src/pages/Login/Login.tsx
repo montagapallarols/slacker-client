@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, MouseEvent } from "react";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
@@ -21,7 +21,7 @@ export default function SignUp() {
     }
   }, [token, history]);
 
-  function submitForm(event: React.FormEvent<HTMLFormElement>) {
+  function submitForm(event: MouseEvent) {
     console.log("hi");
     event.preventDefault();
 
@@ -58,7 +58,7 @@ export default function SignUp() {
           />
         </Form.Group>
         <Form.Group className="mt-5">
-          <Button variant="dark" type="submit" onSubmit={submitForm}>
+          <Button variant="dark" type="submit" onClick={submitForm}>
             Log in
           </Button>
         </Form.Group>
