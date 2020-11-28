@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { Switch, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
+import MessageBox from "./components/MessageBox/MessageBox";
 import HomePage from "../src/pages/Home/HomePage";
 import Login from "../src/pages/Login/Login";
 
@@ -11,6 +12,7 @@ function App() {
   return (
     <div className="App">
       <Navigation />
+      <MessageBox />
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/login" component={Login} />
