@@ -4,11 +4,13 @@ import {
   LOADING_USER,
   LOGIN_SUCCESS,
   TOKEN_STILL_VALID,
+  LOG_OUT,
+  // SET_MESSAGE,
+  // CLEAR_MESSAGE,
 } from "./types";
 
 const initialState: UserState = {
   loading: false,
-  message: null,
   token: localStorage.getItem("token"),
   firstName: null,
   lastName: null,
@@ -27,6 +29,16 @@ const userReducer = (state = initialState, action: UserActionTypes) => {
 
     case TOKEN_STILL_VALID:
       return { ...state, loading: false, ...action.payload };
+
+    case LOG_OUT:
+      localStorage.removeItem("token");
+      return { ...initialState };
+
+    // case SET_MESSAGE:
+    //   return { ...state, message: action.payload };
+
+    // case CLEAR_MESSAGE:
+    //   return { ...state, message: null };
 
     default:
       return state;
