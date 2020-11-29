@@ -9,12 +9,16 @@ import MessageBox from "./components/MessageBox/MessageBox";
 import HomePage from "../src/pages/Home/HomePage";
 import Login from "../src/pages/Login/Login";
 import SignUp from "../src/pages/Signup/Signup";
-import { selectToken } from "./store/user/selectors";
+import MyProfile from "../src/pages/MyProfile/MyProfile";
+import Explore from "../src/pages/Explore/Explore";
+import Reviews from "../src/pages/Reviews/Reviews";
+import { selectToken, selectUser } from "./store/user/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 
 function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
+  const user = useSelector(selectUser);
   const userWithToken = useSelector(selectToken);
 
   useEffect(() => {
@@ -30,10 +34,10 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={SignUp} />
-        {/* <Route exact path="/explore" component={ExplorePage} />
-        <Route exact path="/explore" component={ReviewsPage} />
-        <Route path="/profiles/:userId" component={ProfilePage} />
-        <Route path="/:userId" component={MyProfile} /> */}
+        <Route exact path="/explore" component={Explore} />
+        <Route exact path="/reviews" component={Reviews} />
+        {/* <Route path="/profiles/:userId" component={ProfilePage} /> */}
+        <Route path="/:userId" component={MyProfile} />
       </Switch>
     </div>
   );
