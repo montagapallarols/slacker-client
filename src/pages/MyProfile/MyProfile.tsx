@@ -6,6 +6,7 @@ import { selectAllProfiles } from "../../store/profiles/selectors";
 import {
   selectAllFavourites,
   selectAllListItems,
+  selectAllCategories,
 } from "../../store/listItems/selectors";
 
 export default function MyProfile() {
@@ -14,6 +15,7 @@ export default function MyProfile() {
   const allProfiles = useSelector(selectAllProfiles);
   const allFavourites = useSelector(selectAllFavourites);
   const allListItems = useSelector(selectAllListItems);
+  const allCategories = useSelector(selectAllCategories);
 
   const userProfileWithLists: any = allProfiles?.find((p: any) => {
     return p.userId === user.id;
@@ -41,6 +43,9 @@ export default function MyProfile() {
         return (
           <div>
             <p>{f.item.name}</p>
+            {allCategories?.map((c: any) => {
+              return c.id === f.item.categoryId ? <p>({c.name})</p> : null;
+            })}
           </div>
         );
       })}
