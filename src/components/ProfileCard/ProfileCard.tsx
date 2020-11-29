@@ -1,4 +1,5 @@
 import React from "react";
+import "./ProfileCard.css";
 import { useSelector } from "react-redux";
 import { selectAllProfiles } from "../../store/profile/selectors";
 import { selectAllListItems } from "../../store/listItems/selectors";
@@ -11,7 +12,7 @@ export default function ProfileCard() {
     <div>
       {allProfiles?.map((p: any) => {
         return (
-          <div key={p.id}>
+          <div key={p.id} className="profile-card">
             <h3>{`${p.firstName} ${p.lastName}`}</h3>
             <img src={p.imageUrl} height="100px" />
             <br></br>

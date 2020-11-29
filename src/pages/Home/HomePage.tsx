@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./HomePage.css";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,7 +48,7 @@ export default function HomePage() {
     dispatch(fetchFavouritesByCategory(categoryFilterId));
   }, [categoryFilterId]);
 
-  console.log("Favourites by category", favouriteItemsByCategory);
+  // console.log("Favourites by category", favouriteItemsByCategory);
 
   if (profilesLoading || listItemsLoading) {
     return <p>"Loading..."</p>;
@@ -86,7 +87,7 @@ export default function HomePage() {
           ))}
         </div>
         <br></br>
-        <div>
+        <div className="profile-list">
           {filterList === "Profiles" ? (
             <ProfileCard />
           ) : filterList === "Films" ? (
