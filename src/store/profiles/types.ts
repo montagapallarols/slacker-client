@@ -14,7 +14,7 @@ export type SetLoadingProfile = {
   payload: boolean;
 };
 
-// type Object = {
+// export interface Object {
 //   id: number;
 //   firstName: string;
 //   lastName: string;

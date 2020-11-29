@@ -9,17 +9,21 @@ export default function MyProfile() {
   const userProfile = useSelector(selectUserProfile);
   const allProfiles = useSelector(selectAllProfiles);
 
-  const userProfileLists = allProfiles?.find((p: any) => {
+  const userProfileWithLists: any = allProfiles?.find((p: any) => {
     return p.userId === user.id;
   });
-  console.log("Logged in user's lists", userProfileLists);
+  console.log("Logged in user's lists", userProfileWithLists);
 
   return (
     <div>
       <h1>{`${userProfile.firstName} ${userProfile.lastName}`}</h1>
       <img src={userProfile.imageUrl} className="profile-image" />
       <p></p>
-      <p>Hello</p>
+      <p>
+        {userProfileWithLists?.lists.map((l: any) => {
+          return <h2>{l.type}</h2>;
+        })}
+      </p>
     </div>
   );
 }
