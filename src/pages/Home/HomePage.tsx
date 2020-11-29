@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./HomePage.css";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -86,7 +87,7 @@ export default function HomePage() {
           ))}
         </div>
         <br></br>
-        <div>
+        <div className="profile-list">
           {filterList === "Profiles" ? (
             <ProfileCard />
           ) : filterList === "Films" ? (
