@@ -47,7 +47,7 @@ export default function HomePage() {
     dispatch(fetchFavouritesByCategory(categoryFilterId));
   }, [categoryFilterId]);
 
-  console.log("Favourites by category", favouriteItemsByCategory);
+  // console.log("Favourites by category", favouriteItemsByCategory);
 
   if (profilesLoading || listItemsLoading) {
     return <p>"Loading..."</p>;
