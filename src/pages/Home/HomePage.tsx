@@ -3,13 +3,13 @@ import "./HomePage.css";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProfiles } from "../../store/profile/actions";
+import { fetchProfiles } from "../../store/profiles/actions";
 import {
   fetchListItems,
   fetchCategories,
   fetchFavouritesByCategory,
 } from "../../store/listItems/actions";
-import { selectProfilesLoading } from "../../store/profile/selectors";
+import { selectProfilesLoading } from "../../store/profiles/selectors";
 import {
   selectListItemsLoading,
   selectAllCategories,
