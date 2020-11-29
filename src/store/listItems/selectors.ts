@@ -18,3 +18,7 @@ export function selectFavouriteItemsByCategory(state: RootState) {
     return f.item;
   });
 }
+
+export function selectAllFavourites(state: RootState) {
+  return state.listItems.allFavourites;
+}

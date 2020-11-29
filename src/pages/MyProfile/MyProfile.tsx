@@ -3,11 +3,13 @@ import "./MyProfile.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserProfile, selectUser } from "../../store/user/selectors";
 import { selectAllProfiles } from "../../store/profiles/selectors";
+import { selectAllFavourites } from "../../store/listItems/selectors";
 
 export default function MyProfile() {
   const user = useSelector(selectUser);
   const userProfile = useSelector(selectUserProfile);
   const allProfiles = useSelector(selectAllProfiles);
+  const allFavourites = useSelector(selectAllFavourites);
 
   const userProfileWithLists: any = allProfiles?.find((p: any) => {
     return p.userId === user.id;
