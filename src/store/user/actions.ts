@@ -122,7 +122,7 @@ export const getUserWithStoredToken = (): ThunkAction<
       const response = await axios.get(`${serverUrl}/me`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log("Authorization response:", response.data);
+      // console.log("Authorization response:", response.data);
 
       // token is still valid
       dispatch(tokenStillValid(response.data));
