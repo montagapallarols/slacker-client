@@ -1,5 +1,7 @@
 import React from "react";
 import "./MyProfile.css";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserProfile, selectUser } from "../../store/user/selectors";
 import { selectAllProfiles } from "../../store/profiles/selectors";
@@ -41,29 +43,41 @@ export default function MyProfile() {
       <h3>Favourites</h3>
       {userFavourites?.map((f: any) => {
         return (
-          <div>
+          <div key={f.id}>
             <p>{f.item.name}</p>
             {allCategories?.map((c: any) => {
-              return c.id === f.item.categoryId ? <p>({c.name})</p> : null;
+              return c.id === f.item.categoryId ? (
+                <em>
+                  <p>({c.name})</p>
+                </em>
+              ) : null;
             })}
           </div>
         );
       })}
 
-      {/* {userProfileWithLists?.lists.map((l: any) => {
+      <h3>Library</h3>
+      {allCategories?.map((c: any) => {
         return (
-          <div>
-            <h3 key={l.id}>{l.type}</h3>
-            {allListItems?.map((i: any) => {
-              return i.listId === l.id ? (
-                <div>
-                  <p>{i.item.name}</p>
-                </div>
-              ) : null;
-            })}
+          <div key={c.id}>
+            <p>{c.name}</p>
+            <Link to="/:userId/library/:categoryId">
+              <Button variant="outline-dark">See list</Button>
+            </Link>
           </div>
         );
-      })} */}
+      })}
+      <h3>Wishlist</h3>
+      {allCategories?.map((c: any) => {
+        return (
+          <div key={c.id}>
+            <p>{c.name}</p>
+            <Link to="/:userId/wishlist/:categoryId">
+              <Button variant="outline-dark">See list</Button>
+            </Link>
+          </div>
+        );
+      })}
     </div>
   );
 }
