@@ -8,6 +8,7 @@ import Loading from "./components/Loading";
 import MessageBox from "./components/MessageBox/MessageBox";
 import HomePage from "../src/pages/Home/HomePage";
 import Login from "../src/pages/Login/Login";
+import SignUp from "../src/pages/Signup/Signup";
 import { selectToken } from "./store/user/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 
@@ -28,8 +29,8 @@ function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/login" component={Login} />
-        {/* <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/explore" component={ExplorePage} />
+        <Route exact path="/signup" component={SignUp} />
+        {/* <Route exact path="/explore" component={ExplorePage} />
         <Route exact path="/explore" component={ReviewsPage} />
         <Route path="/profiles/:userId" component={ProfilePage} />
         <Route path="/:userId" component={MyProfile} /> */}

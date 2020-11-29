@@ -43,7 +43,8 @@ const tokenStillValid = (
 export const logOut = () => ({ type: LOG_OUT });
 
 export const signUp = (
-  name: string,
+  firstName: string,
+  lastName: string,
   email: string,
   password: string
 ): ThunkAction<void, RootState, unknown, Action<string>> => {
@@ -51,7 +52,8 @@ export const signUp = (
     dispatch(appLoading());
     try {
       const response = await axios.post(`${serverUrl}/signup`, {
-        name,
+        firstName,
+        lastName,
         email,
         password,
       });
