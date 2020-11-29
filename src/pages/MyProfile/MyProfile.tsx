@@ -21,7 +21,7 @@ export default function MyProfile() {
       <p></p>
       <p>
         {userProfileWithLists?.lists.map((l: any) => {
-          return <h2>{l.type}</h2>;
+          return <h3>{l.type}</h3>;
         })}
       </p>
     </div>

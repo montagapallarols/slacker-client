@@ -11,6 +11,7 @@ const initialState: ListItemsState = {
   all: [],
   categories: [],
   favouritesByCategory: [],
+  allFavourites: [],
 };
 
 export default function reducer(
@@ -40,6 +41,12 @@ export default function reducer(
       return {
         ...state,
         favouritesByCategory: [...action.payload],
+      };
+    }
+    case "ALL_FAVOURITES_FETCHED": {
+      return {
+        ...state,
+        allFavourites: [...action.payload],
       };
     }
     default: {
