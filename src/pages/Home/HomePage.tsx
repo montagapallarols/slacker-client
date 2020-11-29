@@ -8,6 +8,7 @@ import {
   fetchListItems,
   fetchCategories,
   fetchFavouritesByCategory,
+  fetchAllFavourites,
 } from "../../store/listItems/actions";
 import { selectProfilesLoading } from "../../store/profiles/selectors";
 import {
@@ -38,6 +39,10 @@ export default function HomePage() {
 
   useEffect(() => {
     dispatch(fetchListItems);
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchAllFavourites);
   }, [dispatch]);
 
   function onSearchProfiles() {
