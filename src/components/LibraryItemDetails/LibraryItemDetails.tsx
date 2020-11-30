@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchApiItems, fetchApiItemById } from "../../store/apiItems/actions";
+import { addItemToList } from "../../store/listItems/actions";
 import {
   selectApiItemsLoading,
   selectAllApiItems,
@@ -46,6 +47,7 @@ export default function LibraryItemDetails() {
     console.log("api item details", apiItemDetails);
     console.log("category id", categoryId);
     console.log("User library id", userLibraryListId);
+    dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
   }
 
   return (

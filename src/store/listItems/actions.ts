@@ -96,24 +96,35 @@ export async function fetchAllFavourites(dispatch: any, getState: any) {
   dispatch(setListItemsLoading(false));
 }
 
-export function addItemToList(apiItemDetails: object) {
+export function addItemToList(
+  apiItemDetails: any,
+  categoryId: any,
+  userLibraryListId: number
+) {
   return async (dispatch: any, getState: any) => {
-    const response = await axios.post(`${serverUrl}/lists/library/listItems`, {
-      // name,
-      // year,
-      // genre,
-      // director,
-      // plot,
-      // poster,
-      // type,
-      // apiId: itemIdNumber,
-      // apiName,
-      // categoryId,
-      // listId,
-    });
-    console.log("Add new listItem response", response.data);
+    try {
+      const response = await axios.post(
+        `${serverUrl}/lists/library/listItems`,
+        {
+          name: apiItemDetails.Title,
+          year: apiItemDetails.Year,
+          genre: apiItemDetails.Genre,
+          director: apiItemDetails.Director,
+          plot: apiItemDetails.Plot,
+          poster: apiItemDetails.Poster,
+          type: apiItemDetails.Type,
+          apiId: apiItemDetails.imdbId,
+          apiName: "omdb",
+          categoryId: categoryId,
+          listId: userLibraryListId,
+        }
+      );
+      console.log("Add new listItem response", response);
 
-    dispatch(addListItem(response.data));
-    dispatch(setListItemsLoading(false));
+      // dispatch(addListItem(response.data));
+      dispatch(setListItemsLoading(false));
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
