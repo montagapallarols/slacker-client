@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import { Col } from "react-bootstrap";
-import { fetchApiItems } from "../../store/apiItems/actions";
+import { fetchApiItems, fetchApiItemById } from "../../store/apiItems/actions";
 import {
   selectApiItemsLoading,
   selectAllApiItems,
@@ -29,7 +29,6 @@ export default function ListDetails() {
   const [movieId, setMovieId] = useState("");
 
   function onClickSearch(event: MouseEvent) {
-    console.log("hi");
     event.preventDefault();
 
     dispatch(fetchApiItems(searchText));
@@ -37,6 +36,13 @@ export default function ListDetails() {
 
     setSearchText("");
   }
+
+  // useEffect(() => {
+  //   console.log("Use effect");
+  //   dispatch(fetchApiItemById(movieId));
+  // }, [dispatch, movieId]);
+
+  // console.log("Movie Id", movieId);
 
   return (
     <div>

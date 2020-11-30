@@ -54,9 +54,9 @@ export function fetchApiItemById(
     const response = await axios.get(
       `http://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f`
     );
-    console.log("API items response", response.data.Search);
+    console.log("API item DETAILS response", response.data);
 
-    dispatch(apiItemByIdFetched(response.data.Search));
+    dispatch(apiItemByIdFetched(response.data));
     dispatch(setApiItemsLoading(false));
   };
 }
