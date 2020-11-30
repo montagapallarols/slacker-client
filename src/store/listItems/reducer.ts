@@ -49,6 +49,12 @@ export default function reducer(
         allFavourites: [...action.payload],
       };
     }
+    case "ADD_LIST_ITEM": {
+      return {
+        ...state,
+        all: [...state.all, action.payload],
+      };
+    }
     default: {
       return state;
     }

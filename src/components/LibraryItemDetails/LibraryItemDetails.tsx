@@ -30,6 +30,10 @@ export default function LibraryItemDetails() {
     dispatch(fetchApiItemById(itemId));
   }, [dispatch, itemId]);
 
+  function onClickAdd() {
+    console.log("clicked");
+  }
+
   return (
     <div>
       <h2>{apiItemDetails.Title}</h2>
@@ -41,7 +45,9 @@ export default function LibraryItemDetails() {
       </em>
       <img src={apiItemDetails.Poster} height="250px" />
       <p>{apiItemDetails.Plot}</p>
-      <Button variant="outline-dark">Add to Library</Button>
+      <Button onClick={onClickAdd} variant="outline-dark">
+        Add to Library
+      </Button>
       <Button variant="outline-dark">Favourites</Button>
     </div>
   );
