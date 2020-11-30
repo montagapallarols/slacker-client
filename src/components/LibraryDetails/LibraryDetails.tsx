@@ -70,7 +70,7 @@ export default function ListDetails() {
             {i.Poster === "N/A" ? null : (
               <img src={i.Poster} alt="poster" height="200px" />
             )}
-            <Button variant="outline-dark">Add</Button>
+            <Button variant="outline-dark">Add to Library</Button>
             <Link
               to={`/my-profile/${user.id}/library/${categoryName}/${i.imdbID}`}
             >

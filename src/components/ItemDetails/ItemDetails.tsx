@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchApiItems, fetchApiItemById } from "../../store/apiItems/actions";
 import {
@@ -38,8 +39,10 @@ export default function ItemDetails() {
       <em>
         <p>{apiItemDetails.Genre}</p>
       </em>
-      <img src={apiItemDetails.Poster} />
+      <img src={apiItemDetails.Poster} height="250px" />
       <p>{apiItemDetails.Plot}</p>
+      <Button variant="outline-dark">Add to Library</Button>
+      <Button variant="outline-dark">Favourites</Button>
     </div>
   );
 }
