@@ -36,8 +36,8 @@ function App() {
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/explore" component={Explore} />
         <Route exact path="/reviews" component={Reviews} />
-        {/* <Route path="/profiles/:userId" component={ProfilePage} /> */}
-        <Route path="/:userId" component={MyProfile} />
+        <Route path="/my-profile/:userId" component={MyProfile} />
+        <Route path="/:userId/library/:categoryId" component={MyProfile} />
       </Switch>
     </div>
   );
