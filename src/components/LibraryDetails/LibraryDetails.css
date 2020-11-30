@@ -1,18 +1,13 @@
-.profile-image {
-  border-radius: 50%;
-  height: 150px;
-}
-
-.list {
+.search-list {
   display: flex;
-  flex-wrap: row wrap;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   align-content: space-between;
 }
 
-.list-card {
-  flex: 3;
+.item-card {
+  flex: 1;
   justify-content: space-around;
   margin: 20px 20px;
   background-color: rgb(255, 255, 255);

@@ -40,44 +40,57 @@ export default function MyProfile() {
       <img src={userProfile.imageUrl} className="profile-image" />
       <p></p>
 
-      <h3>Favourites</h3>
-      {userFavourites?.map((f: any) => {
-        return (
-          <div key={f.id}>
-            <p>{f.item.name}</p>
-            {allCategories?.map((c: any) => {
-              return c.id === f.item.categoryId ? (
-                <em>
-                  <p>({c.name})</p>
-                </em>
-              ) : null;
-            })}
-          </div>
-        );
-      })}
+      <div className="list">
+        <div className="list-card">
+          <h3>Favourites</h3>
+          {userFavourites?.map((f: any) => {
+            return (
+              <div key={f.id}>
+                <p>{f.item.name}</p>
+                {allCategories?.map((c: any) => {
+                  return c.id === f.item.categoryId ? (
+                    <em>
+                      <p>({c.name})</p>
+                    </em>
+                  ) : null;
+                })}
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
-      <h3>Library</h3>
-      {allCategories?.map((c: any) => {
-        return (
-          <div key={c.id}>
-            <p>{c.name}</p>
-            <Link to={`/my-profile/${user.id}/library/${c.name}`}>
-              <Button variant="outline-dark">See list</Button>
-            </Link>
-          </div>
-        );
-      })}
-      <h3>Wishlist</h3>
-      {allCategories?.map((c: any) => {
-        return (
-          <div key={c.id}>
-            <p>{c.name}</p>
-            <Link to={`/my-profile/${user.id}/wishlist/${c.name}`}>
-              <Button variant="outline-dark">See list</Button>
-            </Link>
-          </div>
-        );
-      })}
+      <div className="list">
+        <div className="list-card">
+          <h3>Library</h3>
+          {allCategories?.map((c: any) => {
+            return (
+              <div key={c.id}>
+                <p>{c.name}</p>
+                <Link to={`/my-profile/${user.id}/library/${c.name}`}>
+                  <Button variant="outline-dark">See list</Button>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="list">
+        <div className="list-card">
+          <h3>Wishlist</h3>
+          {allCategories?.map((c: any) => {
+            return (
+              <div key={c.id}>
+                <p>{c.name}</p>
+                <Link to={`/my-profile/${user.id}/wishlist/${c.name}`}>
+                  <Button variant="outline-dark">See list</Button>
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState, MouseEvent } from "react";
+import "./LibraryDetails.css";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
@@ -58,28 +59,30 @@ export default function ListDetails() {
           </Button>
         </Form>
       </Container>
-      {allApiItems?.map((i: any) => {
-        return (
-          <div key={i.imdbID}>
-            <h3>
-              {i.Title} ({i.Year})
-            </h3>
-            <em>
-              <p>{i.Type}</p>
-            </em>
-            {i.Poster === "N/A" ? null : (
-              <img src={i.Poster} alt="poster" height="200px" />
-            )}
-            <Button variant="outline-dark">Add to Library</Button>
-            <Link
-              to={`/my-profile/${user.id}/library/${categoryName}/${i.imdbID}`}
-            >
-              <Button variant="outline-dark">More details</Button>
-            </Link>
-            <Button variant="outline-dark">Favourites</Button>
-          </div>
-        );
-      })}
+      <div className="search-list">
+        {allApiItems?.map((i: any) => {
+          return (
+            <div key={i.imdbID} className="item-card">
+              <h3>
+                {i.Title} ({i.Year})
+              </h3>
+              <em>
+                <p>{i.Type}</p>
+              </em>
+              {i.Poster === "N/A" ? null : (
+                <img src={i.Poster} alt="poster" height="200px" />
+              )}
+              <Button variant="outline-dark">Add to Library</Button>
+              <Link
+                to={`/my-profile/${user.id}/library/${categoryName}/${i.imdbID}`}
+              >
+                <Button variant="outline-dark">More details</Button>
+              </Link>
+              <Button variant="outline-dark">Favourites</Button>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

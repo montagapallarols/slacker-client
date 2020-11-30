@@ -1,6 +1,4 @@
-.profile-card {
-  /* display: flex; */
-  /* flex-direction: column; */
+/* .profile-card {
   order: 3;
   background-color: rgb(255, 255, 255);
   box-shadow: 1px 2px 8px -1px rgba(27, 27, 27, 0.75);
@@ -8,4 +6,15 @@
   border-radius: 5px;
   padding: 10px;
   margin: 20px 0px;
+} */
+
+.profile-card {
+  flex: 1;
+  justify-content: space-around;
+  margin: 20px 20px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 1px 2px 8px -1px rgba(27, 27, 27, 0.75);
+  border: 1px solid rgb(29, 29, 29);
+  border-radius: 5px;
+  padding: 8px;
 }
