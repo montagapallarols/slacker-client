@@ -113,15 +113,15 @@ export function addItemToList(
           plot: apiItemDetails.Plot,
           poster: apiItemDetails.Poster,
           type: apiItemDetails.Type,
-          apiId: apiItemDetails.imdbId,
+          apiId: apiItemDetails.imdbID,
           apiName: "omdb",
           categoryId: categoryId,
           listId: userLibraryListId,
         }
       );
-      console.log("Add new listItem response", response);
+      console.log("Add new listItem response", response.data);
 
-      // dispatch(addListItem(response.data));
+      dispatch(addListItem(response.data));
       dispatch(setListItemsLoading(false));
     } catch (error) {
       console.log(error);
