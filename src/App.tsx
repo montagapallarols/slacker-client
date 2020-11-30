@@ -41,14 +41,22 @@ function App() {
         <Route exact path="/reviews" component={Reviews} />
         <Route exact path="/my-profile/:userId" component={MyProfile} />
         <Route
+          exact
           path="/my-profile/:userId/library/:categoryName/:itemId"
           component={ItemDetails}
         />
         <Route
+          exact
+          path="/my-profile/:userId/wishlist/:categoryName/:itemId"
+          component={ItemDetails}
+        />
+        <Route
+          exact
           path="/my-profile/:userId/library/:categoryName"
           component={LibraryDetails}
         />
         <Route
+          exact
           path="/my-profile/:userId/wishlist/:categoryName"
           component={WishlistDetails}
         />
