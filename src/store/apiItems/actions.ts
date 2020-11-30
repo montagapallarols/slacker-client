@@ -25,9 +25,11 @@ export function apiItemsFetched(items: object[]) {
 }
 
 export function fetchApiItems(
-  queryParam: any
+  searchText: any
 ): ThunkAction<void, RootState, unknown, Action<string>> {
   return async function (dispatch, getState: any) {
+    const queryParam = encodeURIComponent(searchText);
+    console.log("Query Param:", queryParam);
     const response = await axios.get(
       `http://www.omdbapi.com/?s=${queryParam}&apikey=2511cc5f`
     );
