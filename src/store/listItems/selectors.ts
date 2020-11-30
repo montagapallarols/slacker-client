@@ -1,5 +1,4 @@
 import { RootState } from "../types";
-import { listItemsFetched } from "./actions";
 
 export function selectListItemsLoading(state: RootState) {
   return state.listItems.loading;
