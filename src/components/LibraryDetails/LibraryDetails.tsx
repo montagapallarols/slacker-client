@@ -6,9 +6,16 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import { Col } from "react-bootstrap";
 import { fetchApiItems } from "../../store/apiItems/actions";
+import {
+  selectApiItemsLoading,
+  selectAllApiItems,
+} from "../../store/apiItems/selectors";
 
 export default function ListDetails() {
   const dispatch = useDispatch();
+  const apiItemsLoading = useSelector(selectApiItemsLoading);
+  const allApiItems = useSelector(selectAllApiItems);
+
   interface ParamTypes {
     categoryName: string;
   }
@@ -48,6 +55,24 @@ export default function ListDetails() {
           </Button>
         </Form>
       </Container>
+      {allApiItems?.map((i: any) => {
+        return (
+          <div key={i.imdbID}>
+            <h3>
+              {i.Title} ({i.Year})
+            </h3>
+            <em>
+              <p>{i.Type}</p>
+            </em>
+            {i.Poster === "N/A" ? null : (
+              <img src={i.Poster} alt="poster" height="200px" />
+            )}
+            <Button variant="outline-dark">Add</Button>
+            <Button variant="outline-dark">More details</Button>
+            <Button variant="outline-dark">Favourites</Button>
+          </div>
+        );
+      })}
     </div>
   );
 }
