@@ -37,7 +37,6 @@ export default function ListDetails() {
 
     setSearchText("");
   }
-  console.log("Movie Id", movieId);
 
   return (
     <div>
@@ -74,7 +73,9 @@ export default function ListDetails() {
               <img src={i.Poster} alt="poster" height="200px" />
             )}
             <Button variant="outline-dark">Add</Button>
-            <Link to={`/my-profile/${user.id}/library/${categoryName}/details`}>
+            <Link
+              to={`/my-profile/${user.id}/library/${categoryName}/${i.imdbID}`}
+            >
               <Button
                 onClick={() => setMovieId(i.imdbID)}
                 variant="outline-dark"
