@@ -33,9 +33,9 @@ export function fetchApiItems(
     const response = await axios.get(
       `http://www.omdbapi.com/?s=${queryParam}&apikey=2511cc5f`
     );
-    console.log("API items response", response.data);
+    console.log("API items response", response.data.Search);
 
-    dispatch(apiItemsFetched(response.data));
+    dispatch(apiItemsFetched(response.data.Search));
     dispatch(setApiItemsLoading(false));
   };
 }

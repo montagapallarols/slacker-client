@@ -25,7 +25,6 @@ export default function ListDetails() {
 
     setSearchText("");
   }
-  console.log("Search text", searchText);
 
   return (
     <div>
