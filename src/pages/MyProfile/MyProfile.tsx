@@ -61,7 +61,7 @@ export default function MyProfile() {
         return (
           <div key={c.id}>
             <p>{c.name}</p>
-            <Link to={`/${user.id}/library/${c.name}`}>
+            <Link to={`/my-profile/${user.id}/library/${c.name}`}>
               <Button variant="outline-dark">See list</Button>
             </Link>
           </div>
@@ -72,7 +72,7 @@ export default function MyProfile() {
         return (
           <div key={c.id}>
             <p>{c.name}</p>
-            <Link to={`/${user.id}/library/${c.name}`}>
+            <Link to={`/my-profile/${user.id}/wishlist/${c.name}`}>
               <Button variant="outline-dark">See list</Button>
             </Link>
           </div>

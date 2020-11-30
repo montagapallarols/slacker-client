@@ -21,7 +21,9 @@ export default function LoggedIn() {
     <>
       <NavbarItem path={`/my-profile/${user.id}`} linkText="My Profile" />
       <Nav.Item style={{ padding: ".5rem 1rem" }}>{user.firstName}</Nav.Item>
-      <Button onClick={() => dispatch(logOut())}>Logout</Button>
+      <Button variant="dark" onClick={() => dispatch(logOut())}>
+        Logout
+      </Button>
       {/* <Button onClick={handleOnClick}>Logout</Button> */}
     </>
   );

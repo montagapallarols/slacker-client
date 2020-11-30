@@ -12,6 +12,8 @@ import SignUp from "../src/pages/Signup/Signup";
 import MyProfile from "../src/pages/MyProfile/MyProfile";
 import Explore from "../src/pages/Explore/Explore";
 import Reviews from "../src/pages/Reviews/Reviews";
+import LibraryDetails from "./components/LibraryDetails/LibraryDetails";
+import WishlistDetails from "./components/WishlistDetails/WishlistDetails";
 import { selectToken, selectUser } from "./store/user/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 
@@ -36,8 +38,15 @@ function App() {
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/explore" component={Explore} />
         <Route exact path="/reviews" component={Reviews} />
-        <Route path="/my-profile/:userId" component={MyProfile} />
-        <Route path="/:userId/library/:categoryId" component={MyProfile} />
+        <Route exact path="/my-profile/:userId" component={MyProfile} />
+        <Route
+          path="/my-profile/:userId/library/:categoryName"
+          component={LibraryDetails}
+        />
+        <Route
+          path="/my-profile/:userId/wishlist/:categoryName"
+          component={WishlistDetails}
+        />
       </Switch>
     </div>
   );
