@@ -7,3 +7,7 @@ export function selectApiItemsLoading(state: RootState) {
 export function selectAllApiItems(state: RootState) {
   return state.apiItems.all;
 }
+
+export function selectApiItemDetails(state: RootState) {
+  return state.apiItems.details;
+}
