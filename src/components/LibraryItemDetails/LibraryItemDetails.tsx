@@ -19,6 +19,18 @@ export default function LibraryItemDetails() {
   const user = useSelector(selectUser);
   const allCategories = useSelector(selectAllCategories);
 
+  const categoryId =
+    apiItemDetails.Type === "movie"
+      ? 1
+      : apiItemDetails.Type === "series"
+      ? 2
+      : null;
+
+  const userLibraryList = user.profile.lists?.find((l: any) => {
+    return l.type === "Library";
+  });
+  const userLibraryListId = userLibraryList.id;
+
   interface ParamTypes {
     itemId: string;
   }
@@ -31,7 +43,9 @@ export default function LibraryItemDetails() {
   }, [dispatch, itemId]);
 
   function onClickAdd() {
-    console.log("clicked");
+    console.log("api item details", apiItemDetails);
+    console.log("category id", categoryId);
+    console.log("User library id", userLibraryListId);
   }
 
   return (

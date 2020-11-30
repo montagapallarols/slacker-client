@@ -44,6 +44,13 @@ export function allFavouritesFetched(favourites: object[]) {
   };
 }
 
+export function addListItem(listItem: object) {
+  return {
+    type: "ADD_LIST_ITEM",
+    payload: listItem,
+  };
+}
+
 export async function fetchListItems(dispatch: any, getState: any) {
   //   dispatch(setLoading(true));
 
@@ -87,4 +94,26 @@ export async function fetchAllFavourites(dispatch: any, getState: any) {
 
   dispatch(allFavouritesFetched(response.data));
   dispatch(setListItemsLoading(false));
+}
+
+export function addItemToList(apiItemDetails: object) {
+  return async (dispatch: any, getState: any) => {
+    const response = await axios.post(`${serverUrl}/lists/library/listItems`, {
+      // name,
+      // year,
+      // genre,
+      // director,
+      // plot,
+      // poster,
+      // type,
+      // apiId: itemIdNumber,
+      // apiName,
+      // categoryId,
+      // listId,
+    });
+    console.log("Add new listItem response", response.data);
+
+    dispatch(addListItem(response.data));
+    dispatch(setListItemsLoading(false));
+  };
 }
