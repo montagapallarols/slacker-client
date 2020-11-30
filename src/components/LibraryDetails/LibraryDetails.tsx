@@ -1,5 +1,5 @@
 import React, { useEffect, useState, MouseEvent } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -10,11 +10,15 @@ import {
   selectApiItemsLoading,
   selectAllApiItems,
 } from "../../store/apiItems/selectors";
+import { selectUser } from "../../store/user/selectors";
+import { selectAllCategories } from "../../store/listItems/selectors";
 
 export default function ListDetails() {
   const dispatch = useDispatch();
   const apiItemsLoading = useSelector(selectApiItemsLoading);
   const allApiItems = useSelector(selectAllApiItems);
+  const user = useSelector(selectUser);
+  const allCategories = useSelector(selectAllCategories);
 
   interface ParamTypes {
     categoryName: string;
@@ -70,9 +74,14 @@ export default function ListDetails() {
               <img src={i.Poster} alt="poster" height="200px" />
             )}
             <Button variant="outline-dark">Add</Button>
-            <Button onClick={() => setMovieId(i.imdbID)} variant="outline-dark">
-              More details
-            </Button>
+            <Link to={`/my-profile/${user.id}/library/${categoryName}/details`}>
+              <Button
+                onClick={() => setMovieId(i.imdbID)}
+                variant="outline-dark"
+              >
+                More details
+              </Button>
+            </Link>
             <Button variant="outline-dark">Favourites</Button>
           </div>
         );

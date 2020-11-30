@@ -24,6 +24,13 @@ export function apiItemsFetched(items: object[]) {
   };
 }
 
+export function apiItemByIdFetched(item: object) {
+  return {
+    type: "API_ITEM_BY_ID_FETCHED",
+    payload: item,
+  };
+}
+
 export function fetchApiItems(
   searchText: any
 ): ThunkAction<void, RootState, unknown, Action<string>> {
@@ -36,6 +43,20 @@ export function fetchApiItems(
     console.log("API items response", response.data.Search);
 
     dispatch(apiItemsFetched(response.data.Search));
+    dispatch(setApiItemsLoading(false));
+  };
+}
+
+export function fetchApiItemById(
+  movieId: string
+): ThunkAction<void, RootState, unknown, Action<string>> {
+  return async function (dispatch, getState: any) {
+    const response = await axios.get(
+      `http://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f`
+    );
+    console.log("API items response", response.data.Search);
+
+    dispatch(apiItemByIdFetched(response.data.Search));
     dispatch(setApiItemsLoading(false));
   };
 }

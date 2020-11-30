@@ -8,6 +8,7 @@ import {
 const initialState: ApiItemsState = {
   loading: true,
   all: [],
+  details: {},
 };
 
 export default function reducer(
@@ -25,6 +26,12 @@ export default function reducer(
       return {
         ...state,
         all: [...action.payload],
+      };
+    }
+    case "API_ITEM_BY_ID_FETCHED": {
+      return {
+        ...state,
+        details: { ...action.payload },
       };
     }
 
