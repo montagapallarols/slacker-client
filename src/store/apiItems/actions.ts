@@ -6,6 +6,7 @@ import {
   ApiItemsActionTypes,
 } from "./types";
 import { AppThunk } from "../types";
+import { RootState } from "../rootReducer";
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
 
@@ -23,12 +24,16 @@ export function apiItemsFetched(items: object[]) {
   };
 }
 
-export async function fetchApiItems(dispatch: any, getState: any) {
-  //   dispatch(setLoading(true));
+export function fetchApiItems(
+  queryParam: any
+): ThunkAction<void, RootState, unknown, Action<string>> {
+  return async function (dispatch, getState: any) {
+    const response = await axios.get(
+      `http://www.omdbapi.com/?s=${queryParam}&apikey=2511cc5f`
+    );
+    console.log("API items response", response.data);
 
-  const response = await axios.get(`${serverUrl}`);
-  console.log("API items response", response.data);
-
-  dispatch(apiItemsFetched(response.data));
-  dispatch(setApiItemsLoading(false));
+    dispatch(apiItemsFetched(response.data));
+    dispatch(setApiItemsLoading(false));
+  };
 }
