@@ -22,6 +22,7 @@ export default function ListDetails() {
   const { categoryName } = useParams<ParamTypes>();
 
   const [searchText, setSearchText] = useState("");
+  const [movieId, setMovieId] = useState("");
 
   function onClickSearch(event: MouseEvent) {
     console.log("hi");
@@ -32,6 +33,7 @@ export default function ListDetails() {
 
     setSearchText("");
   }
+  console.log("Movie Id", movieId);
 
   return (
     <div>
@@ -68,7 +70,9 @@ export default function ListDetails() {
               <img src={i.Poster} alt="poster" height="200px" />
             )}
             <Button variant="outline-dark">Add</Button>
-            <Button variant="outline-dark">More details</Button>
+            <Button onClick={() => setMovieId(i.imdbID)} variant="outline-dark">
+              More details
+            </Button>
             <Button variant="outline-dark">Favourites</Button>
           </div>
         );
