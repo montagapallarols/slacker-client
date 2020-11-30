@@ -11,7 +11,7 @@ import {
 import { selectUser } from "../../store/user/selectors";
 import { selectAllCategories } from "../../store/listItems/selectors";
 
-export default function ItemDetails() {
+export default function WishlistItemDetails() {
   const dispatch = useDispatch();
   const apiItemsLoading = useSelector(selectApiItemsLoading);
   const allApiItems = useSelector(selectAllApiItems);
@@ -41,7 +41,7 @@ export default function ItemDetails() {
       </em>
       <img src={apiItemDetails.Poster} height="250px" />
       <p>{apiItemDetails.Plot}</p>
-      <Button variant="outline-dark">Add to Library</Button>
+      <Button variant="outline-dark">Add to Wishlist</Button>
       <Button variant="outline-dark">Favourites</Button>
     </div>
   );
