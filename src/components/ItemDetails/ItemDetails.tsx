@@ -14,11 +14,15 @@ export default function ItemDetails() {
   const dispatch = useDispatch();
   const apiItemsLoading = useSelector(selectApiItemsLoading);
   const allApiItems = useSelector(selectAllApiItems);
-  const apiItemDetails = useSelector(selectApiItemDetails);
+  const apiItemDetails: any = useSelector(selectApiItemDetails);
   const user = useSelector(selectUser);
   const allCategories = useSelector(selectAllCategories);
 
-  const { itemId } = useParams();
+  interface ParamTypes {
+    itemId: string;
+  }
+
+  const { itemId } = useParams<ParamTypes>();
 
   useEffect(() => {
     console.log("Item id", itemId);
@@ -27,7 +31,15 @@ export default function ItemDetails() {
 
   return (
     <div>
-      <h1>Item details</h1>
+      <h2>{apiItemDetails.Title}</h2>
+      <p>{apiItemDetails.Year}</p>
+      <p>({apiItemDetails.Type})</p>
+      <p>Directed by {apiItemDetails.Director}</p>
+      <em>
+        <p>{apiItemDetails.Genre}</p>
+      </em>
+      <img src={apiItemDetails.Poster} />
+      <p>{apiItemDetails.Plot}</p>
     </div>
   );
 }

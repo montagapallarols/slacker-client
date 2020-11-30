@@ -52,7 +52,7 @@ export function fetchApiItemById(
 ): ThunkAction<void, RootState, unknown, Action<string>> {
   return async function (dispatch, getState: any) {
     const response = await axios.get(
-      `http://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f`
+      `http://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f&plot=full`
     );
     console.log("API item DETAILS response", response.data);
 

@@ -26,7 +26,6 @@ export default function ListDetails() {
   const { categoryName } = useParams<ParamTypes>();
 
   const [searchText, setSearchText] = useState("");
-  const [movieId, setMovieId] = useState("");
 
   function onClickSearch(event: MouseEvent) {
     event.preventDefault();
@@ -36,13 +35,6 @@ export default function ListDetails() {
 
     setSearchText("");
   }
-
-  // useEffect(() => {
-  //   console.log("Use effect");
-  //   dispatch(fetchApiItemById(movieId));
-  // }, [dispatch, movieId]);
-
-  // console.log("Movie Id", movieId);
 
   return (
     <div>
@@ -82,12 +74,7 @@ export default function ListDetails() {
             <Link
               to={`/my-profile/${user.id}/library/${categoryName}/${i.imdbID}`}
             >
-              <Button
-                onClick={() => setMovieId(i.imdbID)}
-                variant="outline-dark"
-              >
-                More details
-              </Button>
+              <Button variant="outline-dark">More details</Button>
             </Link>
             <Button variant="outline-dark">Favourites</Button>
           </div>
