@@ -1,0 +1,29 @@
+.profile-image {
+  border-radius: 50%;
+  height: 150px;
+}
+
+.list {
+  display: flex;
+  flex-wrap: row wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: space-between;
+}
+
+.list-card {
+  flex: 3;
+  justify-content: space-around;
+  margin: 20px 20px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 1px 2px 8px -1px rgba(27, 27, 27, 0.75);
+  border: 1px solid rgb(29, 29, 29);
+  border-radius: 5px;
+  padding: 8px;
+}
+
+@media (max-width: 800px) {
+  .flex-container {
+    flex-direction: column;
+  }
+}

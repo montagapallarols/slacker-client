@@ -9,12 +9,20 @@ import MessageBox from "./components/MessageBox/MessageBox";
 import HomePage from "../src/pages/Home/HomePage";
 import Login from "../src/pages/Login/Login";
 import SignUp from "../src/pages/Signup/Signup";
-import { selectToken } from "./store/user/selectors";
+import MyProfile from "../src/pages/MyProfile/MyProfile";
+import Explore from "../src/pages/Explore/Explore";
+import Reviews from "../src/pages/Reviews/Reviews";
+import LibraryDetails from "./components/LibraryDetails/LibraryDetails";
+import WishlistDetails from "./components/WishlistDetails/WishlistDetails";
+import LibraryItemDetails from "./components/LibraryItemDetails/LibraryItemDetails";
+import WishlistItemDetails from "./components/WishlistItemDetails/WishlistItemDetails";
+import { selectToken, selectUser } from "./store/user/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 
 function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
+  const user = useSelector(selectUser);
   const userWithToken = useSelector(selectToken);
 
   useEffect(() => {
@@ -30,10 +38,29 @@ function App() {
         <Route exact path="/" component={HomePage} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/signup" component={SignUp} />
-        {/* <Route exact path="/explore" component={ExplorePage} />
-        <Route exact path="/explore" component={ReviewsPage} />
-        <Route path="/profiles/:userId" component={ProfilePage} />
-        <Route path="/:userId" component={MyProfile} /> */}
+        <Route exact path="/explore" component={Explore} />
+        <Route exact path="/reviews" component={Reviews} />
+        <Route exact path="/my-profile/:userId" component={MyProfile} />
+        <Route
+          exact
+          path="/my-profile/:userId/library/:categoryName/:itemId"
+          component={LibraryItemDetails}
+        />
+        <Route
+          exact
+          path="/my-profile/:userId/wishlist/:categoryName/:itemId"
+          component={WishlistItemDetails}
+        />
+        <Route
+          exact
+          path="/my-profile/:userId/library/:categoryName"
+          component={LibraryDetails}
+        />
+        <Route
+          exact
+          path="/my-profile/:userId/wishlist/:categoryName"
+          component={WishlistDetails}
+        />
       </Switch>
     </div>
   );

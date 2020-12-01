@@ -1,11 +1,11 @@
 import { RootState } from "../types";
 
 export function selectProfilesLoading(state: RootState) {
-  return state.profile.loading;
+  return state.profiles.loading;
 }
 
 export function selectAllProfiles(state: RootState) {
-  return state.profile.all;
+  return state.profiles.all;
 }
 
 // export const selectProfileById = (profileId: number) => (state: RootState) =>

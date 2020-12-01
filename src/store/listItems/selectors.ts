@@ -1,5 +1,4 @@
 import { RootState } from "../types";
-import { listItemsFetched } from "./actions";
 
 export function selectListItemsLoading(state: RootState) {
   return state.listItems.loading;
@@ -17,4 +16,8 @@ export function selectFavouriteItemsByCategory(state: RootState) {
   return state.listItems.favouritesByCategory?.map((f: any) => {
     return f.item;
   });
+}
+
+export function selectAllFavourites(state: RootState) {
+  return state.listItems.allFavourites;
 }

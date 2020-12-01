@@ -1,6 +1,14 @@
-.profile-list {
+/* .profile-list {
   display: inline-flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+} */
+
+.profile-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: space-between;
 }

@@ -1,7 +1,7 @@
 import React from "react";
 import "./ProfileCard.css";
 import { useSelector } from "react-redux";
-import { selectAllProfiles } from "../../store/profile/selectors";
+import { selectAllProfiles } from "../../store/profiles/selectors";
 import { selectAllListItems } from "../../store/listItems/selectors";
 import Button from "react-bootstrap/Button";
 

@@ -1,6 +1,6 @@
 import { serverUrl, DEFAULT_MESSAGE_TIMEOUT } from "../../config/constants";
 import axios from "axios";
-import { selectToken } from "./selectors";
+import { selectToken, selectUser } from "./selectors";
 import {
   appLoading,
   appDoneLoading,
@@ -60,7 +60,12 @@ export const signUp = (
 
       dispatch(loginSuccess(response.data));
       dispatch(
-        showMessageWithTimeout("success", true, "account created", 2000)
+        showMessageWithTimeout(
+          "success",
+          true,
+          "Your account has been created!",
+          2000
+        )
       );
       dispatch(appDoneLoading());
     } catch (error) {
@@ -80,7 +85,7 @@ export const login = (
   email: string,
   password: string
 ): ThunkAction<void, RootState, unknown, Action<string>> => {
-  return async (dispatch) => {
+  return async (dispatch, getState: any) => {
     dispatch(appLoading());
     try {
       const response = await axios.post(`${serverUrl}/login`, {
@@ -89,7 +94,15 @@ export const login = (
       });
       console.log("Login response", response.data);
       dispatch(loginSuccess(response.data));
-      dispatch(showMessageWithTimeout("success", false, "welcome back!", 2000));
+      const user = selectUser(getState());
+      dispatch(
+        showMessageWithTimeout(
+          "success",
+          false,
+          `Welcome back ${user.firstName}!`,
+          2000
+        )
+      );
       dispatch(appDoneLoading());
     } catch (error) {
       if (error.response) {

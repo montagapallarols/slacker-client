@@ -11,6 +11,7 @@ const initialState: ListItemsState = {
   all: [],
   categories: [],
   favouritesByCategory: [],
+  allFavourites: [],
 };
 
 export default function reducer(
@@ -40,6 +41,34 @@ export default function reducer(
       return {
         ...state,
         favouritesByCategory: [...action.payload],
+      };
+    }
+    case "ALL_FAVOURITES_FETCHED": {
+      return {
+        ...state,
+        allFavourites: [...action.payload],
+      };
+    }
+    case "ADD_LIST_ITEM": {
+      return {
+        ...state,
+        all: [...state.all, action.payload],
+      };
+    }
+    case "DELETE_LIBRARY_LIST_ITEM": {
+      return {
+        ...state,
+        all: state.all.filter((i: any) => {
+          return i.id !== action.payload;
+        }),
+      };
+    }
+    case "DELETE_WISHLIST_LIST_ITEM": {
+      return {
+        ...state,
+        all: state.all.filter((i: any) => {
+          return i.id !== action.payload;
+        }),
       };
     }
     default: {
