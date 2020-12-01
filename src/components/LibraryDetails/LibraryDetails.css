@@ -17,6 +17,14 @@
   padding: 8px;
 }
 
+.library-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: space-between;
+}
+
 @media (max-width: 800px) {
   .flex-container {
     flex-direction: column;
