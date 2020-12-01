@@ -53,7 +53,10 @@ export default function ListDetails() {
   const { categoryName } = useParams<ParamTypes>();
 
   const [searchText, setSearchText] = useState("");
-  // const [itemToRemoveApiId, setItemToRemoveApiId] = useState("");
+  const [searchBar, setSearchBar] = useState(false);
+  const searchButtonText = searchBar
+    ? "Hide"
+    : `Search and add ${categoryName}`;
 
   const userLibraryList = user.profile.lists?.find((l: any) => {
     return l.type === "Library";
@@ -94,61 +97,69 @@ export default function ListDetails() {
   return (
     <div>
       <h2>My {categoryName} Library</h2>
-      <Container>
-        <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
-          <Form.Group controlId="formBasicText">
-            <Form.Label>
-              Search for {categoryName.toLowerCase()} to add them to your
-              Library:
-            </Form.Label>
-            <Form.Control
-              value={searchText}
-              onChange={(event) => setSearchText(event.target.value)}
-              type="text"
-              placeholder={`Search ${categoryName.toLowerCase()}...`}
-            />
-          </Form.Group>
-          <Button variant="dark" type="submit" onClick={onClickSearch}>
-            Search
-          </Button>
-        </Form>
-      </Container>
-      <div className="search-list">
-        {allApiItems?.map((i: any) => {
-          return (
-            <div key={i.imdbID} className="item-card">
-              <h3>
-                {i.Title} ({i.Year})
-              </h3>
-              <em>
-                <p>{i.Type}</p>
-              </em>
-              {i.Poster === "N/A" ? null : (
-                <img src={i.Poster} alt="poster" height="200px" />
-              )}
-              {apiIdLibraryArray?.includes(i.imdbID) ? (
-                <Button
-                  onClick={handleClickRemove}
-                  value={i.imdbID}
-                  variant="outline-dark"
-                >
-                  Remove from Library
-                </Button>
-              ) : (
-                <Button onClick={onClickAdd} variant="outline-dark">
-                  Add to Library
-                </Button>
-              )}
-              <Link
-                to={`/my-profile/${user.id}/library/${categoryName}/${i.imdbID}`}
-              >
-                <Button variant="outline-dark">Details</Button>
-              </Link>
-              <Button variant="outline-dark">Favourites</Button>
-            </div>
-          );
-        })}
-      </div>
+      <Button variant="dark" onClick={() => setSearchBar(!searchBar)}>
+        {searchButtonText}
+      </Button>
+      {searchBar ? (
+        <div>
+          <Container>
+            <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
+              <Form.Group controlId="formBasicText">
+                <Form.Label>
+                  Search for {categoryName.toLowerCase()} to add them to your
+                  Library:
+                </Form.Label>
+                <Form.Control
+                  value={searchText}
+                  onChange={(event) => setSearchText(event.target.value)}
+                  type="text"
+                  placeholder={`Search ${categoryName.toLowerCase()}...`}
+                />
+              </Form.Group>
+              <Button variant="dark" type="submit" onClick={onClickSearch}>
+                Search
+              </Button>
+            </Form>
+          </Container>
+
+          <div className="search-list">
+            {allApiItems?.map((i: any) => {
+              return (
+                <div key={i.imdbID} className="item-card">
+                  <h3>
+                    {i.Title} ({i.Year})
+                  </h3>
+                  <em>
+                    <p>{i.Type}</p>
+                  </em>
+                  {i.Poster === "N/A" ? null : (
+                    <img src={i.Poster} alt="poster" height="200px" />
+                  )}
+                  {apiIdLibraryArray?.includes(i.imdbID) ? (
+                    <Button
+                      onClick={handleClickRemove}
+                      value={i.imdbID}
+                      variant="outline-dark"
+                    >
+                      Remove from Library
+                    </Button>
+                  ) : (
+                    <Button onClick={onClickAdd} variant="outline-dark">
+                      Add to Library
+                    </Button>
+                  )}
+                  <Link
+                    to={`/my-profile/${user.id}/library/${categoryName}/${i.imdbID}`}
+                  >
+                    <Button variant="outline-dark">Details</Button>
+                  </Link>
+                  <Button variant="outline-dark">Favourites</Button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
