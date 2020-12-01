@@ -14,6 +14,7 @@ export const CATEGORIES_FETCHED = "CATEGORIES_FETCHED";
 export const FAVOURITES_BY_CATEGORY_FETCHED = "FAVOURITES_BY_CATEGORY_FETCHED";
 export const ALL_FAVOURITES_FETCHED = "ALL_FAVOURITES_FETCHED";
 export const ADD_LIST_ITEM = "ADD_LIST_ITEM";
+export const DELETE_LIBRARY_LIST_ITEM = "DELETE_LIBRARY_LIST_ITEM";
 // ...
 
 export type SetLoadingListItems = {
@@ -45,6 +46,10 @@ export type AddListItem = {
   type: typeof ADD_LIST_ITEM;
   payload: object[];
 };
+export type DeleteLibraryListItem = {
+  type: typeof DELETE_LIBRARY_LIST_ITEM;
+  payload: any;
+};
 // ...
 
 export type ListItemsActionTypes =
@@ -53,5 +58,6 @@ export type ListItemsActionTypes =
   | FavouritesByCategory
   | CategoriesFetched
   | AllFavouritesFetched
-  | AddListItem;
+  | AddListItem
+  | DeleteLibraryListItem;
 // ...

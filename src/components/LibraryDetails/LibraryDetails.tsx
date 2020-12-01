@@ -32,6 +32,7 @@ export default function ListDetails() {
   const { categoryName } = useParams<ParamTypes>();
 
   const [searchText, setSearchText] = useState("");
+  // const [itemToRemoveApiId, setItemToRemoveApiId] = useState("");
 
   const userLibraryList = user.profile.lists?.find((l: any) => {
     return l.type === "Library";
@@ -53,8 +54,13 @@ export default function ListDetails() {
   const apiIdLibraryArray = listItemsInLibrary?.map((i: any) => {
     return i.item.apiId;
   });
-  console.log("ListItems in library", listItemsInLibrary);
-  console.log("Api id array", apiIdLibraryArray);
+  // console.log("ListItems in library", listItemsInLibrary);
+  // console.log("Api id array", apiIdLibraryArray);
+
+  function handleClickRemove(event: any) {
+    console.log("Event value", event.target.value);
+    console.log("clicked");
+  }
 
   return (
     <div>
@@ -92,7 +98,13 @@ export default function ListDetails() {
                 <img src={i.Poster} alt="poster" height="200px" />
               )}
               {apiIdLibraryArray?.includes(i.imdbID) ? (
-                <Button variant="outline-dark">Remove from Library</Button>
+                <Button
+                  onClick={handleClickRemove}
+                  value={i.imdbID}
+                  variant="outline-dark"
+                >
+                  Remove from Library
+                </Button>
               ) : (
                 <Button variant="outline-dark">Add to Library</Button>
               )}
