@@ -10,21 +10,33 @@ import { fetchApiItems, fetchApiItemById } from "../../store/apiItems/actions";
 import {
   selectApiItemsLoading,
   selectAllApiItems,
+  selectApiItemDetails,
 } from "../../store/apiItems/selectors";
 import { selectUser } from "../../store/user/selectors";
 import {
   selectAllCategories,
   selectAllListItems,
 } from "../../store/listItems/selectors";
-import { removeItemFromWishlist } from "../../store/listItems/actions";
+import {
+  removeItemFromWishlist,
+  addItemToList,
+} from "../../store/listItems/actions";
 
 export default function WishlistDetails() {
   const dispatch = useDispatch();
   const apiItemsLoading = useSelector(selectApiItemsLoading);
   const allApiItems = useSelector(selectAllApiItems);
+  const apiItemDetails: any = useSelector(selectApiItemDetails);
   const user = useSelector(selectUser);
   const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
+
+  const categoryId =
+    apiItemDetails.Type === "movie"
+      ? 1
+      : apiItemDetails.Type === "series"
+      ? 2
+      : null;
 
   interface ParamTypes {
     categoryName: string;
@@ -32,6 +44,11 @@ export default function WishlistDetails() {
   const { categoryName } = useParams<ParamTypes>();
 
   const [searchText, setSearchText] = useState("");
+
+  const userWishlistList = user.profile.lists?.find((l: any) => {
+    return l.type === "Wishlist";
+  });
+  const userLibraryListId = userWishlistList.id;
 
   function onClickSearch(event: MouseEvent) {
     event.preventDefault();
@@ -56,6 +73,13 @@ export default function WishlistDetails() {
   });
   console.log("ListItems in wishlist", listItemsInWishlist);
   // console.log("Api id array", apiIdWishlistArray);
+
+  function onClickAdd() {
+    // console.log("api item details", apiItemDetails);
+    // console.log("category id", categoryId);
+    // console.log("User library id", userLibraryListId);
+    dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
+  }
 
   return (
     <div>
@@ -101,7 +125,9 @@ export default function WishlistDetails() {
                   Remove from Wishlist
                 </Button>
               ) : (
-                <Button variant="outline-dark">Add to Wishlist</Button>
+                <Button onClick={onClickAdd} variant="outline-dark">
+                  Add to Wishlist
+                </Button>
               )}
               <Link
                 to={`/my-profile/${user.id}/wishlist/${categoryName}/${i.imdbID}`}
