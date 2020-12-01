@@ -32,7 +32,6 @@ export default function ListDetails() {
   const { categoryName } = useParams<ParamTypes>();
 
   const [searchText, setSearchText] = useState("");
-  const [clickedItemId, setClickedItemId] = useState("");
 
   const userLibraryList = user.profile.lists?.find((l: any) => {
     return l.type === "Library";

@@ -12,7 +12,10 @@ import {
   selectAllApiItems,
 } from "../../store/apiItems/selectors";
 import { selectUser } from "../../store/user/selectors";
-import { selectAllCategories } from "../../store/listItems/selectors";
+import {
+  selectAllCategories,
+  selectAllListItems,
+} from "../../store/listItems/selectors";
 
 export default function WishlistDetails() {
   const dispatch = useDispatch();
@@ -20,6 +23,7 @@ export default function WishlistDetails() {
   const allApiItems = useSelector(selectAllApiItems);
   const user = useSelector(selectUser);
   const allCategories = useSelector(selectAllCategories);
+  const allListItems = useSelector(selectAllListItems);
 
   interface ParamTypes {
     categoryName: string;
@@ -36,6 +40,15 @@ export default function WishlistDetails() {
 
     setSearchText("");
   }
+
+  const listItemsInWishlist = allListItems?.filter((i: any) => {
+    return i.list.type === "Wishlist";
+  });
+  const apiIdWishlistArray = listItemsInWishlist?.map((i: any) => {
+    return i.item.apiId;
+  });
+  console.log("ListItems in wishlist", listItemsInWishlist);
+  // console.log("Api id array", apiIdWishlistArray);
 
   return (
     <div>
@@ -72,7 +85,11 @@ export default function WishlistDetails() {
               {i.Poster === "N/A" ? null : (
                 <img src={i.Poster} alt="poster" height="200px" />
               )}
-              <Button variant="outline-dark">Add to Wishlist</Button>
+              {apiIdWishlistArray?.includes(i.imdbID) ? (
+                <Button variant="outline-dark">Remove from Wishlist</Button>
+              ) : (
+                <Button variant="outline-dark">Add to Wishlist</Button>
+              )}
               <Link
                 to={`/my-profile/${user.id}/wishlist/${categoryName}/${i.imdbID}`}
               >
