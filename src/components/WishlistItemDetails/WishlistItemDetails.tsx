@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchApiItems, fetchApiItemById } from "../../store/apiItems/actions";
+import { addItemToList } from "../../store/listItems/actions";
 import {
   selectApiItemsLoading,
   selectAllApiItems,
@@ -19,6 +20,18 @@ export default function WishlistItemDetails() {
   const user = useSelector(selectUser);
   const allCategories = useSelector(selectAllCategories);
 
+  const categoryId =
+    apiItemDetails.Type === "movie"
+      ? 1
+      : apiItemDetails.Type === "series"
+      ? 2
+      : null;
+
+  const userLibraryList = user.profile.lists?.find((l: any) => {
+    return l.type === "Wishlist";
+  });
+  const userLibraryListId = userLibraryList.id;
+
   interface ParamTypes {
     itemId: string;
   }
@@ -29,6 +42,13 @@ export default function WishlistItemDetails() {
     console.log("Item id", itemId);
     dispatch(fetchApiItemById(itemId));
   }, [dispatch, itemId]);
+
+  function onClickAdd() {
+    console.log("api item details", apiItemDetails);
+    console.log("category id", categoryId);
+    console.log("User library id", userLibraryListId);
+    dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
+  }
 
   return (
     <div>
@@ -41,7 +61,9 @@ export default function WishlistItemDetails() {
       </em>
       <img src={apiItemDetails.Poster} height="250px" />
       <p>{apiItemDetails.Plot}</p>
-      <Button variant="outline-dark">Add to Wishlist</Button>
+      <Button onClick={onClickAdd} variant="outline-dark">
+        Add to Wishlist
+      </Button>
       <Button variant="outline-dark">Favourites</Button>
     </div>
   );
