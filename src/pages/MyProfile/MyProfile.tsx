@@ -49,7 +49,7 @@ export default function MyProfile() {
                 <p>{f.item.name}</p>
                 {allCategories?.map((c: any) => {
                   return c.id === f.item.categoryId ? (
-                    <em>
+                    <em key={c.id}>
                       <p>({c.name})</p>
                     </em>
                   ) : null;

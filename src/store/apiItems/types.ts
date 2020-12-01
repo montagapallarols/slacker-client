@@ -9,6 +9,7 @@ export interface ApiItemsState {
 export const SET_API_ITEMS_LOADING = "SET_API_ITEMS_LOADING";
 export const API_ITEMS_FETCHED = "API_ITEMS_FETCHED";
 export const API_ITEM_BY_ID_FETCHED = "API_ITEM_BY_ID_FETCHED";
+export const CLEAR_API_ITEMS = "CLEAR_API_ITEMS";
 // ...
 
 export type SetLoadingApiItems = {
@@ -24,10 +25,15 @@ export type ApiItemByIdFetched = {
   type: typeof API_ITEM_BY_ID_FETCHED;
   payload: object;
 };
+export type ClearApiItems = {
+  type: typeof CLEAR_API_ITEMS;
+  payload: any;
+};
 // ...
 
 export type ApiItemsActionTypes =
   | SetLoadingApiItems
   | ApiItemsFetched
-  | ApiItemByIdFetched;
+  | ApiItemByIdFetched
+  | ClearApiItems;
 // ...

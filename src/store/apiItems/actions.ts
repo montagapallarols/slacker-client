@@ -31,6 +31,13 @@ export function apiItemByIdFetched(item: object) {
   };
 }
 
+export function clearApiItems([]) {
+  return {
+    type: "CLEAR_API_ITEMS",
+    payload: [],
+  };
+}
+
 export function fetchApiItems(
   searchText: any
 ): ThunkAction<void, RootState, unknown, Action<string>> {
@@ -59,4 +66,8 @@ export function fetchApiItemById(
     dispatch(apiItemByIdFetched(response.data));
     dispatch(setApiItemsLoading(false));
   };
+}
+
+export function removeSearchItems(dispatch: any, getState: any) {
+  dispatch(clearApiItems([]));
 }

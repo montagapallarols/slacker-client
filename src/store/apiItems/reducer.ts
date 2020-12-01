@@ -34,6 +34,12 @@ export default function reducer(
         details: { ...action.payload },
       };
     }
+    case "CLEAR_API_ITEMS": {
+      return {
+        ...state,
+        all: action.payload,
+      };
+    }
 
     default: {
       return state;
