@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectFavouriteItemsByCategory } from "../../store/listItems/selectors";
 
@@ -9,9 +10,12 @@ export default function FavouriteCard() {
     <div>
       {favouriteItemsByCategory.map((f) => {
         return (
-          <div key={f.id}>
-            <p>{f.name}</p>
-          </div>
+          <Link to={`/favourites/${f.apiId}`} className="link" key={f.id}>
+            <div>
+              <p>{f.name}</p>
+              <img src={f.poster} alt="poster" height="150" />
+            </div>
+          </Link>
         );
       })}
     </div>
