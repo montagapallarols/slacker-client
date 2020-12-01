@@ -41,19 +41,24 @@ export default function MyProfile() {
           <div className="item-list">
             {userFavourites?.map((f: any) => {
               return (
-                <div key={f.id} className="item-card">
-                  <p>{f.item.name}</p>
-                  {allCategories?.map((c: any) => {
-                    return c.id === f.item.categoryId ? (
-                      <em key={c.id}>
-                        <p>({c.name})</p>
-                      </em>
-                    ) : null;
-                  })}
-                  {f.item.poster === "N/A" ? null : (
-                    <img src={f.item.poster} alt="poster" height="150px" />
-                  )}
-                </div>
+                <Link
+                  to={`/my-profile/${user.id}/favourites/${f.item.apiId}`}
+                  className="link"
+                >
+                  <div key={f.id} className="item-card">
+                    <p>{f.item.name}</p>
+                    {allCategories?.map((c: any) => {
+                      return c.id === f.item.categoryId ? (
+                        <em key={c.id}>
+                          <p>({c.name})</p>
+                        </em>
+                      ) : null;
+                    })}
+                    {f.item.poster === "N/A" ? null : (
+                      <img src={f.item.poster} alt="poster" height="150px" />
+                    )}
+                  </div>
+                </Link>
               );
             })}
           </div>
