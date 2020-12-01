@@ -16,7 +16,7 @@ import {
   selectAllCategories,
   selectAllListItems,
 } from "../../store/listItems/selectors";
-import { isTemplateExpression } from "typescript";
+import { removeItemFromLibrary } from "../../store/listItems/actions";
 
 export default function ListDetails() {
   const dispatch = useDispatch();
@@ -58,8 +58,9 @@ export default function ListDetails() {
   // console.log("Api id array", apiIdLibraryArray);
 
   function handleClickRemove(event: any) {
+    event.preventDefault();
     console.log("Event value", event.target.value);
-    console.log("clicked");
+    dispatch(removeItemFromLibrary(event.target.value));
   }
 
   return (

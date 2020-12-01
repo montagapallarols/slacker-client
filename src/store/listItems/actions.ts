@@ -51,6 +51,13 @@ export function addListItem(listItem: object) {
   };
 }
 
+export function deleteLibraryListItem(id: number) {
+  return {
+    type: "DELETE_LIBRARY_LIST_ITEM",
+    payload: id,
+  };
+}
+
 export async function fetchListItems(dispatch: any, getState: any) {
   //   dispatch(setLoading(true));
 
@@ -125,6 +132,21 @@ export function addItemToList(
       dispatch(setListItemsLoading(false));
     } catch (error) {
       console.log(error);
+    }
+  };
+}
+
+export function removeItemFromLibrary(id: string) {
+  return async (dispatch: any, getState: any) => {
+    try {
+      const response = await axios.delete(
+        `${serverUrl}/lists/library/listItems/${id}`
+      );
+      console.log("List item removed response", response.data.id);
+      dispatch(deleteLibraryListItem(response.data.id));
+      dispatch(setListItemsLoading(false));
+    } catch (e) {
+      console.log(e);
     }
   };
 }
