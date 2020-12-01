@@ -58,11 +58,8 @@ export default function reducer(
     case "DELETE_LIBRARY_LIST_ITEM": {
       return {
         ...state,
-        all: state.all.map((i: any) => {
-          if (i.id !== action.payload) {
-            return i;
-          }
-          return null;
+        all: state.all.filter((i: any) => {
+          return i.id !== action.payload;
         }),
       };
     }

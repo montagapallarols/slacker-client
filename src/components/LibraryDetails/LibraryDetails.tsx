@@ -48,6 +48,12 @@ export default function ListDetails() {
     setSearchText("");
   }
 
+  function handleClickRemove(event: any) {
+    event.preventDefault();
+    console.log("Event value", event.target.value);
+    dispatch(removeItemFromLibrary(event.target.value));
+  }
+
   const listItemsInLibrary = allListItems?.filter((i: any) => {
     return i.list.type === "Library";
   });
@@ -56,12 +62,6 @@ export default function ListDetails() {
   });
   // console.log("ListItems in library", listItemsInLibrary);
   // console.log("Api id array", apiIdLibraryArray);
-
-  function handleClickRemove(event: any) {
-    event.preventDefault();
-    console.log("Event value", event.target.value);
-    dispatch(removeItemFromLibrary(event.target.value));
-  }
 
   return (
     <div>
