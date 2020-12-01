@@ -12,7 +12,11 @@ import {
   selectAllApiItems,
 } from "../../store/apiItems/selectors";
 import { selectUser } from "../../store/user/selectors";
-import { selectAllCategories } from "../../store/listItems/selectors";
+import {
+  selectAllCategories,
+  selectAllListItems,
+} from "../../store/listItems/selectors";
+import { isTemplateExpression } from "typescript";
 
 export default function ListDetails() {
   const dispatch = useDispatch();
@@ -20,6 +24,7 @@ export default function ListDetails() {
   const allApiItems = useSelector(selectAllApiItems);
   const user = useSelector(selectUser);
   const allCategories = useSelector(selectAllCategories);
+  const allListItems = useSelector(selectAllListItems);
 
   interface ParamTypes {
     categoryName: string;
@@ -27,15 +32,30 @@ export default function ListDetails() {
   const { categoryName } = useParams<ParamTypes>();
 
   const [searchText, setSearchText] = useState("");
+  const [clickedItemId, setClickedItemId] = useState("");
+
+  const userLibraryList = user.profile.lists?.find((l: any) => {
+    return l.type === "Library";
+  });
+  const userLibraryListId = userLibraryList.id;
 
   function onClickSearch(event: MouseEvent) {
     event.preventDefault();
 
     dispatch(fetchApiItems(searchText));
-    console.log("Fetching", searchText);
+    // console.log("Fetching", searchText);
 
     setSearchText("");
   }
+
+  const listItemsInLibrary = allListItems?.filter((i: any) => {
+    return i.list.type === "Library";
+  });
+  const apiIdLibraryArray = listItemsInLibrary?.map((i: any) => {
+    return i.item.apiId;
+  });
+  console.log("ListItems in library", listItemsInLibrary);
+  console.log("Api id array", apiIdLibraryArray);
 
   return (
     <div>
@@ -72,11 +92,15 @@ export default function ListDetails() {
               {i.Poster === "N/A" ? null : (
                 <img src={i.Poster} alt="poster" height="200px" />
               )}
-              <Button variant="outline-dark">Add to Library</Button>
+              {apiIdLibraryArray?.includes(i.imdbID) ? (
+                <Button variant="outline-dark">Remove from Library</Button>
+              ) : (
+                <Button variant="outline-dark">Add to Library</Button>
+              )}
               <Link
                 to={`/my-profile/${user.id}/library/${categoryName}/${i.imdbID}`}
               >
-                <Button variant="outline-dark">More details</Button>
+                <Button variant="outline-dark">Details</Button>
               </Link>
               <Button variant="outline-dark">Favourites</Button>
             </div>
