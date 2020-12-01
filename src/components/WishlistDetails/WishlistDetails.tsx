@@ -6,7 +6,11 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import { Col } from "react-bootstrap";
-import { fetchApiItems, fetchApiItemById } from "../../store/apiItems/actions";
+import {
+  fetchApiItems,
+  fetchApiItemById,
+  removeSearchItems,
+} from "../../store/apiItems/actions";
 import {
   selectApiItemsLoading,
   selectAllApiItems,
@@ -30,6 +34,11 @@ export default function WishlistDetails() {
   const user = useSelector(selectUser);
   const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
+
+  useEffect(() => {
+    console.log("Clear");
+    dispatch(removeSearchItems);
+  }, [dispatch]);
 
   const categoryId =
     apiItemDetails.Type === "movie"

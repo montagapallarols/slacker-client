@@ -40,12 +40,6 @@ export default function ListDetails() {
     dispatch(removeSearchItems);
   }, [dispatch]);
 
-  // function clearSearch() {
-  //   dispatch(removeSearchItems);
-  // }
-
-  // clearSearch();
-
   const categoryId =
     apiItemDetails.Type === "movie"
       ? 1
