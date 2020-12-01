@@ -12,7 +12,7 @@ export interface UserState {
 // action types
 export const LOADING_USER = "LOADING_USER";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
-export const TOKEN_STILL_VALID = "LOGIN_SUCCESS";
+export const TOKEN_STILL_VALID = "TOKEN_STILL_VALID";
 export const LOG_OUT = "LOG_OUT";
 // ...
 
@@ -38,7 +38,6 @@ export type SetLoadingUser = {
 };
 export type LoginSuccess = {
   type: typeof LOGIN_SUCCESS;
-  token: any;
   payload: any;
 };
 export type TokenStillValid = {

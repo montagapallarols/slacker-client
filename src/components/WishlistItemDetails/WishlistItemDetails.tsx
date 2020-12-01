@@ -59,9 +59,9 @@ export default function WishlistItemDetails() {
   });
   console.log("Item in wishlist", itemInWishlist);
 
-  const buttonText = itemInWishlist
-    ? "Remove from Wishlist"
-    : "Add to Wishlist";
+  function onClickRemove() {
+    console.log("clicked");
+  }
 
   return (
     <div>
@@ -74,9 +74,15 @@ export default function WishlistItemDetails() {
       </em>
       <img src={apiItemDetails.Poster} height="250px" />
       <p>{apiItemDetails.Plot}</p>
-      <Button onClick={onClickAdd} variant="outline-dark">
-        {buttonText}
-      </Button>
+      {itemInWishlist ? (
+        <Button onClick={onClickRemove} variant="outline-dark">
+          Remove from Wishlist
+        </Button>
+      ) : (
+        <Button onClick={onClickAdd} variant="outline-dark">
+          Add to Wishlist
+        </Button>
+      )}
       <Button variant="outline-dark">Favourites</Button>
     </div>
   );
