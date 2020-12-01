@@ -10,7 +10,10 @@ import {
   selectApiItemDetails,
 } from "../../store/apiItems/selectors";
 import { selectUser } from "../../store/user/selectors";
-import { selectAllCategories } from "../../store/listItems/selectors";
+import {
+  selectAllCategories,
+  selectAllListItems,
+} from "../../store/listItems/selectors";
 
 export default function LibraryItemDetails() {
   const dispatch = useDispatch();
@@ -19,6 +22,7 @@ export default function LibraryItemDetails() {
   const apiItemDetails: any = useSelector(selectApiItemDetails);
   const user = useSelector(selectUser);
   const allCategories = useSelector(selectAllCategories);
+  const allListItems = useSelector(selectAllListItems);
 
   const categoryId =
     apiItemDetails.Type === "movie"
@@ -44,11 +48,18 @@ export default function LibraryItemDetails() {
   }, [dispatch, itemId]);
 
   function onClickAdd() {
-    console.log("api item details", apiItemDetails);
-    console.log("category id", categoryId);
-    console.log("User library id", userLibraryListId);
+    // console.log("api item details", apiItemDetails);
+    // console.log("category id", categoryId);
+    // console.log("User library id", userLibraryListId);
     dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
   }
+
+  const itemInLibrary = allListItems?.find((i: any) => {
+    return i.list.type === "Library" && i.item.apiId === itemId;
+  });
+  console.log("Item in library", itemInLibrary);
+
+  const buttonText = itemInLibrary ? "Remove from Library" : "Add to Library";
 
   return (
     <div>
@@ -62,7 +73,7 @@ export default function LibraryItemDetails() {
       <img src={apiItemDetails.Poster} height="250px" />
       <p>{apiItemDetails.Plot}</p>
       <Button onClick={onClickAdd} variant="outline-dark">
-        Add to Library
+        {buttonText}
       </Button>
       <Button variant="outline-dark">Favourites</Button>
     </div>
