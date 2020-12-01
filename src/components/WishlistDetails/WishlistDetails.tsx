@@ -16,6 +16,7 @@ import {
   selectAllCategories,
   selectAllListItems,
 } from "../../store/listItems/selectors";
+import { removeItemFromWishlist } from "../../store/listItems/actions";
 
 export default function WishlistDetails() {
   const dispatch = useDispatch();
@@ -39,6 +40,12 @@ export default function WishlistDetails() {
     console.log("Fetching", searchText);
 
     setSearchText("");
+  }
+
+  function handleClickRemove(event: any) {
+    event.preventDefault();
+    console.log("Event value", event.target.value);
+    dispatch(removeItemFromWishlist(event.target.value));
   }
 
   const listItemsInWishlist = allListItems?.filter((i: any) => {
@@ -86,7 +93,13 @@ export default function WishlistDetails() {
                 <img src={i.Poster} alt="poster" height="200px" />
               )}
               {apiIdWishlistArray?.includes(i.imdbID) ? (
-                <Button variant="outline-dark">Remove from Wishlist</Button>
+                <Button
+                  onClick={handleClickRemove}
+                  value={i.imdbID}
+                  variant="outline-dark"
+                >
+                  Remove from Wishlist
+                </Button>
               ) : (
                 <Button variant="outline-dark">Add to Wishlist</Button>
               )}

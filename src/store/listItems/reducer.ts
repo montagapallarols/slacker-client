@@ -63,6 +63,14 @@ export default function reducer(
         }),
       };
     }
+    case "DELETE_WISHLIST_LIST_ITEM": {
+      return {
+        ...state,
+        all: state.all.filter((i: any) => {
+          return i.id !== action.payload;
+        }),
+      };
+    }
     default: {
       return state;
     }
