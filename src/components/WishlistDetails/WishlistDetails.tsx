@@ -79,7 +79,7 @@ export default function WishlistDetails() {
   }
 
   const listItemsInWishlist = allListItems?.filter((i: any) => {
-    return i.list.type === "Wishlist";
+    return i.list.type === "Wishlist" && i.list.profileId === user.profile.id;
   });
   const apiIdWishlistArray = listItemsInWishlist?.map((i: any) => {
     return i.item.apiId;

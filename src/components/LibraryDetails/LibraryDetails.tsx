@@ -79,8 +79,9 @@ export default function ListDetails() {
   }
 
   const listItemsInLibrary = allListItems?.filter((i: any) => {
-    return i.list.type === "Library";
+    return i.list.type === "Library" && i.list.profileId === user.profile.id;
   });
+  console.log("LIST ITEMS IN LIBRARY", listItemsInLibrary);
   const apiIdLibraryArray = listItemsInLibrary?.map((i: any) => {
     return i.item.apiId;
   });
