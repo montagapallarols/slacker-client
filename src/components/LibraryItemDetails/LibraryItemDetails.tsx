@@ -3,7 +3,10 @@ import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchApiItems, fetchApiItemById } from "../../store/apiItems/actions";
-import { addItemToList } from "../../store/listItems/actions";
+import {
+  addItemToList,
+  removeItemFromLibrary,
+} from "../../store/listItems/actions";
 import {
   selectApiItemsLoading,
   selectAllApiItems,
@@ -59,7 +62,9 @@ export default function LibraryItemDetails() {
   });
   console.log("Item in library", itemInLibrary);
 
-  const buttonText = itemInLibrary ? "Remove from Library" : "Add to Library";
+  function onClickRemove() {
+    dispatch(removeItemFromLibrary(itemId));
+  }
 
   return (
     <div>
@@ -72,9 +77,15 @@ export default function LibraryItemDetails() {
       </em>
       <img src={apiItemDetails.Poster} height="250px" />
       <p>{apiItemDetails.Plot}</p>
-      <Button onClick={onClickAdd} variant="outline-dark">
-        {buttonText}
-      </Button>
+      {itemInLibrary ? (
+        <Button onClick={onClickRemove} variant="outline-dark">
+          Remove from Library
+        </Button>
+      ) : (
+        <Button onClick={onClickAdd} variant="outline-dark">
+          Add to Library
+        </Button>
+      )}
       <Button variant="outline-dark">Favourites</Button>
     </div>
   );

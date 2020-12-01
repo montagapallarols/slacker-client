@@ -10,21 +10,33 @@ import { fetchApiItems, fetchApiItemById } from "../../store/apiItems/actions";
 import {
   selectApiItemsLoading,
   selectAllApiItems,
+  selectApiItemDetails,
 } from "../../store/apiItems/selectors";
 import { selectUser } from "../../store/user/selectors";
 import {
   selectAllCategories,
   selectAllListItems,
 } from "../../store/listItems/selectors";
-import { removeItemFromLibrary } from "../../store/listItems/actions";
+import {
+  removeItemFromLibrary,
+  addItemToList,
+} from "../../store/listItems/actions";
 
 export default function ListDetails() {
   const dispatch = useDispatch();
   const apiItemsLoading = useSelector(selectApiItemsLoading);
   const allApiItems = useSelector(selectAllApiItems);
+  const apiItemDetails: any = useSelector(selectApiItemDetails);
   const user = useSelector(selectUser);
   const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
+
+  const categoryId =
+    apiItemDetails.Type === "movie"
+      ? 1
+      : apiItemDetails.Type === "series"
+      ? 2
+      : null;
 
   interface ParamTypes {
     categoryName: string;
@@ -37,7 +49,7 @@ export default function ListDetails() {
   const userLibraryList = user.profile.lists?.find((l: any) => {
     return l.type === "Library";
   });
-  // const userLibraryListId = userLibraryList.id;
+  const userLibraryListId = userLibraryList.id;
 
   function onClickSearch(event: MouseEvent) {
     event.preventDefault();
@@ -62,6 +74,13 @@ export default function ListDetails() {
   });
   // console.log("ListItems in library", listItemsInLibrary);
   // console.log("Api id array", apiIdLibraryArray);
+
+  function onClickAdd() {
+    // console.log("api item details", apiItemDetails);
+    // console.log("category id", categoryId);
+    // console.log("User library id", userLibraryListId);
+    dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
+  }
 
   return (
     <div>
@@ -107,7 +126,9 @@ export default function ListDetails() {
                   Remove from Library
                 </Button>
               ) : (
-                <Button variant="outline-dark">Add to Library</Button>
+                <Button onClick={onClickAdd} variant="outline-dark">
+                  Add to Library
+                </Button>
               )}
               <Link
                 to={`/my-profile/${user.id}/library/${categoryName}/${i.imdbID}`}

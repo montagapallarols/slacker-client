@@ -3,7 +3,10 @@ import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchApiItems, fetchApiItemById } from "../../store/apiItems/actions";
-import { addItemToList } from "../../store/listItems/actions";
+import {
+  addItemToList,
+  removeItemFromWishlist,
+} from "../../store/listItems/actions";
 import {
   selectApiItemsLoading,
   selectAllApiItems,
@@ -14,7 +17,6 @@ import {
   selectAllCategories,
   selectAllListItems,
 } from "../../store/listItems/selectors";
-import { removeItemFromWishlist } from "../../store/listItems/actions";
 
 export default function WishlistItemDetails() {
   const dispatch = useDispatch();
