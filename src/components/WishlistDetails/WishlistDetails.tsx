@@ -159,6 +159,38 @@ export default function WishlistDetails() {
           </div>
         </div>
       ) : null}
+      <p></p>
+      <h3>In my Wishlist</h3>
+      <div className="wishlist-list">
+        {listItemsInWishlist?.map((i: any) => {
+          return (
+            <div key={i.item.apiId} className="item-card">
+              <h3>
+                {i.item.name} ({i.item.year})
+              </h3>
+              <em>
+                <p>{i.item.type}</p>
+              </em>
+              {i.item.poster === "N/A" ? null : (
+                <img src={i.item.poster} alt="poster" height="200px" />
+              )}
+              <Button
+                onClick={handleClickRemove}
+                value={i.item.apiId}
+                variant="outline-dark"
+              >
+                Remove from Wishlist
+              </Button>
+              <Link
+                to={`/my-profile/${user.id}/wishlist/${categoryName}/${i.item.apiId}`}
+              >
+                <Button variant="outline-dark">Details</Button>
+              </Link>
+              <Button variant="outline-dark">Favourites</Button>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
