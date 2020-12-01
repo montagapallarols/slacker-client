@@ -14,6 +14,7 @@ import {
   selectAllCategories,
   selectAllListItems,
 } from "../../store/listItems/selectors";
+import { removeItemFromWishlist } from "../../store/listItems/actions";
 
 export default function WishlistItemDetails() {
   const dispatch = useDispatch();
@@ -61,6 +62,7 @@ export default function WishlistItemDetails() {
 
   function onClickRemove() {
     console.log("clicked");
+    dispatch(removeItemFromWishlist(itemId));
   }
 
   return (

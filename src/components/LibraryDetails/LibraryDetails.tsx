@@ -37,7 +37,7 @@ export default function ListDetails() {
   const userLibraryList = user.profile.lists?.find((l: any) => {
     return l.type === "Library";
   });
-  const userLibraryListId = userLibraryList.id;
+  // const userLibraryListId = userLibraryList.id;
 
   function onClickSearch(event: MouseEvent) {
     event.preventDefault();
