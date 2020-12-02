@@ -95,11 +95,16 @@ export default function ListDetails() {
   // console.log("ListItems in library", listItemsInLibrary);
   // console.log("Api id array", apiIdLibraryArray);
 
-  function onClickAdd() {
+  function onClickAdd(event: any) {
     // console.log("api item details", apiItemDetails);
     // console.log("category id", categoryId);
     // console.log("User library id", userLibraryListId);
-    dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
+    dispatch(fetchApiItemById(event.target.value));
+    if (apiItemDetails) {
+      return dispatch(
+        addItemToList(apiItemDetails, categoryId, userLibraryListId)
+      );
+    }
   }
 
   return (
@@ -152,7 +157,11 @@ export default function ListDetails() {
                       Remove from Library
                     </Button>
                   ) : (
-                    <Button onClick={onClickAdd} variant="outline-dark">
+                    <Button
+                      onClick={onClickAdd}
+                      variant="outline-dark"
+                      value={i.imdbID}
+                    >
                       Add to Library
                     </Button>
                   )}
