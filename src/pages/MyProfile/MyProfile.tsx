@@ -11,6 +11,7 @@ import {
   selectAllCategories,
 } from "../../store/listItems/selectors";
 import { removeItemFromFavourites } from "../../store/listItems/actions";
+import StarRating from "../../components/StarRating/StarRating";
 
 export default function MyProfile() {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ export default function MyProfile() {
 
   return (
     <div>
+      <StarRating />
       <h1>{`${userProfile.firstName} ${userProfile.lastName}`}</h1>
       <img src={userProfile.imageUrl} className="profile-image" />
       <p></p>
