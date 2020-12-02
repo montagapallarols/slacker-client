@@ -44,7 +44,7 @@ export default function SignUp() {
             value={firstName}
             onChange={(event) => setFirstName(event.target.value)}
             type="text"
-            placeholder="Enter name"
+            placeholder="Enter first name"
             required
           />
         </Form.Group>
@@ -54,7 +54,7 @@ export default function SignUp() {
             value={lastName}
             onChange={(event) => setLastName(event.target.value)}
             type="text"
-            placeholder="Enter name"
+            placeholder="Enter last name"
             required
           />
         </Form.Group>

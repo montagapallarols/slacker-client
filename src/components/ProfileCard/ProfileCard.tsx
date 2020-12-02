@@ -3,11 +3,15 @@ import "./ProfileCard.css";
 import { useSelector } from "react-redux";
 import { selectAllProfiles } from "../../store/profiles/selectors";
 import { selectAllListItems } from "../../store/listItems/selectors";
+import { selectUser, selectToken } from "../../store/user/selectors";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 export default function ProfileCard() {
   const allProfiles = useSelector(selectAllProfiles);
   const allListItems = useSelector(selectAllListItems);
+  const user = useSelector(selectUser);
+  const token = useSelector(selectToken);
   return (
     <div>
       {allProfiles?.map((p: any) => {
@@ -36,7 +40,15 @@ export default function ProfileCard() {
                 </div>
               ) : null;
             })}
-            <Button variant="outline-dark">View Profile</Button>
+            {token && p.userId === user.id ? (
+              <Link to={`/my-profile/${p.userId}`} className="link">
+                <Button variant="outline-dark">View Profile</Button>
+              </Link>
+            ) : (
+              <Link to={`/profiles/:userId`} className="link">
+                <Button variant="outline-dark">View Profile</Button>
+              </Link>
+            )}
           </div>
         );
       })}
