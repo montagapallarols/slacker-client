@@ -16,6 +16,7 @@ import LibraryDetails from "./components/LibraryDetails/LibraryDetails";
 import WishlistDetails from "./components/WishlistDetails/WishlistDetails";
 import LibraryItemDetails from "./components/LibraryItemDetails/LibraryItemDetails";
 import WishlistItemDetails from "./components/WishlistItemDetails/WishlistItemDetails";
+import FavouritesItemDetails from "./components/FavouritesItemDetails/FavouritesItemDetails";
 import { selectToken, selectUser } from "./store/user/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 
@@ -50,6 +51,16 @@ function App() {
           exact
           path="/my-profile/:userId/wishlist/:categoryName/:itemId"
           component={WishlistItemDetails}
+        />
+        <Route
+          exact
+          path="/my-profile/:userId/favourites/:itemId"
+          component={FavouritesItemDetails}
+        />
+        <Route
+          exact
+          path="/favourites/:itemId"
+          component={FavouritesItemDetails}
         />
         <Route
           exact

@@ -16,6 +16,7 @@ export const ALL_FAVOURITES_FETCHED = "ALL_FAVOURITES_FETCHED";
 export const ADD_LIST_ITEM = "ADD_LIST_ITEM";
 export const DELETE_LIBRARY_LIST_ITEM = "DELETE_LIBRARY_LIST_ITEM";
 export const DELETE_WISHLIST_LIST_ITEM = "DELETE_WISHLIST_LIST_ITEM";
+export const DELETE_FAVOURITES_LIST_ITEM = "DELETE_FAVOURITES_LIST_ITEM";
 // ...
 
 export type SetLoadingListItems = {
@@ -55,6 +56,10 @@ export type DeleteWishlistListItem = {
   type: typeof DELETE_WISHLIST_LIST_ITEM;
   payload: any;
 };
+export type DeleteFavouritesListItem = {
+  type: typeof DELETE_FAVOURITES_LIST_ITEM;
+  payload: any;
+};
 // ...
 
 export type ListItemsActionTypes =
@@ -65,5 +70,6 @@ export type ListItemsActionTypes =
   | AllFavouritesFetched
   | AddListItem
   | DeleteLibraryListItem
-  | DeleteWishlistListItem;
+  | DeleteWishlistListItem
+  | DeleteFavouritesListItem;
 // ...

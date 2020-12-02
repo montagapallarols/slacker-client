@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchApiItems, fetchApiItemById } from "../../store/apiItems/actions";
 import {
   addItemToList,
-  removeItemFromWishlist,
+  removeItemFromLibrary,
 } from "../../store/listItems/actions";
 import {
   selectApiItemsLoading,
@@ -18,7 +18,7 @@ import {
   selectAllListItems,
 } from "../../store/listItems/selectors";
 
-export default function WishlistItemDetails() {
+export default function FavouritesItemDetails() {
   const dispatch = useDispatch();
   const apiItemsLoading = useSelector(selectApiItemsLoading);
   const allApiItems = useSelector(selectAllApiItems);
@@ -27,18 +27,6 @@ export default function WishlistItemDetails() {
   const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
 
-  const categoryId =
-    apiItemDetails.Type === "movie"
-      ? 1
-      : apiItemDetails.Type === "series"
-      ? 2
-      : null;
-
-  const userLibraryList = user.profile.lists?.find((l: any) => {
-    return l.type === "Wishlist";
-  });
-  const userLibraryListId = userLibraryList.id;
-
   interface ParamTypes {
     itemId: string;
   }
@@ -46,26 +34,9 @@ export default function WishlistItemDetails() {
   const { itemId } = useParams<ParamTypes>();
 
   useEffect(() => {
-    // console.log("Item id", itemId);
+    console.log("Item id", itemId);
     dispatch(fetchApiItemById(itemId));
   }, [dispatch, itemId]);
-
-  function onClickAdd() {
-    // console.log("api item details", apiItemDetails);
-    // console.log("category id", categoryId);
-    // console.log("User library id", userLibraryListId);
-    dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
-  }
-
-  const itemInWishlist = allListItems?.find((i: any) => {
-    return i.list.type === "Wishlist" && i.item.apiId === itemId;
-  });
-  console.log("Item in wishlist", itemInWishlist);
-
-  function onClickRemove() {
-    console.log("clicked");
-    dispatch(removeItemFromWishlist(itemId));
-  }
 
   return (
     <div>
@@ -76,20 +47,8 @@ export default function WishlistItemDetails() {
       <em>
         <p>{apiItemDetails.Genre}</p>
       </em>
-      {apiItemDetails.Poster === "N/A" ? null : (
-        <img src={apiItemDetails.Poster} alt="poster" height="250px" />
-      )}
+      <img src={apiItemDetails.Poster} height="250px" />
       <p>{apiItemDetails.Plot}</p>
-      {itemInWishlist ? (
-        <Button onClick={onClickRemove} variant="outline-dark">
-          Remove from Wishlist
-        </Button>
-      ) : (
-        <Button onClick={onClickAdd} variant="outline-dark">
-          Add to Wishlist
-        </Button>
-      )}
-      {/* <Button variant="outline-dark">Favourites</Button> */}
     </div>
   );
 }
