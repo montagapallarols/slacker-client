@@ -93,12 +93,11 @@ export default function WishlistDetails() {
   console.log("ListItems in wishlist", listItemsInWishlist);
   // console.log("Api id array", apiIdWishlistArray);
 
-  function onClickAdd() {
-    // console.log("Event target", event.target.value);
+  function onClickAdd(event: any) {
     // console.log("api item details", apiItemDetails);
     // console.log("category id", categoryId);
     // console.log("User library id", userLibraryListId);
-    // dispatch(fetchApiItemById(event.target.value));
+    dispatch(fetchApiItemById(event.target.value));
     dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
   }
 
@@ -153,7 +152,7 @@ export default function WishlistDetails() {
                   ) : (
                     <Button
                       onClick={onClickAdd}
-                      // value={i.imdbID}
+                      value={i.imdbID}
                       variant="outline-dark"
                     >
                       Add to Wishlist
@@ -164,7 +163,7 @@ export default function WishlistDetails() {
                   >
                     <Button variant="outline-dark">More details</Button>
                   </Link>
-                  <Button variant="outline-dark">Favourites</Button>
+                  {/* <Button variant="outline-dark">Favourites</Button> */}
                 </div>
               );
             })}
@@ -198,7 +197,7 @@ export default function WishlistDetails() {
               >
                 <Button variant="outline-dark">Details</Button>
               </Link>
-              <Button variant="outline-dark">Favourites</Button>
+              {/* <Button variant="outline-dark">Favourites</Button> */}
             </div>
           );
         })}

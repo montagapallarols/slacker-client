@@ -87,7 +87,7 @@ export default function WishlistItemDetails() {
           Add to Wishlist
         </Button>
       )}
-      <Button variant="outline-dark">Favourites</Button>
+      {/* <Button variant="outline-dark">Favourites</Button> */}
     </div>
   );
 }
