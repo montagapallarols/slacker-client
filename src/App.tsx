@@ -19,6 +19,7 @@ import WishlistItemDetails from "./components/WishlistItemDetails/WishlistItemDe
 import FavouritesItemDetails from "./components/FavouritesItemDetails/FavouritesItemDetails";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 import ProfileLibraryDetails from "./components/ProfileLibraryDetails/ProfileLibraryDetails";
+import ProfileWishlistDetails from "./components/ProfileWishlistDetails/ProfileWishlistDetails";
 import { selectToken, selectUser } from "./store/user/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 
@@ -57,8 +58,18 @@ function App() {
         />
         <Route
           exact
+          path="/profiles/:userId/wishlist/:categoryName/:itemId"
+          component={WishlistItemDetails}
+        />
+        <Route
+          exact
           path="/profiles/:userId/library/:categoryName"
           component={ProfileLibraryDetails}
+        />
+        <Route
+          exact
+          path="/profiles/:userId/wishlist/:categoryName"
+          component={ProfileWishlistDetails}
         />
         <Route
           exact

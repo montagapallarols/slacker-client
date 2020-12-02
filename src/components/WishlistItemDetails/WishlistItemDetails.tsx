@@ -27,6 +27,15 @@ export default function WishlistItemDetails() {
   const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
 
+  interface ParamTypes {
+    userId: string;
+  }
+
+  const { userId } = useParams<ParamTypes>();
+  const profileUserId = parseInt(userId);
+  const loggedInUser = profileUserId === user.id ? true : false;
+  // console.log("Logged in?", loggedInUser);
+
   const categoryId =
     apiItemDetails.Type === "movie"
       ? 1
@@ -80,16 +89,20 @@ export default function WishlistItemDetails() {
         <img src={apiItemDetails.Poster} alt="poster" height="250px" />
       )}
       <p>{apiItemDetails.Plot}</p>
-      {itemInWishlist ? (
-        <Button onClick={onClickRemove} variant="outline-dark">
-          Remove from Wishlist
-        </Button>
-      ) : (
-        <Button onClick={onClickAdd} variant="outline-dark">
-          Add to Wishlist
-        </Button>
-      )}
-      {/* <Button variant="outline-dark">Favourites</Button> */}
+      {loggedInUser ? (
+        <div>
+          {itemInWishlist ? (
+            <Button onClick={onClickRemove} variant="outline-dark">
+              Remove from Wishlist
+            </Button>
+          ) : (
+            <Button onClick={onClickAdd} variant="outline-dark">
+              Add to Wishlist
+            </Button>
+          )}
+          {/* <Button variant="outline-dark">Favourites</Button> */}
+        </div>
+      ) : null}
     </div>
   );
 }
