@@ -1,44 +1,17 @@
 import React, { useState } from "react";
-import "./StarRating.css";
-import { FaStar } from "react-icons/fa";
+import Rating from "@material-ui/lab/Rating";
 
-export default function StarRating(props: any) {
-  interface Rating {
-    rating: any | null;
-    setRating: any | null;
-  }
-  interface Hover {
-    rating: any | null;
-    setRating: any | null;
-  }
-  //   @ts-ignore
-  const [rating, setRating] = useState<Rating>(null);
-  //   @ts-ignore
-  const [hover, setHover] = useState<Hover>(null);
-
+export default function StaticStarRating(props: any) {
+  const [value, setValue] = React.useState(0);
   return (
     <div>
-      {[...Array(5)].map((s: any, i) => {
-        const ratingValue: any = i + 1;
-        return (
-          <label>
-            <input
-              type="radio"
-              name="rating"
-              value={ratingValue}
-              onClick={() => setRating(ratingValue)}
-            />
-            <FaStar
-              size={30}
-              color={ratingValue <= (hover || rating) ? "#ffc107" : "#696969"}
-              className="star"
-              onMouseEnter={() => setHover(ratingValue)}
-              //   @ts-ignore
-              onMouseLeave={() => setHover(null)}
-            />
-          </label>
-        );
-      })}
+      <Rating
+        name="simple-controlled"
+        value={value}
+        onChange={(event, newValue: any) => {
+          setValue(newValue);
+        }}
+      />
     </div>
   );
 }
