@@ -92,7 +92,7 @@ export const login = (
         email,
         password,
       });
-      console.log("Login response", response.data);
+      // console.log("Login response", response.data);
       dispatch(loginSuccess(response.data));
       const user = selectUser(getState());
       dispatch(

@@ -76,7 +76,7 @@ export async function fetchListItems(dispatch: any, getState: any) {
   //   dispatch(setLoading(true));
 
   const response = await axios.get(`${serverUrl}/lists/listItems`);
-  console.log("List items response", response.data);
+  // console.log("List items response", response.data);
 
   dispatch(listItemsFetched(response.data));
   dispatch(setListItemsLoading(false));
@@ -86,7 +86,7 @@ export async function fetchCategories(dispatch: any, getState: any) {
   //   dispatch(setLoading(true));
 
   const response = await axios.get(`${serverUrl}/categories`);
-  console.log("List items response", response.data);
+  // console.log("Categories response", response.data);
 
   dispatch(categoriesFetched(response.data));
   dispatch(setListItemsLoading(false));
@@ -100,7 +100,7 @@ export function fetchFavouritesByCategory(categoryFilterId: string) {
     const response = await axios.get(
       `${serverUrl}/lists/listItems/favourites/${categoryIdString}`
     );
-    console.log("Favourites by category response", response.data);
+    // console.log("Favourites by category response", response.data);
 
     dispatch(favouritesByCategoryFetched(response.data));
     dispatch(setListItemsLoading(false));
@@ -111,7 +111,7 @@ export async function fetchAllFavourites(dispatch: any, getState: any) {
   //   dispatch(setLoading(true));
 
   const response = await axios.get(`${serverUrl}/lists/listItems/favourites`);
-  console.log("All favourites response", response.data);
+  // console.log("All favourites response", response.data);
 
   dispatch(allFavouritesFetched(response.data));
   dispatch(setListItemsLoading(false));
@@ -140,7 +140,7 @@ export function addItemToList(
           listId: userLibraryListId,
         }
       );
-      console.log("Add new listItem response", response.data);
+      // console.log("Add new listItem response", response.data);
 
       dispatch(addListItem(response.data));
       dispatch(setListItemsLoading(false));
@@ -156,7 +156,7 @@ export function removeItemFromLibrary(id: string) {
       const response = await axios.delete(
         `${serverUrl}/lists/library/listItems/${id}`
       );
-      console.log("List item removed response", response.data.id);
+      // console.log("List item removed response", response.data.id);
       dispatch(deleteLibraryListItem(response.data.id));
       dispatch(setListItemsLoading(false));
     } catch (e) {
@@ -171,7 +171,7 @@ export function removeItemFromWishlist(id: string) {
       const response = await axios.delete(
         `${serverUrl}/lists/wishlist/listItems/${id}`
       );
-      console.log("Wishlist item removed response", response.data.id);
+      // console.log("Wishlist item removed response", response.data.id);
       dispatch(deleteWishlistListItem(response.data.id));
       dispatch(setListItemsLoading(false));
     } catch (e) {
@@ -186,7 +186,7 @@ export function removeItemFromFavourites(id: string) {
       const response = await axios.delete(
         `${serverUrl}/lists/favourites/listItems/${id}`
       );
-      console.log("Favourites item removed response", response.data.id);
+      // console.log("Favourites item removed response", response.data.id);
       dispatch(deleteFavouritesListItem(response.data.id));
       dispatch(setListItemsLoading(false));
     } catch (e) {

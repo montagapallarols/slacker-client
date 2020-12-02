@@ -82,7 +82,7 @@ export function fetchFavouriteApiItemById(
     const response = await axios.get(
       `http://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f&plot=full`
     );
-    console.log("Favourite API item DETAILS response", response.data);
+    // console.log("Favourite API item DETAILS response", response.data);
 
     dispatch(favouriteApiItemByIdFetched(response.data));
     dispatch(setApiItemsLoading(false));

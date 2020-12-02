@@ -53,8 +53,6 @@ export default function HomePage() {
     dispatch(fetchFavouritesByCategory(categoryFilterId));
   }, [categoryFilterId]);
 
-  // console.log("Favourites by category", favouriteItemsByCategory);
-
   if (profilesLoading || listItemsLoading) {
     return <p>"Loading..."</p>;
   } else {
@@ -62,8 +60,8 @@ export default function HomePage() {
       <div>
         <h1>Welcome to Slacker!</h1>
         <p>
-          Here you can curate, review and share your favourite films, TV shows,
-          books and podcasts or add them to your wish list.
+          Here you can curate, review and share your favourite films and series
+          or add them to your wishlist.
         </p>
         <p>Sign up to create your profile and connect with your friends!</p>
         <br></br>

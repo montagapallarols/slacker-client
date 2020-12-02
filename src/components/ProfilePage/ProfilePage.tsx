@@ -1,5 +1,5 @@
 import React from "react";
-import "./MyProfile.css";
+import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,20 +11,25 @@ import {
   selectAllCategories,
 } from "../../store/listItems/selectors";
 import { removeItemFromFavourites } from "../../store/listItems/actions";
-import StarRating from "../../components/StarRating/StarRating";
 
-export default function MyProfile() {
+export default function ProfilePage() {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
-  const userProfile = useSelector(selectUserProfile);
   const allProfiles = useSelector(selectAllProfiles);
   const allFavourites = useSelector(selectAllFavourites);
   const allListItems = useSelector(selectAllListItems);
   const allCategories = useSelector(selectAllCategories);
 
-  const userProfileWithLists: any = allProfiles?.find((p: any) => {
-    return p.userId === user.id;
+  interface ParamTypes {
+    userId: any;
+  }
+
+  const { userId } = useParams<ParamTypes>();
+  const userIdNum = parseInt(userId);
+  console.log(userIdNum);
+  const userProfile: any = allProfiles?.find((p: any) => {
+    return p.userId === userIdNum;
   });
+  console.log("User's profile", userProfile);
 
   const userFavourites = allFavourites?.filter((f: any) => {
     return f.list.profileId === userProfile.id;
@@ -38,7 +43,6 @@ export default function MyProfile() {
 
   return (
     <div>
-      <StarRating />
       <h1>{`${userProfile.firstName} ${userProfile.lastName}`}</h1>
       <img src={userProfile.imageUrl} className="profile-image" />
       <p></p>
@@ -51,7 +55,7 @@ export default function MyProfile() {
               return (
                 <div key={f.item.id}>
                   <Link
-                    to={`/my-profile/${user.id}/favourites/${f.item.apiId}`}
+                    to={`/profiles/${userIdNum}/favourites/${f.item.apiId}`}
                     className="link"
                   >
                     <div key={f.id} className="item-card">
@@ -67,13 +71,6 @@ export default function MyProfile() {
                         <img src={f.item.poster} alt="poster" height="150px" />
                       )}
                     </div>
-                    <Button
-                      onClick={handleClickRemove}
-                      value={f.item.apiId}
-                      variant="outline-dark"
-                    >
-                      Remove
-                    </Button>
                   </Link>
                 </div>
               );
@@ -90,7 +87,7 @@ export default function MyProfile() {
               return (
                 <div key={c.id} className="item-card">
                   <p>{c.name}</p>
-                  <Link to={`/my-profile/${user.id}/library/${c.name}`}>
+                  <Link to={`/profiles/${userIdNum}/library/${c.name}`}>
                     <Button variant="outline-dark">See list</Button>
                   </Link>
                 </div>
@@ -108,7 +105,7 @@ export default function MyProfile() {
               return (
                 <div key={c.id} className="item-card">
                   <p>{c.name}</p>
-                  <Link to={`/my-profile/${user.id}/wishlist/${c.name}`}>
+                  <Link to={`/profiles/${userIdNum}/wishlist/${c.name}`}>
                     <Button variant="outline-dark">See list</Button>
                   </Link>
                 </div>
