@@ -3,8 +3,14 @@ import "./StarRating.css";
 import { FaStar } from "react-icons/fa";
 
 export default function StarRating() {
-  const [rating, setRating] = useState(null);
+  interface Rating {
+    rating: any | null;
+    setRating: any;
+  }
+  //   @ts-ignore
+  const [rating, setRating] = useState<Rating>(null);
   console.log("Rating", rating);
+
   return (
     <div>
       {[...Array(5)].map((s: any, i) => {
@@ -17,7 +23,11 @@ export default function StarRating() {
               value={ratingValue}
               onClick={() => setRating(ratingValue)}
             />
-            <FaStar size={40} className="star" />
+            <FaStar
+              size={40}
+              color={ratingValue <= rating ? "#ffc107" : "e4e5e9"}
+              className="star"
+            />
           </label>
         );
       })}
