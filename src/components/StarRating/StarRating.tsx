@@ -5,10 +5,16 @@ import { FaStar } from "react-icons/fa";
 export default function StarRating() {
   interface Rating {
     rating: any | null;
-    setRating: any;
+    setRating: any | null;
+  }
+  interface Hover {
+    rating: any | null;
+    setRating: any | null;
   }
   //   @ts-ignore
   const [rating, setRating] = useState<Rating>(null);
+  //   @ts-ignore
+  const [hover, setHover] = useState<Hover>(null);
   console.log("Rating", rating);
 
   return (
@@ -25,8 +31,11 @@ export default function StarRating() {
             />
             <FaStar
               size={40}
-              color={ratingValue <= rating ? "#ffc107" : "e4e5e9"}
+              color={ratingValue <= (hover || rating) ? "#ffc107" : "e4e5e9"}
               className="star"
+              onMouseEnter={() => setHover(ratingValue)}
+              //   @ts-ignore
+              onMouseLeave={() => setHover(null)}
             />
           </label>
         );
