@@ -45,7 +45,7 @@ export default function ProfileCard() {
                 <Button variant="outline-dark">View Profile</Button>
               </Link>
             ) : (
-              <Link to={`/profiles/:userId`} className="link">
+              <Link to={`/profiles/${p.userId}`} className="link">
                 <Button variant="outline-dark">View Profile</Button>
               </Link>
             )}
