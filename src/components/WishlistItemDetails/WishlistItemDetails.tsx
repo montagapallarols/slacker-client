@@ -76,7 +76,9 @@ export default function WishlistItemDetails() {
       <em>
         <p>{apiItemDetails.Genre}</p>
       </em>
-      <img src={apiItemDetails.Poster} height="250px" />
+      {apiItemDetails.Poster === "N/A" ? null : (
+        <img src={apiItemDetails.Poster} alt="poster" height="250px" />
+      )}
       <p>{apiItemDetails.Plot}</p>
       {itemInWishlist ? (
         <Button onClick={onClickRemove} variant="outline-dark">

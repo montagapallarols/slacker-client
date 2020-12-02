@@ -10,8 +10,10 @@ import {
   selectAllListItems,
   selectAllCategories,
 } from "../../store/listItems/selectors";
+import { removeItemFromFavourites } from "../../store/listItems/actions";
 
 export default function MyProfile() {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const userProfile = useSelector(selectUserProfile);
   const allProfiles = useSelector(selectAllProfiles);
@@ -29,6 +31,13 @@ export default function MyProfile() {
   });
   console.log("USER FAVOURITES:", userFavourites);
 
+  function handleClickRemove(event: any) {
+    console.log("Hiii");
+    event.preventDefault();
+    console.log("Event value", event.target.value);
+    // dispatch(removeItemFromFavourites(event.target.value));
+  }
+
   return (
     <div>
       <h1>{`${userProfile.firstName} ${userProfile.lastName}`}</h1>
@@ -41,24 +50,33 @@ export default function MyProfile() {
           <div className="item-list">
             {userFavourites?.map((f: any) => {
               return (
-                <Link
-                  to={`/my-profile/${user.id}/favourites/${f.item.apiId}`}
-                  className="link"
-                >
-                  <div key={f.id} className="item-card">
-                    <p>{f.item.name}</p>
-                    {allCategories?.map((c: any) => {
-                      return c.id === f.item.categoryId ? (
-                        <em key={c.id}>
-                          <p>({c.name})</p>
-                        </em>
-                      ) : null;
-                    })}
-                    {f.item.poster === "N/A" ? null : (
-                      <img src={f.item.poster} alt="poster" height="150px" />
-                    )}
-                  </div>
-                </Link>
+                <div key={f.item.id}>
+                  <Link
+                    to={`/my-profile/${user.id}/favourites/${f.item.apiId}`}
+                    className="link"
+                  >
+                    <div key={f.id} className="item-card">
+                      <p>{f.item.name}</p>
+                      {allCategories?.map((c: any) => {
+                        return c.id === f.item.categoryId ? (
+                          <em key={c.id}>
+                            <p>({c.name})</p>
+                          </em>
+                        ) : null;
+                      })}
+                      {f.item.poster === "N/A" ? null : (
+                        <img src={f.item.poster} alt="poster" height="150px" />
+                      )}
+                    </div>
+                    <Button
+                      onClick={handleClickRemove}
+                      value={f.item.apiId}
+                      variant="outline-dark"
+                    >
+                      Remove
+                    </Button>
+                  </Link>
+                </div>
               );
             })}
           </div>

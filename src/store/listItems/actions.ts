@@ -65,6 +65,13 @@ export function deleteWishlistListItem(id: number) {
   };
 }
 
+export function deleteFavouritesListItem(id: number) {
+  return {
+    type: "DELETE_FAVOURITES_LIST_ITEM",
+    payload: id,
+  };
+}
+
 export async function fetchListItems(dispatch: any, getState: any) {
   //   dispatch(setLoading(true));
 
@@ -166,6 +173,21 @@ export function removeItemFromWishlist(id: string) {
       );
       console.log("Wishlist item removed response", response.data.id);
       dispatch(deleteWishlistListItem(response.data.id));
+      dispatch(setListItemsLoading(false));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function removeItemFromFavourites(id: string) {
+  return async (dispatch: any, getState: any) => {
+    try {
+      const response = await axios.delete(
+        `${serverUrl}/lists/favourites/listItems/${id}`
+      );
+      console.log("Favourites item removed response", response.data.id);
+      dispatch(deleteFavouritesListItem(response.data.id));
       dispatch(setListItemsLoading(false));
     } catch (e) {
       console.log(e);
