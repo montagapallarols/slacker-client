@@ -78,8 +78,15 @@ export default function ListDetails() {
     dispatch(removeItemFromLibrary(event.target.value));
   }
 
+  const itemType = categoryName === "Films" ? "movie" : "series";
+  // console.log(itemType);
+
   const listItemsInLibrary = allListItems?.filter((i: any) => {
-    return i.list.type === "Library" && i.list.profileId === user.profile.id;
+    return (
+      i.list.type === "Library" &&
+      i.list.profileId === user.profile.id &&
+      i.item.type === itemType
+    );
   });
   console.log("LIST ITEMS IN LIBRARY", listItemsInLibrary);
   const apiIdLibraryArray = listItemsInLibrary?.map((i: any) => {

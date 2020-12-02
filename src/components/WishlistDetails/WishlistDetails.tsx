@@ -78,8 +78,14 @@ export default function WishlistDetails() {
     dispatch(removeItemFromWishlist(event.target.value));
   }
 
+  const itemType = categoryName === "Films" ? "movie" : "series";
+
   const listItemsInWishlist = allListItems?.filter((i: any) => {
-    return i.list.type === "Wishlist" && i.list.profileId === user.profile.id;
+    return (
+      i.list.type === "Wishlist" &&
+      i.list.profileId === user.profile.id &&
+      i.item.type === itemType
+    );
   });
   const apiIdWishlistArray = listItemsInWishlist?.map((i: any) => {
     return i.item.apiId;
@@ -87,12 +93,19 @@ export default function WishlistDetails() {
   console.log("ListItems in wishlist", listItemsInWishlist);
   // console.log("Api id array", apiIdWishlistArray);
 
-  function onClickAdd() {
-    // console.log("api item details", apiItemDetails);
-    // console.log("category id", categoryId);
-    // console.log("User library id", userLibraryListId);
-    dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
+  function onClickAdd(event: any) {
+    console.log("Event target", event.target.value);
+    console.log("api item details", apiItemDetails);
+    console.log("category id", categoryId);
+    console.log("User library id", userLibraryListId);
+    dispatch(fetchApiItemById(event.target.value));
+    // dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
   }
+
+  useEffect(() => {
+    console.log("Can I add item to list?");
+    dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
+  }, [dispatch, apiItemDetails]);
 
   return (
     <div>
@@ -143,7 +156,11 @@ export default function WishlistDetails() {
                       Remove from Wishlist
                     </Button>
                   ) : (
-                    <Button onClick={onClickAdd} variant="outline-dark">
+                    <Button
+                      onClick={onClickAdd}
+                      value={i.imdbID}
+                      variant="outline-dark"
+                    >
                       Add to Wishlist
                     </Button>
                   )}
