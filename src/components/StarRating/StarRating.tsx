@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./StarRating.css";
 import { FaStar } from "react-icons/fa";
 
-export default function StarRating() {
+export default function StarRating(props: any) {
   interface Rating {
     rating: any | null;
     setRating: any | null;
@@ -15,7 +15,6 @@ export default function StarRating() {
   const [rating, setRating] = useState<Rating>(null);
   //   @ts-ignore
   const [hover, setHover] = useState<Hover>(null);
-  console.log("Rating", rating);
 
   return (
     <div>

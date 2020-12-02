@@ -28,7 +28,13 @@ import {
   addItemToList,
   removeItemFromFavourites,
 } from "../../store/listItems/actions";
+import { fetchReviews } from "../../store/reviews/actions";
 import StarRating from "../StarRating/StarRating";
+import StaticStarRating from "../StaticStarRating/StaticStarRating";
+import {
+  selectAllReviews,
+  selectReviewsLoading,
+} from "../../store/reviews/selectors";
 
 export default function ListDetails() {
   const dispatch = useDispatch();
@@ -41,10 +47,26 @@ export default function ListDetails() {
   const user = useSelector(selectUser);
   const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
+  const reviewsLoading = useSelector(selectReviewsLoading);
+  const allReviews = useSelector(selectAllReviews);
+
+  interface ParamTypes {
+    userId: string;
+  }
+  const { userId } = useParams<ParamTypes>();
+  const userIdNum = parseInt(userId);
+
+  const profileReviews = allReviews?.filter((r: any) => {
+    return r.profile.userId === userIdNum;
+  });
 
   useEffect(() => {
-    console.log("Clear");
     dispatch(removeSearchItems);
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log("Fetching reviews?");
+    dispatch(fetchReviews);
   }, [dispatch]);
 
   const categoryId =
@@ -294,6 +316,22 @@ export default function ListDetails() {
           );
         })}
       </div>
+      <h3>My Reviews</h3>
+      {profileReviews?.map((r: any) => {
+        return (
+          <div key={r.id}>
+            <h4>{r.item.name}</h4>
+            <img src={r.item.poster} alt="poster" height="100px" />
+            <em>
+              <h5>{r.name}</h5>
+            </em>
+            <em>
+              <p>{r.content}</p>
+            </em>
+            <StaticStarRating rating={r.rating} />
+          </div>
+        );
+      })}
     </div>
   );
 }
