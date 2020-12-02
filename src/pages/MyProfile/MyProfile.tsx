@@ -17,7 +17,6 @@ import {
   selectAllReviews,
   selectReviewsLoading,
 } from "../../store/reviews/selectors";
-import { fetchReviews } from "../../store/reviews/actions";
 
 export default function MyProfile() {
   const dispatch = useDispatch();
@@ -35,11 +34,6 @@ export default function MyProfile() {
   }
   const { userId } = useParams<ParamTypes>();
   const userIdNum = parseInt(userId);
-
-  useEffect(() => {
-    console.log("Fetching reviews?");
-    dispatch(fetchReviews);
-  }, [dispatch]);
 
   const profileReviews = allReviews?.filter((r: any) => {
     return r.profile.userId === userIdNum;
@@ -145,7 +139,9 @@ export default function MyProfile() {
         return (
           <div key={r.id}>
             <h4>{r.item.name}</h4>
-            <img src={r.item.poster} alt="poster" height="100px" />
+            {r.item.poster === "N/A" ? null : (
+              <img src={r.item.poster} alt="poster" height="100px" />
+            )}
             <em>
               <h5>{r.name}</h5>
             </em>

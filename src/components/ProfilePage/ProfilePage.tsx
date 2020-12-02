@@ -15,7 +15,6 @@ import {
   selectAllReviews,
   selectReviewsLoading,
 } from "../../store/reviews/selectors";
-import { fetchReviews } from "../../store/reviews/actions";
 import StaticStarRating from "../../components/StaticStarRating/StaticStarRating";
 
 export default function ProfilePage() {
@@ -26,10 +25,6 @@ export default function ProfilePage() {
   const allCategories = useSelector(selectAllCategories);
   const reviewsLoading = useSelector(selectReviewsLoading);
   const allReviews = useSelector(selectAllReviews);
-
-  useEffect(() => {
-    dispatch(fetchReviews);
-  }, [dispatch]);
 
   interface ParamTypes {
     userId: any;

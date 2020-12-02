@@ -22,6 +22,7 @@ import ProfileLibraryDetails from "./components/ProfileLibraryDetails/ProfileLib
 import ProfileWishlistDetails from "./components/ProfileWishlistDetails/ProfileWishlistDetails";
 import { selectToken, selectUser } from "./store/user/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
+import { fetchReviews } from "./store/reviews/actions";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,10 @@ function App() {
 
   useEffect(() => {
     dispatch(getUserWithStoredToken());
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(fetchReviews);
   }, [dispatch]);
 
   return (
