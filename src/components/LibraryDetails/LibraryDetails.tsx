@@ -24,6 +24,7 @@ import {
 import {
   removeItemFromLibrary,
   addItemToList,
+  removeItemFromFavourites,
 } from "../../store/listItems/actions";
 
 export default function ListDetails() {
@@ -88,12 +89,19 @@ export default function ListDetails() {
       i.item.type === itemType
     );
   });
-  console.log("LIST ITEMS IN LIBRARY", listItemsInLibrary);
+
   const apiIdLibraryArray = listItemsInLibrary?.map((i: any) => {
     return i.item.apiId;
   });
-  // console.log("ListItems in library", listItemsInLibrary);
-  // console.log("Api id array", apiIdLibraryArray);
+
+  const listItemsInFavourites = allListItems?.filter((i: any) => {
+    return i.list.type === "Favourites" && i.list.profileId === user.profile.id;
+  });
+  console.log("List items in Favourites", listItemsInFavourites);
+
+  const apiIdFavouritesArray = listItemsInFavourites?.map((i: any) => {
+    return i.item.apiId;
+  });
 
   function onClickAdd(event: any) {
     // console.log("api item details", apiItemDetails);
@@ -105,6 +113,12 @@ export default function ListDetails() {
         addItemToList(apiItemDetails, categoryId, userLibraryListId)
       );
     }
+  }
+
+  function favouritesRemove(event: any) {
+    event.preventDefault();
+    console.log("Event value", event.target.value);
+    dispatch(removeItemFromFavourites(event.target.value));
   }
 
   return (
@@ -170,7 +184,17 @@ export default function ListDetails() {
                   >
                     <Button variant="outline-dark">Details</Button>
                   </Link>
-                  <Button variant="outline-dark">Favourites</Button>
+                  {apiIdFavouritesArray?.includes(i.imdbID) ? (
+                    <Button
+                      variant="outline-dark"
+                      onClick={favouritesRemove}
+                      value={i.imdbID}
+                    >
+                      Remove from Favourites
+                    </Button>
+                  ) : (
+                    <Button variant="outline-dark">Favourites</Button>
+                  )}
                 </div>
               );
             })}
@@ -204,7 +228,17 @@ export default function ListDetails() {
               >
                 <Button variant="outline-dark">Details</Button>
               </Link>
-              <Button variant="outline-dark">Favourites</Button>
+              {apiIdFavouritesArray?.includes(i.item.apiId) ? (
+                <Button
+                  onClick={favouritesRemove}
+                  value={i.item.apiId}
+                  variant="outline-dark"
+                >
+                  Remove from Favourites
+                </Button>
+              ) : (
+                <Button variant="outline-dark">Favourites</Button>
+              )}
             </div>
           );
         })}
