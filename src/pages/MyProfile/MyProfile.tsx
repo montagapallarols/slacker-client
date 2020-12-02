@@ -24,18 +24,15 @@ export default function MyProfile() {
   const userProfileWithLists: any = allProfiles?.find((p: any) => {
     return p.userId === user.id;
   });
-  console.log("User profile with lists", userProfileWithLists);
 
   const userFavourites = allFavourites?.filter((f: any) => {
     return f.list.profileId === userProfile.id;
   });
-  console.log("USER FAVOURITES:", userFavourites);
 
   function handleClickRemove(event: any) {
-    console.log("Hiii");
     event.preventDefault();
     console.log("Event value", event.target.value);
-    // dispatch(removeItemFromFavourites(event.target.value));
+    dispatch(removeItemFromFavourites(event.target.value));
   }
 
   return (

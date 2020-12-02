@@ -91,7 +91,6 @@ export default function WishlistDetails() {
     return i.item.apiId;
   });
   console.log("ListItems in wishlist", listItemsInWishlist);
-  // console.log("Api id array", apiIdWishlistArray);
 
   function onClickAdd(event: any) {
     // console.log("api item details", apiItemDetails);

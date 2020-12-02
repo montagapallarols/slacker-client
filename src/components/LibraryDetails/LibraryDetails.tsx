@@ -55,6 +55,11 @@ export default function ListDetails() {
 
   const [searchText, setSearchText] = useState("");
   const [searchBar, setSearchBar] = useState(false);
+  const [desiredItemId, setDesiredItemId] = useState("");
+  const itemToAdd =
+    apiItemDetails?.imdbID === desiredItemId ? apiItemDetails : null;
+
+  console.log("ITEM ID?", desiredItemId);
   const searchButtonText = searchBar
     ? "Hide"
     : `Search and add ${categoryName}`;
@@ -97,7 +102,7 @@ export default function ListDetails() {
   const listItemsInFavourites = allListItems?.filter((i: any) => {
     return i.list.type === "Favourites" && i.list.profileId === user.profile.id;
   });
-  console.log("List items in Favourites", listItemsInFavourites);
+  // console.log("List items in Favourites", listItemsInFavourites);
 
   const apiIdFavouritesArray = listItemsInFavourites?.map((i: any) => {
     return i.item.apiId;
@@ -107,13 +112,13 @@ export default function ListDetails() {
     // console.log("api item details", apiItemDetails);
     // console.log("category id", categoryId);
     // console.log("User library id", userLibraryListId);
+    setDesiredItemId(event.target.value);
     dispatch(fetchApiItemById(event.target.value));
-    if (apiItemDetails) {
-      return dispatch(
-        addItemToList(apiItemDetails, categoryId, userLibraryListId)
-      );
-    }
   }
+
+  useEffect(() => {
+    dispatch(addItemToList(itemToAdd, categoryId, userLibraryListId));
+  }, [dispatch, apiItemDetails]);
 
   function favouritesRemove(event: any) {
     event.preventDefault();
@@ -173,8 +178,8 @@ export default function ListDetails() {
                   ) : (
                     <Button
                       onClick={onClickAdd}
-                      variant="outline-dark"
                       value={i.imdbID}
+                      variant="outline-dark"
                     >
                       Add to Library
                     </Button>
@@ -193,7 +198,13 @@ export default function ListDetails() {
                       Remove from Favourites
                     </Button>
                   ) : (
-                    <Button variant="outline-dark">Favourites</Button>
+                    <Button
+                      onClick={onClickAdd}
+                      value={i.imdbID}
+                      variant="outline-dark"
+                    >
+                      Favourites
+                    </Button>
                   )}
                 </div>
               );
@@ -237,7 +248,13 @@ export default function ListDetails() {
                   Remove from Favourites
                 </Button>
               ) : (
-                <Button variant="outline-dark">Favourites</Button>
+                <Button
+                  onClick={onClickAdd}
+                  value={i.item.apiId}
+                  variant="outline-dark"
+                >
+                  Favourites
+                </Button>
               )}
             </div>
           );

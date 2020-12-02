@@ -125,7 +125,7 @@ export function addItemToList(
   return async (dispatch: any, getState: any) => {
     try {
       const response = await axios.post(
-        `${serverUrl}/lists/library/listItems`,
+        `${serverUrl}/lists/selectedList/listItems`,
         {
           name: apiItemDetails.Title,
           year: apiItemDetails.Year,
