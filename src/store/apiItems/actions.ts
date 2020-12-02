@@ -31,6 +31,13 @@ export function apiItemByIdFetched(item: object) {
   };
 }
 
+export function favouriteApiItemByIdFetched(item: object) {
+  return {
+    type: "FAVOURITE_API_ITEM_BY_ID_FETCHED",
+    payload: item,
+  };
+}
+
 export function clearApiItems([]) {
   return {
     type: "CLEAR_API_ITEMS",
@@ -47,7 +54,7 @@ export function fetchApiItems(
     const response = await axios.get(
       `http://www.omdbapi.com/?s=${queryParam}&apikey=2511cc5f`
     );
-    console.log("API items response", response.data.Search);
+    // console.log("API items response", response.data.Search);
 
     dispatch(apiItemsFetched(response.data.Search));
     dispatch(setApiItemsLoading(false));
@@ -61,9 +68,23 @@ export function fetchApiItemById(
     const response = await axios.get(
       `http://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f&plot=full`
     );
-    console.log("API item DETAILS response", response.data);
+    // console.log("API item DETAILS response", response.data);
 
     dispatch(apiItemByIdFetched(response.data));
+    dispatch(setApiItemsLoading(false));
+  };
+}
+
+export function fetchFavouriteApiItemById(
+  movieId: string
+): ThunkAction<void, RootState, unknown, Action<string>> {
+  return async function (dispatch, getState: any) {
+    const response = await axios.get(
+      `http://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f&plot=full`
+    );
+    console.log("Favourite API item DETAILS response", response.data);
+
+    dispatch(favouriteApiItemByIdFetched(response.data));
     dispatch(setApiItemsLoading(false));
   };
 }

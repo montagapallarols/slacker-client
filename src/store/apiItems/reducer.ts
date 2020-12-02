@@ -9,6 +9,7 @@ const initialState: ApiItemsState = {
   loading: true,
   all: [],
   details: {},
+  favouriteDetails: {},
 };
 
 export default function reducer(
@@ -38,6 +39,12 @@ export default function reducer(
       return {
         ...state,
         all: action.payload,
+      };
+    }
+    case "FAVOURITE_API_ITEM_BY_ID_FETCHED": {
+      return {
+        ...state,
+        favouriteDetails: { ...action.payload },
       };
     }
 

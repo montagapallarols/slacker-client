@@ -10,11 +10,13 @@ import {
   fetchApiItems,
   fetchApiItemById,
   removeSearchItems,
+  fetchFavouriteApiItemById,
 } from "../../store/apiItems/actions";
 import {
   selectApiItemsLoading,
   selectAllApiItems,
   selectApiItemDetails,
+  selectFavouriteApiItemDetails,
 } from "../../store/apiItems/selectors";
 import { selectUser } from "../../store/user/selectors";
 import {
@@ -32,6 +34,9 @@ export default function ListDetails() {
   const apiItemsLoading = useSelector(selectApiItemsLoading);
   const allApiItems = useSelector(selectAllApiItems);
   const apiItemDetails: any = useSelector(selectApiItemDetails);
+  const favouriteApiItemDetails: any = useSelector(
+    selectFavouriteApiItemDetails
+  );
   const user = useSelector(selectUser);
   const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
@@ -48,6 +53,13 @@ export default function ListDetails() {
       ? 2
       : null;
 
+  const favouriteCategoryId =
+    favouriteApiItemDetails.Type === "movie"
+      ? 1
+      : favouriteApiItemDetails.Type === "series"
+      ? 2
+      : null;
+
   interface ParamTypes {
     categoryName: string;
   }
@@ -58,6 +70,11 @@ export default function ListDetails() {
   const [desiredItemId, setDesiredItemId] = useState("");
   const itemToAdd =
     apiItemDetails?.imdbID === desiredItemId ? apiItemDetails : null;
+  const [favouriteItemId, setFavouriteItemId] = useState("");
+  const favouriteItemToAdd =
+    favouriteApiItemDetails?.imdbID === favouriteItemId
+      ? favouriteApiItemDetails
+      : null;
 
   const searchButtonText = searchBar
     ? "Hide"
@@ -67,6 +84,11 @@ export default function ListDetails() {
     return l.type === "Library";
   });
   const userLibraryListId = userLibraryList.id;
+
+  const userFavouriteList = user.profile.lists?.find((l: any) => {
+    return l.type === "Favourites";
+  });
+  const userFavouriteListId = userFavouriteList.id;
 
   function onClickSearch(event: MouseEvent) {
     event.preventDefault();
@@ -113,6 +135,21 @@ export default function ListDetails() {
   useEffect(() => {
     dispatch(addItemToList(itemToAdd, categoryId, userLibraryListId));
   }, [dispatch, apiItemDetails]);
+
+  function onClickFavouritesAdd(event: any) {
+    setFavouriteItemId(event.target.value);
+    dispatch(fetchFavouriteApiItemById(event.target.value));
+  }
+
+  useEffect(() => {
+    dispatch(
+      addItemToList(
+        favouriteItemToAdd,
+        favouriteCategoryId,
+        userFavouriteListId
+      )
+    );
+  }, [dispatch, favouriteApiItemDetails]);
 
   function favouritesRemove(event: any) {
     event.preventDefault();
@@ -193,7 +230,7 @@ export default function ListDetails() {
                     </Button>
                   ) : (
                     <Button
-                      onClick={onClickAdd}
+                      onClick={onClickFavouritesAdd}
                       value={i.imdbID}
                       variant="outline-dark"
                     >
@@ -243,7 +280,7 @@ export default function ListDetails() {
                 </Button>
               ) : (
                 <Button
-                  onClick={onClickAdd}
+                  onClick={onClickFavouritesAdd}
                   value={i.item.apiId}
                   variant="outline-dark"
                 >

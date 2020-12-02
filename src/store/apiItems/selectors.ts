@@ -12,4 +12,8 @@ export function selectApiItemDetails(state: RootState) {
   return state.apiItems.details;
 }
 
+export function selectFavouriteApiItemDetails(state: RootState) {
+  return state.apiItems.favouriteDetails;
+}
+
 // @ts-ignore
