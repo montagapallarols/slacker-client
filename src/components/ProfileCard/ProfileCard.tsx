@@ -31,7 +31,8 @@ export default function ProfileCard() {
               return list.list.type === "Favourites" &&
                 list.list.profileId === p.id ? (
                 <div key={list.item.id}>
-                  <p>{list.item.name}</p>
+                  {/* <p>{list.item.name}</p> */}
+                  <img src={list.item.poster} alt="poster" height="100px" />
                 </div>
               ) : null;
             })}
