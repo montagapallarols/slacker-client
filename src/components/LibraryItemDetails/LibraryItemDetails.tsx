@@ -23,6 +23,7 @@ import {
   selectAllCategories,
   selectAllListItems,
 } from "../../store/listItems/selectors";
+import StarRating from "../StarRating/StarRating";
 
 export default function LibraryItemDetails() {
   const dispatch = useDispatch();
@@ -128,6 +129,7 @@ export default function LibraryItemDetails() {
         <p>{apiItemDetails.Genre}</p>
       </em>
       <img src={apiItemDetails.Poster} height="250px" />
+      <StarRating />
       <p>{apiItemDetails.Plot}</p>
 
       {loggedInUser ? (

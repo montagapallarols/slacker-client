@@ -30,8 +30,8 @@ export default function StarRating() {
               onClick={() => setRating(ratingValue)}
             />
             <FaStar
-              size={40}
-              color={ratingValue <= (hover || rating) ? "#ffc107" : "e4e5e9"}
+              size={30}
+              color={ratingValue <= (hover || rating) ? "#ffc107" : "#696969"}
               className="star"
               onMouseEnter={() => setHover(ratingValue)}
               //   @ts-ignore

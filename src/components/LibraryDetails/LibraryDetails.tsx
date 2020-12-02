@@ -28,6 +28,7 @@ import {
   addItemToList,
   removeItemFromFavourites,
 } from "../../store/listItems/actions";
+import StarRating from "../StarRating/StarRating";
 
 export default function ListDetails() {
   const dispatch = useDispatch();
@@ -195,6 +196,7 @@ export default function ListDetails() {
                   <em>
                     <p>{i.Type}</p>
                   </em>
+
                   {i.Poster === "N/A" ? null : (
                     <img src={i.Poster} alt="poster" height="200px" />
                   )}
@@ -255,6 +257,7 @@ export default function ListDetails() {
               <em>
                 <p>{i.item.type}</p>
               </em>
+              <StarRating />
               {i.item.poster === "N/A" ? null : (
                 <img src={i.item.poster} alt="poster" height="200px" />
               )}

@@ -38,7 +38,6 @@ export default function MyProfile() {
 
   return (
     <div>
-      <StarRating />
       <h1>{`${userProfile.firstName} ${userProfile.lastName}`}</h1>
       <img src={userProfile.imageUrl} className="profile-image" />
       <p></p>
@@ -50,6 +49,7 @@ export default function MyProfile() {
             {userFavourites?.map((f: any) => {
               return (
                 <div key={f.item.id}>
+                  <StarRating />
                   <Link
                     to={`/my-profile/${user.id}/favourites/${f.item.apiId}`}
                     className="link"
