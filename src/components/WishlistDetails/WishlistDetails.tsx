@@ -54,6 +54,9 @@ export default function WishlistDetails() {
 
   const [searchText, setSearchText] = useState("");
   const [searchBar, setSearchBar] = useState(false);
+  const [desiredItemId, setDesiredItemId] = useState("");
+  const itemToAdd =
+    apiItemDetails?.imdbID === desiredItemId ? apiItemDetails : null;
   const searchButtonText = searchBar
     ? "Hide"
     : `Search and add ${categoryName}`;
@@ -67,14 +70,13 @@ export default function WishlistDetails() {
     event.preventDefault();
 
     dispatch(fetchApiItems(searchText));
-    console.log("Fetching", searchText);
 
     setSearchText("");
   }
 
   function handleClickRemove(event: any) {
     event.preventDefault();
-    console.log("Event value", event.target.value);
+
     dispatch(removeItemFromWishlist(event.target.value));
   }
 
@@ -93,12 +95,13 @@ export default function WishlistDetails() {
   console.log("ListItems in wishlist", listItemsInWishlist);
 
   function onClickAdd(event: any) {
-    // console.log("api item details", apiItemDetails);
-    // console.log("category id", categoryId);
-    // console.log("User library id", userLibraryListId);
+    setDesiredItemId(event.target.value);
     dispatch(fetchApiItemById(event.target.value));
-    dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
   }
+
+  useEffect(() => {
+    dispatch(addItemToList(itemToAdd, categoryId, userLibraryListId));
+  }, [dispatch, apiItemDetails]);
 
   return (
     <div>

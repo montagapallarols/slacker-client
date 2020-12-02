@@ -59,7 +59,6 @@ export default function ListDetails() {
   const itemToAdd =
     apiItemDetails?.imdbID === desiredItemId ? apiItemDetails : null;
 
-  console.log("ITEM ID?", desiredItemId);
   const searchButtonText = searchBar
     ? "Hide"
     : `Search and add ${categoryName}`;
@@ -73,19 +72,17 @@ export default function ListDetails() {
     event.preventDefault();
 
     dispatch(fetchApiItems(searchText));
-    // console.log("Fetching", searchText);
 
     setSearchText("");
   }
 
   function handleClickRemove(event: any) {
     event.preventDefault();
-    console.log("Event value", event.target.value);
+
     dispatch(removeItemFromLibrary(event.target.value));
   }
 
   const itemType = categoryName === "Films" ? "movie" : "series";
-  // console.log(itemType);
 
   const listItemsInLibrary = allListItems?.filter((i: any) => {
     return (
@@ -109,9 +106,6 @@ export default function ListDetails() {
   });
 
   function onClickAdd(event: any) {
-    // console.log("api item details", apiItemDetails);
-    // console.log("category id", categoryId);
-    // console.log("User library id", userLibraryListId);
     setDesiredItemId(event.target.value);
     dispatch(fetchApiItemById(event.target.value));
   }
