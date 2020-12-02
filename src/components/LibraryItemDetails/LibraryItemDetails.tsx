@@ -36,6 +36,15 @@ export default function LibraryItemDetails() {
   const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
 
+  interface ParamTypes {
+    userId: string;
+  }
+
+  const { userId } = useParams<ParamTypes>();
+  const profileUserId = parseInt(userId);
+  const loggedInUser = profileUserId === user.id ? true : false;
+  // console.log("Logged in?", loggedInUser);
+
   const categoryId =
     apiItemDetails.Type === "movie"
       ? 1
@@ -72,7 +81,7 @@ export default function LibraryItemDetails() {
   }, [dispatch, itemId]);
 
   useEffect(() => {
-    console.log("Favourite Item id", itemId);
+    // console.log("Favourite Item id", itemId);
     dispatch(fetchFavouriteApiItemById(itemId));
   }, [dispatch, favouriteApiItemDetails]);
 
@@ -99,7 +108,7 @@ export default function LibraryItemDetails() {
   const itemInFavourites = allListItems?.find((i: any) => {
     return i.list.type === "Favourites" && i.item.apiId === itemId;
   });
-  console.log("Item in favourites", itemInFavourites);
+  // console.log("Item in favourites", itemInFavourites);
 
   function onClickRemove() {
     dispatch(removeItemFromLibrary(itemId));
@@ -120,24 +129,29 @@ export default function LibraryItemDetails() {
       </em>
       <img src={apiItemDetails.Poster} height="250px" />
       <p>{apiItemDetails.Plot}</p>
-      {itemInLibrary ? (
-        <Button onClick={onClickRemove} variant="outline-dark">
-          Remove from Library
-        </Button>
-      ) : (
-        <Button onClick={onClickAdd} variant="outline-dark">
-          Add to Library
-        </Button>
-      )}
-      {itemInFavourites ? (
-        <Button onClick={favouriteRemove} variant="outline-dark">
-          Remove from Favourites
-        </Button>
-      ) : (
-        <Button onClick={favouriteAdd} variant="outline-dark">
-          Favourites
-        </Button>
-      )}
+
+      {loggedInUser ? (
+        <div>
+          {itemInLibrary ? (
+            <Button onClick={onClickRemove} variant="outline-dark">
+              Remove from Library
+            </Button>
+          ) : (
+            <Button onClick={onClickAdd} variant="outline-dark">
+              Add to Library
+            </Button>
+          )}
+          {itemInFavourites ? (
+            <Button onClick={favouriteRemove} variant="outline-dark">
+              Remove from Favourites
+            </Button>
+          ) : (
+            <Button onClick={favouriteAdd} variant="outline-dark">
+              Favourites
+            </Button>
+          )}
+        </div>
+      ) : null}
     </div>
   );
 }

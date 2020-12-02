@@ -76,7 +76,7 @@ export async function fetchListItems(dispatch: any, getState: any) {
   //   dispatch(setLoading(true));
 
   const response = await axios.get(`${serverUrl}/lists/listItems`);
-  console.log("List items response", response.data);
+  // console.log("List items response", response.data);
 
   dispatch(listItemsFetched(response.data));
   dispatch(setListItemsLoading(false));
@@ -86,7 +86,7 @@ export async function fetchCategories(dispatch: any, getState: any) {
   //   dispatch(setLoading(true));
 
   const response = await axios.get(`${serverUrl}/categories`);
-  console.log("List items response", response.data);
+  // console.log("Categories response", response.data);
 
   dispatch(categoriesFetched(response.data));
   dispatch(setListItemsLoading(false));

@@ -52,6 +52,11 @@ function App() {
         />
         <Route
           exact
+          path="/profiles/:userId/library/:categoryName/:itemId"
+          component={LibraryItemDetails}
+        />
+        <Route
+          exact
           path="/profiles/:userId/library/:categoryName"
           component={ProfileLibraryDetails}
         />
