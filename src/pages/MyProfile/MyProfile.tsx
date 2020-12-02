@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./MyProfile.css";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserProfile, selectUser } from "../../store/user/selectors";
 import { selectAllProfiles } from "../../store/profiles/selectors";
@@ -12,6 +12,12 @@ import {
 } from "../../store/listItems/selectors";
 import { removeItemFromFavourites } from "../../store/listItems/actions";
 import StarRating from "../../components/StarRating/StarRating";
+import StaticStarRating from "../../components/StaticStarRating/StaticStarRating";
+import {
+  selectAllReviews,
+  selectReviewsLoading,
+} from "../../store/reviews/selectors";
+import { fetchReviews } from "../../store/reviews/actions";
 
 export default function MyProfile() {
   const dispatch = useDispatch();
@@ -21,6 +27,23 @@ export default function MyProfile() {
   const allFavourites = useSelector(selectAllFavourites);
   const allListItems = useSelector(selectAllListItems);
   const allCategories = useSelector(selectAllCategories);
+  const reviewsLoading = useSelector(selectReviewsLoading);
+  const allReviews = useSelector(selectAllReviews);
+
+  interface ParamTypes {
+    userId: string;
+  }
+  const { userId } = useParams<ParamTypes>();
+  const userIdNum = parseInt(userId);
+
+  useEffect(() => {
+    console.log("Fetching reviews?");
+    dispatch(fetchReviews);
+  }, [dispatch]);
+
+  const profileReviews = allReviews?.filter((r: any) => {
+    return r.profile.userId === userIdNum;
+  });
 
   const userProfileWithLists: any = allProfiles?.find((p: any) => {
     return p.userId === user.id;
@@ -117,6 +140,27 @@ export default function MyProfile() {
           </div>
         </div>
       </div>
+      <h3>My Reviews</h3>
+      {profileReviews?.map((r: any) => {
+        return (
+          <div key={r.id}>
+            <h4>{r.item.name}</h4>
+            <img src={r.item.poster} alt="poster" height="100px" />
+            <em>
+              <h5>{r.name}</h5>
+            </em>
+            <em>
+              <p>{r.content}</p>
+            </em>
+            <StaticStarRating rating={r.rating} />
+            <em>
+              <p>
+                {r.profile.firstName} {r.profile.lastName}
+              </p>
+            </em>
+          </div>
+        );
+      })}
     </div>
   );
 }
