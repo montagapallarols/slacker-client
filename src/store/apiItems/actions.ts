@@ -65,13 +65,18 @@ export function fetchApiItemById(
   movieId: string
 ): ThunkAction<void, RootState, unknown, Action<string>> {
   return async function (dispatch, getState: any) {
-    const response = await axios.get(
-      `http://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f&plot=full`
-    );
-    // console.log("API item DETAILS response", response.data);
+    if (!movieId) return;
+    try {
+      const response = await axios.get(
+        `http://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f&plot=full`
+      );
+      console.log("API item DETAILS response", response.data);
 
-    dispatch(apiItemByIdFetched(response.data));
-    dispatch(setApiItemsLoading(false));
+      dispatch(apiItemByIdFetched(response.data));
+      dispatch(setApiItemsLoading(false));
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 

@@ -14,6 +14,7 @@ import {
 import {
   selectAllApiItems,
   selectApiItemsLoading,
+  selectApiItemDetails,
 } from "../../store/apiItems/selectors";
 import Rating from "@material-ui/lab/Rating";
 
@@ -21,6 +22,7 @@ export default function WriteReview() {
   const dispatch = useDispatch();
   const apiItemsLoading = useSelector(selectApiItemsLoading);
   const allApiItems = useSelector(selectAllApiItems);
+  const apiItemDetails: any = useSelector(selectApiItemDetails);
 
   interface ReviewItem {
     Poster: any | null;
@@ -30,11 +32,11 @@ export default function WriteReview() {
     imdbID: any | null;
   }
 
-  const [title, setTitle] = React.useState("");
-  const [content, setContent] = React.useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
   const [searchText, setSearchText] = useState("");
-  const [value, setValue] = React.useState(0);
-  const [reviewItem, setReviewItem] = React.useState<ReviewItem>();
+  const [value, setValue] = useState(0);
+  const [reviewItem, setReviewItem] = useState<ReviewItem>();
   console.log("Review item", reviewItem);
 
   useEffect(() => {
@@ -50,11 +52,13 @@ export default function WriteReview() {
   }
 
   useEffect(() => {
+    dispatch(fetchApiItemById(reviewItem?.imdbID));
     dispatch(removeSearchItems);
   }, [dispatch, reviewItem]);
+  console.log("Review Item?", reviewItem);
 
   function onClickRating() {
-    console.log("Rating");
+    // console.log("Rating");
   }
 
   function submitForm(event: MouseEvent) {
@@ -101,12 +105,12 @@ export default function WriteReview() {
           })}
         </div>
 
-        {reviewItem ? (
+        {reviewItem && reviewItem.imdbID === apiItemDetails?.imdbID ? (
           <div className="search-list">
             <div className="item-card">
-              <p>{reviewItem?.Title}</p>
-              <p>({reviewItem?.Year})</p>
-              <img src={reviewItem?.Poster} alt="poster" height="100px" />
+              <p>{apiItemDetails.Title}</p>
+              <p>({apiItemDetails.Year})</p>
+              <img src={apiItemDetails.Poster} alt="poster" height="100px" />
             </div>
             <Rating
               name="simple-controlled"

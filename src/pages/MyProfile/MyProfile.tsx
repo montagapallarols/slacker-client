@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./MyProfile.css";
 import Button from "react-bootstrap/Button";
 import { Link, useParams } from "react-router-dom";
@@ -10,7 +10,11 @@ import {
   selectAllListItems,
   selectAllCategories,
 } from "../../store/listItems/selectors";
-import { removeItemFromFavourites } from "../../store/listItems/actions";
+import {
+  removeItemFromFavourites,
+  fetchListItems,
+  fetchAllFavourites,
+} from "../../store/listItems/actions";
 import StarRating from "../../components/StarRating/StarRating";
 import StaticStarRating from "../../components/StaticStarRating/StaticStarRating";
 import {
@@ -29,6 +33,10 @@ export default function MyProfile() {
   const reviewsLoading = useSelector(selectReviewsLoading);
   const allReviews = useSelector(selectAllReviews);
 
+  const userFavourites = allFavourites?.filter((f: any) => {
+    return f.list.profileId === user.profile.id;
+  });
+
   interface ParamTypes {
     userId: string;
   }
@@ -43,13 +51,8 @@ export default function MyProfile() {
     return p.userId === user.id;
   });
 
-  const userFavourites = allFavourites?.filter((f: any) => {
-    return f.list.profileId === userProfile.id;
-  });
-
   function handleClickRemove(event: any) {
     event.preventDefault();
-    console.log("Event value", event.target.value);
     dispatch(removeItemFromFavourites(event.target.value));
   }
 
@@ -65,7 +68,7 @@ export default function MyProfile() {
           <div className="item-list">
             {userFavourites?.map((f: any) => {
               return (
-                <div key={f.item.id}>
+                <div key={f.itemId}>
                   <StarRating />
                   <Link
                     to={`/my-profile/${user.id}/favourites/${f.item.apiId}`}
