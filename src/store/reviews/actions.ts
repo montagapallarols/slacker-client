@@ -8,6 +8,12 @@ import {
 import { AppThunk } from "../types";
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
+import {
+  appLoading,
+  appDoneLoading,
+  showMessageWithTimeout,
+  setMessage,
+} from "../appState/actions";
 
 export function setReviewsLoading(loading: boolean) {
   return {
@@ -31,42 +37,44 @@ export function addReview(listItem: object) {
 }
 
 export async function fetchReviews(dispatch: any, getState: any) {
+  dispatch(appLoading());
   const response = await axios.get(`${serverUrl}/reviews/all`);
   console.log("REVIEWS response", response.data);
 
   dispatch(reviewsFetched(response.data));
-  dispatch(setReviewsLoading(false));
+  // dispatch(setReviewsLoading(false));
+  dispatch(appDoneLoading());
 }
 
-// export function addItemToList(
-//   apiItemDetails: any,
-//   categoryId: any,
-//   userLibraryListId: number
-// ) {
-//   return async (dispatch: any, getState: any) => {
-//     try {
-//       const response = await axios.post(
-//         `${serverUrl}/lists/selectedList/listItems`,
-//         {
-//           name: apiItemDetails.Title,
-//           year: apiItemDetails.Year,
-//           genre: apiItemDetails.Genre,
-//           director: apiItemDetails.Director,
-//           plot: apiItemDetails.Plot,
-//           poster: apiItemDetails.Poster,
-//           type: apiItemDetails.Type,
-//           apiId: apiItemDetails.imdbID,
-//           apiName: "omdb",
-//           categoryId: categoryId,
-//           listId: userLibraryListId,
-//         }
-//       );
-//       // console.log("Add new listItem response", response.data);
+export function postReview(
+  title: any,
+  content: any,
+  value: number,
+  reviewItemId: any,
+  profileIdString: string
+) {
+  return async (dispatch: any, getState: any) => {
+    dispatch(appLoading());
+    if (!title || !content || !value) {
+      return "Please provide a title, content and rating.";
+    }
+    const idString = reviewItemId.toString();
 
-//       dispatch(addListItem(response.data));
-//       dispatch(setListItemsLoading(false));
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-// }
+    try {
+      const response = await axios.post(
+        `${serverUrl}/reviews/${idString}/${profileIdString}`,
+        {
+          name: title,
+          content: content,
+          rating: value,
+        }
+      );
+      console.log("REVIEW response", response.data);
+
+      dispatch(addReview(response.data));
+      dispatch(appDoneLoading());
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}

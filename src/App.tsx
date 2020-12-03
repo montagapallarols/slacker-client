@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./App.css";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
 import Navigation from "./components/Navigation";
@@ -43,6 +43,7 @@ function App() {
       <Navigation />
       <MessageBox />
       {isLoading ? <Loading /> : null}
+      {/* {userWithToken ? <Redirect to="/login" /> : null} */}
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/login" component={Login} />

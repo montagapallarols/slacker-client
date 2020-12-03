@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./MyProfile.css";
 import Button from "react-bootstrap/Button";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, Redirect, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserProfile, selectUser } from "../../store/user/selectors";
 import { selectAllProfiles } from "../../store/profiles/selectors";
@@ -21,9 +21,12 @@ import {
   selectAllReviews,
   selectReviewsLoading,
 } from "../../store/reviews/selectors";
+import { selectAppLoading } from "../../store/appState/selectors";
+import Loading from "../../components/Loading";
 
 export default function MyProfile() {
   const dispatch = useDispatch();
+  const isLoading = useSelector(selectAppLoading);
   const user = useSelector(selectUser);
   const userProfile = useSelector(selectUserProfile);
   const allProfiles = useSelector(selectAllProfiles);
@@ -32,6 +35,13 @@ export default function MyProfile() {
   const allCategories = useSelector(selectAllCategories);
   const reviewsLoading = useSelector(selectReviewsLoading);
   const allReviews = useSelector(selectAllReviews);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!user.token) {
+      history.push("/");
+    }
+  }, [user.token, history]);
 
   const userFavourites = allFavourites?.filter((f: any) => {
     return f.list.profileId === user.profile.id;
@@ -56,10 +66,16 @@ export default function MyProfile() {
     dispatch(removeItemFromFavourites(event.target.value));
   }
 
+  if (!user.token) {
+    return <Redirect to="/"></Redirect>;
+  }
+
+  const loading = isLoading ? <Loading /> : null;
+
   return (
     <div>
-      <h1>{`${userProfile.firstName} ${userProfile.lastName}`}</h1>
-      <img src={userProfile.imageUrl} className="profile-image" />
+      <h1>{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
+      <img src={userProfile?.imageUrl} className="profile-image" />
       <p></p>
 
       <div className="list">

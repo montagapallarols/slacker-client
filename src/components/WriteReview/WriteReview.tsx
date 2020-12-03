@@ -2,14 +2,12 @@ import React, { useState, useEffect, MouseEvent } from "react";
 import "./WriteReview.css";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import { Col } from "react-bootstrap";
 import {
   fetchApiItems,
   fetchApiItemById,
   removeSearchItems,
-  fetchFavouriteApiItemById,
 } from "../../store/apiItems/actions";
 import {
   selectAllApiItems,
@@ -19,7 +17,8 @@ import {
 import Rating from "@material-ui/lab/Rating";
 import { selectAllListItems } from "../../store/listItems/selectors";
 import { selectUser } from "../../store/user/selectors";
-import { addItemToList } from "../../store/listItems/actions";
+import { addItemToList, fetchListItems } from "../../store/listItems/actions";
+import { postReview } from "../../store/reviews/actions";
 
 export default function WriteReview() {
   const dispatch = useDispatch();
@@ -43,7 +42,7 @@ export default function WriteReview() {
   const [searchText, setSearchText] = useState("");
   const [value, setValue] = useState(0);
   const [reviewItem, setReviewItem] = useState<ReviewItem>();
-  console.log("Review item", reviewItem);
+  const profileIdString = user.profile.id.toString();
 
   useEffect(() => {
     dispatch(removeSearchItems);
@@ -75,27 +74,33 @@ export default function WriteReview() {
   }
 
   const categoryId =
-    apiItemDetails.Type === "movie"
+    apiItemDetails?.Type === "movie"
       ? 1
-      : apiItemDetails.Type === "series"
+      : apiItemDetails?.Type === "series"
       ? 2
       : null;
 
-  const userLibraryList = user.profile.lists?.find((l: any) => {
+  const userLibraryList = user?.profile?.lists?.find((l: any) => {
     return l.type === "Library";
   });
-  const userLibraryListId = userLibraryList.id;
+  const userLibraryListId = userLibraryList?.id;
 
   function addToLibrary() {
     dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
   }
 
-  function onClickRating() {
-    // console.log("Rating");
-  }
+  const reviewListItem = allListItems?.find((i: any) => {
+    return i.item.apiId === reviewItem?.imdbID;
+  });
+  //   const reviewItemId = reviewListItem.id;
+  //   console.log("Review list item???", reviewItemId);
 
   function submitForm(event: MouseEvent) {
-    console.log("Submit review");
+    event.preventDefault();
+    // dispatch(postReview(title, content, value, reviewItemId, profileIdString));
+    setTitle("");
+    setContent("");
+    setValue(0);
   }
 
   return (
@@ -138,7 +143,7 @@ export default function WriteReview() {
           })}
         </div>
 
-        {reviewItem && reviewItem.imdbID === apiItemDetails?.imdbID ? (
+        {reviewItem && reviewItem?.imdbID === apiItemDetails?.imdbID ? (
           <div>
             <div className="search-list">
               <div className="item-card">
@@ -146,25 +151,26 @@ export default function WriteReview() {
                 <p>({apiItemDetails.Year})</p>
                 <img src={apiItemDetails.Poster} alt="poster" height="100px" />
               </div>
-              <Rating
-                name="simple-controlled"
-                value={value}
-                onChange={(event, newValue: any) => {
-                  setValue(newValue);
-                }}
-                onClick={onClickRating}
-              />
-              {apiIdLibraryArray?.includes(apiItemDetails.imdbID) ? null : (
+              {apiIdLibraryArray?.includes(reviewItem?.imdbID) ? (
+                <Rating
+                  name="simple-controlled"
+                  value={value}
+                  onChange={(event, newValue: any) => {
+                    setValue(newValue);
+                  }}
+                />
+              ) : null}
+              {apiIdLibraryArray?.includes(apiItemDetails?.imdbID) ? null : (
                 <Button
                   onClick={addToLibrary}
-                  value={apiItemDetails.imdbID}
+                  value={apiItemDetails?.imdbID}
                   variant="outline-dark"
                 >
                   Add to Library to review
                 </Button>
               )}
             </div>
-            {apiIdLibraryArray?.includes(reviewItem.imdbID) ? (
+            {apiIdLibraryArray?.includes(reviewItem?.imdbID) ? (
               <Button variant="dark" type="submit" onClick={onClickWrite}>
                 Write a review
               </Button>
