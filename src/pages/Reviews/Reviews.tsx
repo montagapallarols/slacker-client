@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import StaticStarRating from "../../components/StaticStarRating/StaticStarRating";
+import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllReviews,
   selectReviewsLoading,
@@ -10,12 +9,18 @@ import { fetchReviews } from "../../store/reviews/actions";
 import { selectUser, selectToken } from "../../store/user/selectors";
 import WriteReview from "../../components/WriteReview/WriteReview";
 import Loading from "../../components/Loading";
+import Rating from "@material-ui/lab/Rating";
 
 export default function Reviews() {
+  const dispatch = useDispatch();
   const reviewsLoading = useSelector(selectReviewsLoading);
   const allReviews = useSelector(selectAllReviews);
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
+
+  useEffect(() => {
+    dispatch(fetchReviews);
+  }, [dispatch]);
 
   return (
     <div>
@@ -33,7 +38,7 @@ export default function Reviews() {
             <em>
               <p>{r.content}</p>
             </em>
-            <StaticStarRating rating={r.rating} />
+            <Rating name="read-only" value={r.rating} readOnly />
 
             {token && r.profileId === user.profile.id ? (
               <Link to={`/my-profile/${user.id}`} className="link">

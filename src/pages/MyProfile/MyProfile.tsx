@@ -16,13 +16,13 @@ import {
   fetchAllFavourites,
 } from "../../store/listItems/actions";
 import StarRating from "../../components/StarRating/StarRating";
-import StaticStarRating from "../../components/StaticStarRating/StaticStarRating";
 import {
   selectAllReviews,
   selectReviewsLoading,
 } from "../../store/reviews/selectors";
 import { selectAppLoading } from "../../store/appState/selectors";
 import Loading from "../../components/Loading";
+import Rating from "@material-ui/lab/Rating";
 
 export default function MyProfile() {
   const dispatch = useDispatch();
@@ -165,7 +165,7 @@ export default function MyProfile() {
             <em>
               <p>{r.content}</p>
             </em>
-            <StaticStarRating rating={r.rating} />
+            <Rating name="read-only" value={r.rating} readOnly />
             <em>
               <p>
                 {r.profile.firstName} {r.profile.lastName}

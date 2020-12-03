@@ -17,8 +17,8 @@ import {
   selectAllReviews,
   // selectReviewsLoading,
 } from "../../store/reviews/selectors";
-import StaticStarRating from "../../components/StaticStarRating/StaticStarRating";
 import { fetchProfiles } from "../../store/profiles/actions";
+import Rating from "@material-ui/lab/Rating";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -144,7 +144,7 @@ export default function ProfilePage() {
             <em>
               <p>{r.content}</p>
             </em>
-            <StaticStarRating rating={r.rating} />
+            <Rating name="read-only" value={r.rating} readOnly />
             <em>
               <p>
                 {r.profile.firstName} {r.profile.lastName}

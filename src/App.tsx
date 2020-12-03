@@ -24,6 +24,8 @@ import { selectToken, selectUser } from "./store/user/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import { fetchReviews } from "./store/reviews/actions";
 import { selectAllReviews } from "./store/reviews/selectors";
+import { selectAllProfiles } from "./store/profiles/selectors";
+import { fetchProfiles } from "./store/profiles/actions";
 
 function App() {
   const dispatch = useDispatch();
@@ -31,14 +33,15 @@ function App() {
   const user = useSelector(selectUser);
   const userWithToken = useSelector(selectToken);
   const allReviews = useSelector(selectAllReviews);
+  const allProfiles = useSelector(selectAllProfiles);
 
   useEffect(() => {
     dispatch(getUserWithStoredToken());
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(fetchReviews);
-  }, [dispatch, allReviews]);
+  // useEffect(() => {
+  //   dispatch(fetchReviews);
+  // }, [dispatch, allReviews]);
 
   return (
     <div className="App">

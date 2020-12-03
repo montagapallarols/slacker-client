@@ -30,6 +30,7 @@ import {
 } from "../../store/listItems/actions";
 import StarRating from "../StarRating/StarRating";
 import { selectAllProfiles } from "../../store/profiles/selectors";
+import { fetchProfiles } from "../../store/profiles/actions";
 
 export default function ListDetails() {
   const dispatch = useDispatch();
@@ -43,6 +44,10 @@ export default function ListDetails() {
   const user = useSelector(selectUser);
   // const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
+
+  useEffect(() => {
+    dispatch(fetchProfiles);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(removeSearchItems);
