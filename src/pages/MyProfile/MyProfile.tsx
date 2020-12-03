@@ -4,16 +4,21 @@ import Button from "react-bootstrap/Button";
 import { Link, useParams, Redirect, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserProfile, selectUser } from "../../store/user/selectors";
-import { selectAllProfiles } from "../../store/profiles/selectors";
+import {
+  selectAllProfiles,
+  selectProfilesLoading,
+} from "../../store/profiles/selectors";
 import {
   selectAllFavourites,
   selectAllListItems,
   selectAllCategories,
+  selectListItemsLoading,
 } from "../../store/listItems/selectors";
 import {
   removeItemFromFavourites,
   fetchListItems,
   fetchAllFavourites,
+  fetchCategories,
 } from "../../store/listItems/actions";
 import StarRating from "../../components/StarRating/StarRating";
 import {
@@ -23,15 +28,18 @@ import {
 import { selectAppLoading } from "../../store/appState/selectors";
 import Loading from "../../components/Loading";
 import Rating from "@material-ui/lab/Rating";
+import { fetchReviews } from "../../store/reviews/actions";
+import { fetchProfiles } from "../../store/profiles/actions";
 
 export default function MyProfile() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
   const user = useSelector(selectUser);
-  const userProfile = useSelector(selectUserProfile);
   const allProfiles = useSelector(selectAllProfiles);
+  const profilesLoading = useSelector(selectProfilesLoading);
   const allFavourites = useSelector(selectAllFavourites);
   const allListItems = useSelector(selectAllListItems);
+  const listItemsLoading = useSelector(selectListItemsLoading);
   const allCategories = useSelector(selectAllCategories);
   const reviewsLoading = useSelector(selectReviewsLoading);
   const allReviews = useSelector(selectAllReviews);
@@ -43,9 +51,28 @@ export default function MyProfile() {
     }
   }, [user.token, history]);
 
-  const userFavourites = allFavourites?.filter((f: any) => {
-    return f.list.profileId === user.profile.id;
-  });
+  useEffect(() => {
+    if (
+      reviewsLoading ||
+      listItemsLoading ||
+      profilesLoading ||
+      !allFavourites ||
+      !allCategories
+    ) {
+      dispatch(fetchReviews);
+      dispatch(fetchListItems);
+      dispatch(fetchProfiles);
+      dispatch(fetchCategories);
+      dispatch(fetchAllFavourites);
+    }
+  }, [
+    dispatch,
+    reviewsLoading,
+    listItemsLoading,
+    profilesLoading,
+    allFavourites,
+    allCategories,
+  ]);
 
   interface ParamTypes {
     userId: string;
@@ -53,12 +80,16 @@ export default function MyProfile() {
   const { userId } = useParams<ParamTypes>();
   const userIdNum = parseInt(userId);
 
-  const profileReviews = allReviews?.filter((r: any) => {
-    return r.profile.userId === userIdNum;
+  const userProfile: any = allProfiles?.find((p: any) => {
+    return p.userId === user?.id;
   });
 
-  const userProfileWithLists: any = allProfiles?.find((p: any) => {
-    return p.userId === user.id;
+  const userFavourites = allFavourites?.filter((f: any) => {
+    return f.list.profileId === userProfile?.id;
+  });
+
+  const profileReviews = allReviews?.filter((r: any) => {
+    return r.profile.userId === userIdNum;
   });
 
   function handleClickRemove(event: any) {
@@ -66,9 +97,9 @@ export default function MyProfile() {
     dispatch(removeItemFromFavourites(event.target.value));
   }
 
-  if (!user.token) {
-    return <Redirect to="/"></Redirect>;
-  }
+  // if (!user.token) {
+  //   return <Redirect to="/"></Redirect>;
+  // }
 
   return (
     <div>

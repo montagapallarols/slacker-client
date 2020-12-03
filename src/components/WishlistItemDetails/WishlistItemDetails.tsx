@@ -17,12 +17,14 @@ import {
   selectAllCategories,
   selectAllListItems,
 } from "../../store/listItems/selectors";
+import { selectAllProfiles } from "../../store/profiles/selectors";
 
 export default function WishlistItemDetails() {
   const dispatch = useDispatch();
   const apiItemDetails: any = useSelector(selectApiItemDetails);
   const user = useSelector(selectUser);
   const allListItems = useSelector(selectAllListItems);
+  const allProfiles = useSelector(selectAllProfiles);
 
   interface ParamTypes {
     userId: string;
@@ -39,10 +41,13 @@ export default function WishlistItemDetails() {
       ? 2
       : null;
 
-  const userLibraryList = user.profile.lists?.find((l: any) => {
+  const userProfile: any = allProfiles?.find((p: any) => {
+    return p.userId === user.id;
+  });
+  const userLibraryList = userProfile?.lists?.find((l: any) => {
     return l.type === "Wishlist";
   });
-  const userLibraryListId = userLibraryList.id;
+  const userLibraryListId = userLibraryList?.id;
 
   interface ParamTypes {
     itemId: string;

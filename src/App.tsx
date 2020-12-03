@@ -39,10 +39,6 @@ function App() {
     dispatch(getUserWithStoredToken());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   dispatch(fetchReviews);
-  // }, [dispatch, allReviews]);
-
   return (
     <div className="App">
       <Navigation />

@@ -58,13 +58,13 @@ export default function WishlistDetails() {
     : `Search and add ${categoryName}`;
 
   const userProfile: any = allProfiles?.find((p: any) => {
-    return p.userId === user.id;
+    return p.userId === user?.id;
   });
 
   const userWishlistList = userProfile?.lists?.find((l: any) => {
     return l.type === "Wishlist";
   });
-  const userLibraryListId = userWishlistList.id;
+  const userLibraryListId = userWishlistList?.id;
 
   function onClickSearch(event: MouseEvent) {
     event.preventDefault();

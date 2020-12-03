@@ -94,13 +94,13 @@ export default function ListDetails() {
     return l.type === "Library";
   });
 
-  const userLibraryListId = userLibraryList.id;
+  const userLibraryListId = userLibraryList?.id;
 
   const userFavouriteList = userProfile?.lists?.find((l: any) => {
     return l.type === "Favourites";
   });
 
-  const userFavouriteListId = userFavouriteList.id;
+  const userFavouriteListId = userFavouriteList?.id;
 
   function onClickSearch(event: MouseEvent) {
     event.preventDefault();

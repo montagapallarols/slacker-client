@@ -50,7 +50,7 @@ export default function ProfilePage() {
   });
 
   const userFavourites = allFavourites?.filter((f: any) => {
-    return f.list.profileId === userProfile.id;
+    return f.list.profileId === userProfile?.id;
   });
 
   // function handleClickRemove(event: any) {

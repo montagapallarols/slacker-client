@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectAllReviews,
@@ -17,10 +17,17 @@ export default function Reviews() {
   const allReviews = useSelector(selectAllReviews);
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(fetchReviews);
-  }, [dispatch]);
+  }, [dispatch, reviewsLoading]);
+
+  useEffect(() => {
+    if (reviewsLoading) {
+      history.push("/");
+    }
+  }, [reviewsLoading, history]);
 
   return (
     <div>
