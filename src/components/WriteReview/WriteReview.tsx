@@ -19,6 +19,7 @@ import {
 import Rating from "@material-ui/lab/Rating";
 import { selectAllListItems } from "../../store/listItems/selectors";
 import { selectUser } from "../../store/user/selectors";
+import { addItemToList } from "../../store/listItems/actions";
 
 export default function WriteReview() {
   const dispatch = useDispatch();
@@ -71,6 +72,22 @@ export default function WriteReview() {
 
   function onClickWrite() {
     setReviewForm(true);
+  }
+
+  const categoryId =
+    apiItemDetails.Type === "movie"
+      ? 1
+      : apiItemDetails.Type === "series"
+      ? 2
+      : null;
+
+  const userLibraryList = user.profile.lists?.find((l: any) => {
+    return l.type === "Library";
+  });
+  const userLibraryListId = userLibraryList.id;
+
+  function addToLibrary() {
+    dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
   }
 
   function onClickRating() {
@@ -139,11 +156,11 @@ export default function WriteReview() {
               />
               {apiIdLibraryArray?.includes(apiItemDetails.imdbID) ? null : (
                 <Button
-                  // onClick={onClickAdd}
+                  onClick={addToLibrary}
                   value={apiItemDetails.imdbID}
                   variant="outline-dark"
                 >
-                  Add to Library
+                  Add to Library to review
                 </Button>
               )}
             </div>
