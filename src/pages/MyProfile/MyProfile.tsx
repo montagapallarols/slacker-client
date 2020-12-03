@@ -70,8 +70,6 @@ export default function MyProfile() {
     return <Redirect to="/"></Redirect>;
   }
 
-  const loading = isLoading ? <Loading /> : null;
-
   return (
     <div>
       <h1>{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>

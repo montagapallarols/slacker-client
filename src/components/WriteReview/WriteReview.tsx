@@ -42,7 +42,7 @@ export default function WriteReview() {
   const [searchText, setSearchText] = useState("");
   const [value, setValue] = useState(0);
   const [reviewItem, setReviewItem] = useState<ReviewItem>();
-  const profileIdString = user.profile.id.toString();
+  const profileIdString = user?.profile?.id.toString();
 
   useEffect(() => {
     dispatch(removeSearchItems);

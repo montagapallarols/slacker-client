@@ -3,28 +3,36 @@ import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserProfile, selectUser } from "../../store/user/selectors";
-import { selectAllProfiles } from "../../store/profiles/selectors";
+import {
+  selectAllProfiles,
+  // selectProfilesLoading,
+} from "../../store/profiles/selectors";
 import {
   selectAllFavourites,
-  selectAllListItems,
+  // selectAllListItems,
   selectAllCategories,
 } from "../../store/listItems/selectors";
 import { removeItemFromFavourites } from "../../store/listItems/actions";
 import {
   selectAllReviews,
-  selectReviewsLoading,
+  // selectReviewsLoading,
 } from "../../store/reviews/selectors";
 import StaticStarRating from "../../components/StaticStarRating/StaticStarRating";
+import { fetchProfiles } from "../../store/profiles/actions";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
   const allProfiles = useSelector(selectAllProfiles);
+  // const profilesLoading = useSelector(selectProfilesLoading);
   const allFavourites = useSelector(selectAllFavourites);
-  const allListItems = useSelector(selectAllListItems);
+  // const allListItems = useSelector(selectAllListItems);
   const allCategories = useSelector(selectAllCategories);
-  const reviewsLoading = useSelector(selectReviewsLoading);
+  // const reviewsLoading = useSelector(selectReviewsLoading);
   const allReviews = useSelector(selectAllReviews);
+
+  useEffect(() => {
+    dispatch(fetchProfiles);
+  }, [allProfiles]);
 
   interface ParamTypes {
     userId: any;
@@ -44,16 +52,16 @@ export default function ProfilePage() {
     return f.list.profileId === userProfile.id;
   });
 
-  function handleClickRemove(event: any) {
-    event.preventDefault();
-    console.log("Event value", event.target.value);
-    dispatch(removeItemFromFavourites(event.target.value));
-  }
+  // function handleClickRemove(event: any) {
+  //   event.preventDefault();
+  //   console.log("Event value", event.target.value);
+  //   dispatch(removeItemFromFavourites(event.target.value));
+  // }
 
   return (
     <div>
-      <h1>{`${userProfile.firstName} ${userProfile.lastName}`}</h1>
-      <img src={userProfile.imageUrl} className="profile-image" />
+      <h1>{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
+      <img src={userProfile?.imageUrl} className="profile-image" />
       <p></p>
 
       <div className="list">
@@ -123,7 +131,7 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
-      <h3>{userProfile.firstName}'s Reviews</h3>
+      <h3>{userProfile?.firstName}'s Reviews</h3>
       {profileReviews?.map((r: any) => {
         return (
           <div key={r.id}>
