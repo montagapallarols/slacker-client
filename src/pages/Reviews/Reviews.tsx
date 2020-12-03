@@ -51,7 +51,14 @@ export default function Reviews() {
           </div>
         );
       })}
-      <WriteReview />
+      {token ? (
+        <WriteReview />
+      ) : (
+        <h5>
+          <Link to="/login">Log in </Link> or <Link to="/signup">sign up</Link>{" "}
+          to write a review.
+        </h5>
+      )}
     </div>
   );
 }

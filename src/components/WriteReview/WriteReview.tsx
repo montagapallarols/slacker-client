@@ -53,6 +53,10 @@ export default function WriteReview() {
     dispatch(removeSearchItems);
   }, [dispatch, reviewItem]);
 
+  function onClickRating() {
+    console.log("Rating");
+  }
+
   function submitForm(event: MouseEvent) {
     console.log("Submit review");
   }
@@ -104,6 +108,14 @@ export default function WriteReview() {
               <p>({reviewItem?.Year})</p>
               <img src={reviewItem?.Poster} alt="poster" height="100px" />
             </div>
+            <Rating
+              name="simple-controlled"
+              value={value}
+              onChange={(event, newValue: any) => {
+                setValue(newValue);
+              }}
+              onClick={onClickRating}
+            />
           </div>
         ) : null}
 
@@ -133,15 +145,4 @@ export default function WriteReview() {
       </Form>
     </div>
   );
-}
-
-{
-  /* <Rating
-                  name="simple-controlled"
-                  value={value}
-                  onChange={(event, newValue: any) => {
-                    setValue(newValue);
-                  }}
-                  onClick={onClickRating}
-                /> */
 }
