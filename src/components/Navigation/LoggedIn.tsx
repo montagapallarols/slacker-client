@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logOut } from "../../store/user/actions";
 import Button from "react-bootstrap/Button";
-import { selectUser } from "../../store/user/selectors";
+import { selectToken, selectUser } from "../../store/user/selectors";
 import Nav from "react-bootstrap/Nav";
 import NavbarItem from "./NavbarItem";
 import { useHistory } from "react-router-dom";
@@ -10,12 +10,14 @@ import { useHistory } from "react-router-dom";
 export default function LoggedIn() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const token = useSelector(selectToken);
   const history = useHistory();
 
-  // function handleOnClick() {
-  //   dispatch(logOut);
-  //   history.push("/");
-  // }
+  useEffect(() => {
+    if (!token) {
+      history.push("/");
+    }
+  }, [token, history]);
 
   return (
     <>
@@ -24,7 +26,6 @@ export default function LoggedIn() {
       <Button variant="dark" onClick={() => dispatch(logOut())}>
         Logout
       </Button>
-      {/* <Button onClick={handleOnClick}>Logout</Button> */}
     </>
   );
 }

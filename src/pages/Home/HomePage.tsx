@@ -79,6 +79,7 @@ export default function HomePage() {
           </Button>{" "}
           {allCategories?.map((category: any) => (
             <Button
+              key={category.id}
               variant="outline-dark"
               onClick={() => {
                 setCategoryFilterId(category.id);

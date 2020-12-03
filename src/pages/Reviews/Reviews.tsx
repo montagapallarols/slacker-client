@@ -8,7 +8,6 @@ import {
 import { fetchReviews } from "../../store/reviews/actions";
 import { selectUser, selectToken } from "../../store/user/selectors";
 import WriteReview from "../../components/WriteReview/WriteReview";
-import Loading from "../../components/Loading";
 import Rating from "@material-ui/lab/Rating";
 
 export default function Reviews() {

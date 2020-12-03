@@ -1,6 +1,6 @@
 import React, { useEffect, useState, MouseEvent } from "react";
 import "./WishlistDetails.css";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -16,25 +16,51 @@ import {
   selectApiItemDetails,
 } from "../../store/apiItems/selectors";
 import { selectUser } from "../../store/user/selectors";
-import { selectAllListItems } from "../../store/listItems/selectors";
+import {
+  selectAllCategories,
+  selectAllListItems,
+  selectListItemsLoading,
+} from "../../store/listItems/selectors";
 import {
   removeItemFromWishlist,
   addItemToList,
+  fetchListItems,
+  fetchCategories,
 } from "../../store/listItems/actions";
 import { selectAllProfiles } from "../../store/profiles/selectors";
+import { fetchProfiles } from "../../store/profiles/actions";
 
 export default function WishlistDetails() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const allApiItems = useSelector(selectAllApiItems);
   const apiItemDetails: any = useSelector(selectApiItemDetails);
   const user = useSelector(selectUser);
   const allListItems = useSelector(selectAllListItems);
+  const listItemsLoading = useSelector(selectListItemsLoading);
   const allProfiles = useSelector(selectAllProfiles);
+  const allCategories = useSelector(selectAllCategories);
 
   useEffect(() => {
-    console.log("Clear");
+    dispatch(fetchProfiles);
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(removeSearchItems);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!user.token) {
+      history.push("/");
+    }
+  }, [user.token, history]);
+
+  useEffect(() => {
+    if (listItemsLoading || !allCategories) {
+      dispatch(fetchListItems);
+      dispatch(fetchCategories);
+    }
+  }, [dispatch, listItemsLoading, allCategories]);
 
   const categoryId =
     apiItemDetails.Type === "movie"
@@ -85,7 +111,7 @@ export default function WishlistDetails() {
   const listItemsInWishlist = allListItems?.filter((i: any) => {
     return (
       i.list.type === "Wishlist" &&
-      i.list.profileId === user.profile.id &&
+      i.list.profileId === userProfile?.id &&
       i.item.type === itemType
     );
   });
@@ -143,7 +169,7 @@ export default function WishlistDetails() {
                   {i.Poster === "N/A" ? null : (
                     <img src={i.Poster} alt="poster" height="200px" />
                   )}
-                  {apiIdWishlistArray?.includes(i.imdbID) ? (
+                  {apiIdWishlistArray.includes(i.imdbID) ? (
                     <Button
                       onClick={handleClickRemove}
                       value={i.imdbID}

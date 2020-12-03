@@ -43,6 +43,7 @@ export default function WriteReview() {
   const [value, setValue] = useState(0);
   const [reviewItem, setReviewItem] = useState<ReviewItem>();
   const profileIdString = user?.profile?.id.toString();
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     dispatch(removeSearchItems);
@@ -101,6 +102,7 @@ export default function WriteReview() {
     setTitle("");
     setContent("");
     setValue(0);
+    setSuccessMessage("Great! Your review has been submitted.");
   }
 
   return (
@@ -198,6 +200,7 @@ export default function WriteReview() {
                 required
               />
             </Form.Group>
+            {successMessage}
             <Form.Group className="mt-5">
               <Button variant="dark" type="submit" onClick={submitForm}>
                 Add review

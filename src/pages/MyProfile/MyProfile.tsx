@@ -56,14 +56,12 @@ export default function MyProfile() {
       reviewsLoading ||
       listItemsLoading ||
       profilesLoading ||
-      !allFavourites ||
       !allCategories
     ) {
       dispatch(fetchReviews);
       dispatch(fetchListItems);
       dispatch(fetchProfiles);
       dispatch(fetchCategories);
-      dispatch(fetchAllFavourites);
     }
   }, [
     dispatch,
@@ -73,6 +71,10 @@ export default function MyProfile() {
     allFavourites,
     allCategories,
   ]);
+
+  useEffect(() => {
+    dispatch(fetchAllFavourites);
+  }, [dispatch, allFavourites]);
 
   interface ParamTypes {
     userId: string;

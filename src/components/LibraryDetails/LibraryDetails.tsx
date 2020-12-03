@@ -1,6 +1,6 @@
 import React, { useEffect, useState, MouseEvent } from "react";
 import "./LibraryDetails.css";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -22,11 +22,14 @@ import { selectUser } from "../../store/user/selectors";
 import {
   selectAllCategories,
   selectAllListItems,
+  selectListItemsLoading,
 } from "../../store/listItems/selectors";
 import {
   removeItemFromLibrary,
   addItemToList,
   removeItemFromFavourites,
+  fetchListItems,
+  fetchCategories,
 } from "../../store/listItems/actions";
 import StarRating from "../StarRating/StarRating";
 import { selectAllProfiles } from "../../store/profiles/selectors";
@@ -34,6 +37,7 @@ import { fetchProfiles } from "../../store/profiles/actions";
 
 export default function ListDetails() {
   const dispatch = useDispatch();
+  const history = useHistory();
   // const apiItemsLoading = useSelector(selectApiItemsLoading);
   const allApiItems = useSelector(selectAllApiItems);
   const apiItemDetails: any = useSelector(selectApiItemDetails);
@@ -42,8 +46,9 @@ export default function ListDetails() {
     selectFavouriteApiItemDetails
   );
   const user = useSelector(selectUser);
-  // const allCategories = useSelector(selectAllCategories);
+  const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
+  const listItemsLoading = useSelector(selectListItemsLoading);
 
   useEffect(() => {
     dispatch(fetchProfiles);
@@ -52,6 +57,19 @@ export default function ListDetails() {
   useEffect(() => {
     dispatch(removeSearchItems);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!user.token) {
+      history.push("/");
+    }
+  }, [user.token, history]);
+
+  useEffect(() => {
+    if (listItemsLoading || !allCategories) {
+      dispatch(fetchListItems);
+      dispatch(fetchCategories);
+    }
+  }, [dispatch, listItemsLoading, allCategories]);
 
   const categoryId =
     apiItemDetails.Type === "movie"
@@ -121,7 +139,7 @@ export default function ListDetails() {
   const listItemsInLibrary = allListItems?.filter((i: any) => {
     return (
       i.list.type === "Library" &&
-      i.list.profileId === user.profile.id &&
+      i.list.profileId === userProfile?.id &&
       i.item.type === itemType
     );
   });
@@ -131,7 +149,7 @@ export default function ListDetails() {
   });
 
   const listItemsInFavourites = allListItems?.filter((i: any) => {
-    return i.list.type === "Favourites" && i.list.profileId === user.profile.id;
+    return i.list.type === "Favourites" && i.list.profileId === userProfile?.id;
   });
   // console.log("List items in Favourites", listItemsInFavourites);
 
