@@ -8,7 +8,7 @@ export default function FavouriteCard() {
   console.log("Favourites by category", favouriteItemsByCategory);
   return (
     <div>
-      {favouriteItemsByCategory.map((f) => {
+      {favouriteItemsByCategory?.map((f) => {
         return (
           <Link to={`/favourites/${f.apiId}`} className="link" key={f.id}>
             <div>

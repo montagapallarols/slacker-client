@@ -12,28 +12,24 @@ import {
   removeSearchItems,
 } from "../../store/apiItems/actions";
 import {
-  selectApiItemsLoading,
   selectAllApiItems,
   selectApiItemDetails,
 } from "../../store/apiItems/selectors";
 import { selectUser } from "../../store/user/selectors";
-import {
-  selectAllCategories,
-  selectAllListItems,
-} from "../../store/listItems/selectors";
+import { selectAllListItems } from "../../store/listItems/selectors";
 import {
   removeItemFromWishlist,
   addItemToList,
 } from "../../store/listItems/actions";
+import { selectAllProfiles } from "../../store/profiles/selectors";
 
 export default function WishlistDetails() {
   const dispatch = useDispatch();
-  const apiItemsLoading = useSelector(selectApiItemsLoading);
   const allApiItems = useSelector(selectAllApiItems);
   const apiItemDetails: any = useSelector(selectApiItemDetails);
   const user = useSelector(selectUser);
-  const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
+  const allProfiles = useSelector(selectAllProfiles);
 
   useEffect(() => {
     console.log("Clear");
@@ -61,7 +57,11 @@ export default function WishlistDetails() {
     ? "Hide"
     : `Search and add ${categoryName}`;
 
-  const userWishlistList = user.profile.lists?.find((l: any) => {
+  const userProfile: any = allProfiles?.find((p: any) => {
+    return p.userId === user.id;
+  });
+
+  const userWishlistList = userProfile?.lists?.find((l: any) => {
     return l.type === "Wishlist";
   });
   const userLibraryListId = userWishlistList.id;
@@ -165,7 +165,6 @@ export default function WishlistDetails() {
                   >
                     <Button variant="outline-dark">More details</Button>
                   </Link>
-                  {/* <Button variant="outline-dark">Favourites</Button> */}
                 </div>
               );
             })}
@@ -199,7 +198,6 @@ export default function WishlistDetails() {
               >
                 <Button variant="outline-dark">Details</Button>
               </Link>
-              {/* <Button variant="outline-dark">Favourites</Button> */}
             </div>
           );
         })}

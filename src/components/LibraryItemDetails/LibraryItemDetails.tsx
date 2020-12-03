@@ -44,7 +44,6 @@ export default function LibraryItemDetails() {
   const { userId } = useParams<ParamTypes>();
   const profileUserId = parseInt(userId);
   const loggedInUser = profileUserId === user.id ? true : false;
-  // console.log("Logged in?", loggedInUser);
 
   const categoryId =
     apiItemDetails.Type === "movie"
@@ -60,12 +59,12 @@ export default function LibraryItemDetails() {
       ? 2
       : null;
 
-  const userLibraryList = user.profile.lists?.find((l: any) => {
+  const userLibraryList = user.profile?.lists?.find((l: any) => {
     return l.type === "Library";
   });
   const userLibraryListId = userLibraryList.id;
 
-  const userFavouriteList = user.profile.lists?.find((l: any) => {
+  const userFavouriteList = user.profile?.lists?.find((l: any) => {
     return l.type === "Favourites";
   });
   const userFavouriteListId = userFavouriteList.id;
@@ -77,26 +76,18 @@ export default function LibraryItemDetails() {
   const { itemId } = useParams<ParamTypes>();
 
   useEffect(() => {
-    // console.log("Item id", itemId);
     dispatch(fetchApiItemById(itemId));
   }, [dispatch, itemId]);
 
   useEffect(() => {
-    // console.log("Favourite Item id", itemId);
     dispatch(fetchFavouriteApiItemById(itemId));
   }, [dispatch, favouriteApiItemDetails]);
 
   function onClickAdd() {
-    // console.log("api item details", apiItemDetails);
-    // console.log("category id", categoryId);
-    // console.log("User library id", userLibraryListId);
     dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
   }
 
   function favouriteAdd() {
-    // console.log("api item details", apiItemDetails);
-    // console.log("category id", categoryId);
-    // console.log("User library id", userLibraryListId);
     dispatch(
       addItemToList(favouriteApiItemDetails, categoryId, userFavouriteListId)
     );
@@ -109,7 +100,6 @@ export default function LibraryItemDetails() {
   const itemInFavourites = allListItems?.find((i: any) => {
     return i.list.type === "Favourites" && i.item.apiId === itemId;
   });
-  // console.log("Item in favourites", itemInFavourites);
 
   function onClickRemove() {
     dispatch(removeItemFromLibrary(itemId));
@@ -121,16 +111,16 @@ export default function LibraryItemDetails() {
 
   return (
     <div>
-      <h2>{apiItemDetails.Title}</h2>
-      <p>{apiItemDetails.Year}</p>
-      <p>({apiItemDetails.Type})</p>
-      <p>Directed by {apiItemDetails.Director}</p>
+      <h2>{apiItemDetails?.Title}</h2>
+      <p>{apiItemDetails?.Year}</p>
+      <p>({apiItemDetails?.Type})</p>
+      <p>Directed by {apiItemDetails?.Director}</p>
       <em>
-        <p>{apiItemDetails.Genre}</p>
+        <p>{apiItemDetails?.Genre}</p>
       </em>
-      <img src={apiItemDetails.Poster} height="250px" />
+      <img src={apiItemDetails?.Poster} height="250px" />
       <StarRating />
-      <p>{apiItemDetails.Plot}</p>
+      <p>{apiItemDetails?.Plot}</p>
 
       {loggedInUser ? (
         <div>

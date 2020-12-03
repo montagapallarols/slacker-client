@@ -1,28 +1,14 @@
-import React, { useEffect, useState, MouseEvent } from "react";
+import React from "react";
 import "./ProfileWishlistDetails.css";
 import { useParams, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
+import { useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
-import { Col } from "react-bootstrap";
-import {
-  selectApiItemsLoading,
-  selectAllApiItems,
-  selectApiItemDetails,
-  selectFavouriteApiItemDetails,
-} from "../../store/apiItems/selectors";
+
 import { selectAllProfiles } from "../../store/profiles/selectors";
-import {
-  selectAllCategories,
-  selectAllListItems,
-} from "../../store/listItems/selectors";
+import { selectAllListItems } from "../../store/listItems/selectors";
 
 export default function ProfileLibraryDetails() {
-  const dispatch = useDispatch();
   const allProfiles = useSelector(selectAllProfiles);
-  const apiItemsLoading = useSelector(selectApiItemsLoading);
-  const allApiItems = useSelector(selectAllApiItems);
   const allListItems = useSelector(selectAllListItems);
 
   interface ParamTypes {
@@ -49,12 +35,11 @@ export default function ProfileLibraryDetails() {
       i.item.type === itemType
     );
   });
-  // console.log("List Items in wishlist", listItemsInLibrary);
 
   return (
     <div>
       <h2>
-        {userProfile.user.firstName}'s {categoryName} Library
+        {userProfile?.user?.firstName}'s {categoryName} Library
       </h2>
       <div className="library-list">
         {listItemsInWishlist?.map((i: any) => {

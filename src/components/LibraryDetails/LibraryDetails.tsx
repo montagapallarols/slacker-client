@@ -29,17 +29,19 @@ import {
   removeItemFromFavourites,
 } from "../../store/listItems/actions";
 import StarRating from "../StarRating/StarRating";
+import { selectAllProfiles } from "../../store/profiles/selectors";
 
 export default function ListDetails() {
   const dispatch = useDispatch();
-  const apiItemsLoading = useSelector(selectApiItemsLoading);
+  // const apiItemsLoading = useSelector(selectApiItemsLoading);
   const allApiItems = useSelector(selectAllApiItems);
   const apiItemDetails: any = useSelector(selectApiItemDetails);
+  const allProfiles = useSelector(selectAllProfiles);
   const favouriteApiItemDetails: any = useSelector(
     selectFavouriteApiItemDetails
   );
   const user = useSelector(selectUser);
-  const allCategories = useSelector(selectAllCategories);
+  // const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
 
   useEffect(() => {
@@ -80,14 +82,19 @@ export default function ListDetails() {
     ? "Hide"
     : `Search and add ${categoryName}`;
 
-  const userLibraryList = user.profile.lists?.find((l: any) => {
+  const userProfile: any = allProfiles?.find((p: any) => {
+    return p.userId === user.id;
+  });
+  const userLibraryList = userProfile?.lists?.find((l: any) => {
     return l.type === "Library";
   });
+
   const userLibraryListId = userLibraryList.id;
 
-  const userFavouriteList = user.profile.lists?.find((l: any) => {
+  const userFavouriteList = userProfile?.lists?.find((l: any) => {
     return l.type === "Favourites";
   });
+
   const userFavouriteListId = userFavouriteList.id;
 
   function onClickSearch(event: MouseEvent) {

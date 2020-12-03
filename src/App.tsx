@@ -23,12 +23,14 @@ import ProfileWishlistDetails from "./components/ProfileWishlistDetails/ProfileW
 import { selectToken, selectUser } from "./store/user/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
 import { fetchReviews } from "./store/reviews/actions";
+import { selectAllReviews } from "./store/reviews/selectors";
 
 function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
   const user = useSelector(selectUser);
   const userWithToken = useSelector(selectToken);
+  const allReviews = useSelector(selectAllReviews);
 
   useEffect(() => {
     dispatch(getUserWithStoredToken());
@@ -36,7 +38,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchReviews);
-  }, [dispatch]);
+  }, [dispatch, allReviews]);
 
   return (
     <div className="App">

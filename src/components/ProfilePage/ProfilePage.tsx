@@ -9,10 +9,10 @@ import {
 } from "../../store/profiles/selectors";
 import {
   selectAllFavourites,
-  // selectAllListItems,
+  selectAllListItems,
   selectAllCategories,
 } from "../../store/listItems/selectors";
-import { removeItemFromFavourites } from "../../store/listItems/actions";
+import { fetchListItems } from "../../store/listItems/actions";
 import {
   selectAllReviews,
   // selectReviewsLoading,
@@ -25,14 +25,15 @@ export default function ProfilePage() {
   const allProfiles = useSelector(selectAllProfiles);
   // const profilesLoading = useSelector(selectProfilesLoading);
   const allFavourites = useSelector(selectAllFavourites);
-  // const allListItems = useSelector(selectAllListItems);
+  const allListItems = useSelector(selectAllListItems);
   const allCategories = useSelector(selectAllCategories);
   // const reviewsLoading = useSelector(selectReviewsLoading);
   const allReviews = useSelector(selectAllReviews);
 
   useEffect(() => {
     dispatch(fetchProfiles);
-  }, [allProfiles]);
+    dispatch(fetchListItems);
+  }, [allProfiles, allListItems]);
 
   interface ParamTypes {
     userId: any;

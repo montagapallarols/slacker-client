@@ -37,13 +37,12 @@ export function addReview(listItem: object) {
 }
 
 export async function fetchReviews(dispatch: any, getState: any) {
-  dispatch(appLoading());
   const response = await axios.get(`${serverUrl}/reviews/all`);
   console.log("REVIEWS response", response.data);
 
   dispatch(reviewsFetched(response.data));
   // dispatch(setReviewsLoading(false));
-  dispatch(appDoneLoading());
+  dispatch(setReviewsLoading(false));
 }
 
 export function postReview(
@@ -54,7 +53,6 @@ export function postReview(
   profileIdString: string
 ) {
   return async (dispatch: any, getState: any) => {
-    dispatch(appLoading());
     if (!title || !content || !value) {
       return "Please provide a title, content and rating.";
     }
@@ -72,7 +70,7 @@ export function postReview(
       console.log("REVIEW response", response.data);
 
       dispatch(addReview(response.data));
-      dispatch(appDoneLoading());
+      dispatch(setReviewsLoading(false));
     } catch (error) {
       console.log(error);
     }
