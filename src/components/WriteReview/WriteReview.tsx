@@ -17,10 +17,14 @@ import {
   selectApiItemDetails,
 } from "../../store/apiItems/selectors";
 import Rating from "@material-ui/lab/Rating";
+import { selectAllListItems } from "../../store/listItems/selectors";
+import { selectUser } from "../../store/user/selectors";
 
 export default function WriteReview() {
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const apiItemsLoading = useSelector(selectApiItemsLoading);
+  const allListItems = useSelector(selectAllListItems);
   const allApiItems = useSelector(selectAllApiItems);
   const apiItemDetails: any = useSelector(selectApiItemDetails);
 
@@ -32,6 +36,7 @@ export default function WriteReview() {
     imdbID: any | null;
   }
 
+  const [reviewForm, setReviewForm] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -55,7 +60,18 @@ export default function WriteReview() {
     dispatch(fetchApiItemById(reviewItem?.imdbID));
     dispatch(removeSearchItems);
   }, [dispatch, reviewItem]);
-  console.log("Review Item?", reviewItem);
+
+  const listItemsInLibrary = allListItems?.filter((i: any) => {
+    return i.list.type === "Library" && i.list.profileId === user.profile.id;
+  });
+
+  const apiIdLibraryArray = listItemsInLibrary?.map((i: any) => {
+    return i.item.apiId;
+  });
+
+  function onClickWrite() {
+    setReviewForm(true);
+  }
 
   function onClickRating() {
     // console.log("Rating");
@@ -106,46 +122,66 @@ export default function WriteReview() {
         </div>
 
         {reviewItem && reviewItem.imdbID === apiItemDetails?.imdbID ? (
-          <div className="search-list">
-            <div className="item-card">
-              <p>{apiItemDetails.Title}</p>
-              <p>({apiItemDetails.Year})</p>
-              <img src={apiItemDetails.Poster} alt="poster" height="100px" />
+          <div>
+            <div className="search-list">
+              <div className="item-card">
+                <p>{apiItemDetails.Title}</p>
+                <p>({apiItemDetails.Year})</p>
+                <img src={apiItemDetails.Poster} alt="poster" height="100px" />
+              </div>
+              <Rating
+                name="simple-controlled"
+                value={value}
+                onChange={(event, newValue: any) => {
+                  setValue(newValue);
+                }}
+                onClick={onClickRating}
+              />
+              {apiIdLibraryArray?.includes(apiItemDetails.imdbID) ? null : (
+                <Button
+                  // onClick={onClickAdd}
+                  value={apiItemDetails.imdbID}
+                  variant="outline-dark"
+                >
+                  Add to Library
+                </Button>
+              )}
             </div>
-            <Rating
-              name="simple-controlled"
-              value={value}
-              onChange={(event, newValue: any) => {
-                setValue(newValue);
-              }}
-              onClick={onClickRating}
-            />
+            {apiIdLibraryArray?.includes(reviewItem.imdbID) ? (
+              <Button variant="dark" type="submit" onClick={onClickWrite}>
+                Write a review
+              </Button>
+            ) : null}
           </div>
         ) : null}
 
-        <Form.Group controlId="review-title">
-          <Form.Control
-            value={title}
-            onChange={(event) => setTitle(event.target.value)}
-            type="text"
-            placeholder="Review title..."
-            required
-          />
-        </Form.Group>
-        <Form.Group controlId="review-content">
-          <Form.Control
-            value={content}
-            onChange={(event) => setContent(event.target.value)}
-            as="textarea"
-            rows={3}
-            required
-          />
-        </Form.Group>
-        <Form.Group className="mt-5">
-          <Button variant="dark" type="submit" onClick={submitForm}>
-            Add review
-          </Button>
-        </Form.Group>
+        {reviewForm ? (
+          <div>
+            <Form.Group controlId="review-title">
+              <Form.Control
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
+                type="text"
+                placeholder="Review title..."
+                required
+              />
+            </Form.Group>
+            <Form.Group controlId="review-content">
+              <Form.Control
+                value={content}
+                onChange={(event) => setContent(event.target.value)}
+                as="textarea"
+                rows={3}
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mt-5">
+              <Button variant="dark" type="submit" onClick={submitForm}>
+                Add review
+              </Button>
+            </Form.Group>
+          </div>
+        ) : null}
       </Form>
     </div>
   );
