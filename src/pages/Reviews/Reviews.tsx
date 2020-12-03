@@ -9,6 +9,7 @@ import {
 } from "../../store/reviews/selectors";
 import { fetchReviews } from "../../store/reviews/actions";
 import { selectUser, selectToken } from "../../store/user/selectors";
+import WriteReview from "../../components/WriteReview/WriteReview";
 
 export default function Reviews() {
   const reviewsLoading = useSelector(selectReviewsLoading);
@@ -50,6 +51,7 @@ export default function Reviews() {
           </div>
         );
       })}
+      <WriteReview />
     </div>
   );
 }
