@@ -22,9 +22,11 @@ import {
 // import { selectFavouriteItemsByCategory } from "../../store/listItems/selectors";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import FavouriteCard from "../../components/FavouriteCard/FavouriteCard";
+import { selectToken } from "../../store/user/selectors";
 
 export default function HomePage() {
   const dispatch = useDispatch();
+  const token = useSelector(selectToken);
   const profilesLoading = useSelector(selectProfilesLoading);
   const listItemsLoading = useSelector(selectListItemsLoading);
   const allCategories = useSelector(selectAllCategories);
@@ -83,27 +85,40 @@ export default function HomePage() {
     return <p>"Loading..."</p>;
   } else {
     return (
-      <div>
-        <h1>Welcome to Slacker!</h1>
-        <p></p>
-        <h5>Keeping lists in a notes app can become an incoherent mess. </h5>
-        <p>
-          Whether you want to curate nostalgic glimpses of a gone generation or
-          check a film you’ve just heard about, Slacker is the space for you.
-        </p>
-        <p>
-          Here you can curate, review and share your favourite films and series
-          or add them to your wishlist so you can enjoy them later.
-        </p>
-        <p>Sign up to create your profile!</p>
-        <br></br>
-        <Link to="/signup">
-          <Button variant="dark">Sign up</Button>
-        </Link>
-        <br></br>
-        <p>
-          Already have an account? Log in <Link to="/login">here</Link>
-        </p>
+      <div className="welcome-text">
+        <h1 className="title">Welcome to Slacker!</h1>
+        <img
+          src="https://storage.googleapis.com/ff-storage-p01/festivals/logos/000/039/385/large/logo.jpg?1498668430"
+          alt="logo"
+          height="170px"
+        />
+        <em>
+          <h4>Keeping lists in a notes app can become an incoherent mess. </h4>
+        </em>
+        <div className="app-description">
+          <p>
+            Whether you want to curate nostalgic glimpses of a gone generation
+            or check a film you’ve just heard about, Slacker is the space for
+            you.
+          </p>
+          <p>
+            Here you can curate, review and share your favourite films and
+            series or add them to your wishlist so you can enjoy them later.
+          </p>
+        </div>
+        {token ? null : (
+          <div>
+            <p>Sign up to create your profile!</p>
+            <br></br>
+            <Link to="/signup">
+              <Button variant="dark">Sign up</Button>
+            </Link>
+            <br></br>
+            <p>
+              Already have an account? Log in <Link to="/login">here</Link>
+            </p>
+          </div>
+        )}
         <h3>Show me</h3>
         <div>
           <Button onClick={onSearchProfiles} variant="outline-dark">

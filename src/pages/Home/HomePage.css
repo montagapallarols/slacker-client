@@ -5,6 +5,15 @@
   justify-content: center;
 } */
 
+title {
+  padding: 50px;
+  margin-top: 30px;
+}
+
+h4 {
+  padding: 10px;
+}
+
 .profile-list {
   display: flex;
   flex-wrap: wrap;
@@ -13,8 +22,8 @@
   align-content: space-between;
 }
 
-/* .profile-list {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-} */
+.app-description {
+  /* width: 80%; */
+  padding: 40px 400px;
+  font-size: 1.1rem;
+}
