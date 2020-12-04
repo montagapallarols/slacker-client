@@ -15,18 +15,29 @@ import {
   selectApiItemDetails,
 } from "../../store/apiItems/selectors";
 import Rating from "@material-ui/lab/Rating";
-import { selectAllListItems } from "../../store/listItems/selectors";
+import {
+  selectAllListItems,
+  selectListItemsLoading,
+} from "../../store/listItems/selectors";
 import { selectUser } from "../../store/user/selectors";
 import { addItemToList, fetchListItems } from "../../store/listItems/actions";
 import { postReview } from "../../store/reviews/actions";
+import {
+  selectAllProfiles,
+  selectProfilesLoading,
+} from "../../store/profiles/selectors";
+import { fetchProfiles } from "../../store/profiles/actions";
 
 export default function WriteReview() {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const apiItemsLoading = useSelector(selectApiItemsLoading);
   const allListItems = useSelector(selectAllListItems);
+  const listItemsLoading = useSelector(selectListItemsLoading);
   const allApiItems = useSelector(selectAllApiItems);
   const apiItemDetails: any = useSelector(selectApiItemDetails);
+  const allProfiles = useSelector(selectAllProfiles);
+  const profilesLoading = useSelector(selectProfilesLoading);
 
   interface ReviewItem {
     Poster: any | null;
@@ -49,6 +60,17 @@ export default function WriteReview() {
     dispatch(removeSearchItems);
   }, [dispatch]);
 
+  useEffect(() => {
+    if (listItemsLoading || profilesLoading) {
+      dispatch(fetchListItems);
+      dispatch(fetchProfiles);
+    }
+  }, [dispatch, listItemsLoading, profilesLoading]);
+
+  const userProfile: any = allProfiles?.find((p: any) => {
+    return p.userId === user?.id;
+  });
+
   function onClickSearch(event: MouseEvent) {
     event.preventDefault();
 
@@ -63,11 +85,11 @@ export default function WriteReview() {
   }, [dispatch, reviewItem]);
 
   const listItemsInLibrary = allListItems?.filter((i: any) => {
-    return i.list.type === "Library" && i.list.profileId === user.profile.id;
+    return i.list?.type === "Library" && i.list?.profileId === userProfile?.id;
   });
 
   const apiIdLibraryArray = listItemsInLibrary?.map((i: any) => {
-    return i.item.apiId;
+    return i.item?.apiId;
   });
 
   function onClickWrite() {
@@ -81,7 +103,7 @@ export default function WriteReview() {
       ? 2
       : null;
 
-  const userLibraryList = user?.profile?.lists?.find((l: any) => {
+  const userLibraryList = userProfile?.lists.find((l: any) => {
     return l.type === "Library";
   });
   const userLibraryListId = userLibraryList?.id;
@@ -90,15 +112,18 @@ export default function WriteReview() {
     dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
   }
 
-  const reviewListItem = allListItems?.find((i: any) => {
-    return i.item.apiId === reviewItem?.imdbID;
-  });
-  //   const reviewItemId = reviewListItem.id;
-  //   console.log("Review list item???", reviewItemId);
+  // const reviewListItem = allListItems?.find((i: any) => {
+  //   return i.item.apiId === reviewItem?.imdbID;
+  // });
+
+  console.log("Review list item???", reviewItem);
+  const reviewItemApiId = reviewItem?.imdbID;
 
   function submitForm(event: MouseEvent) {
     event.preventDefault();
-    // dispatch(postReview(title, content, value, reviewItemId, profileIdString));
+    dispatch(
+      postReview(title, content, value, reviewItemApiId, profileIdString)
+    );
     setTitle("");
     setContent("");
     setValue(0);
@@ -149,9 +174,9 @@ export default function WriteReview() {
           <div>
             <div className="search-list">
               <div className="item-card">
-                <p>{apiItemDetails.Title}</p>
-                <p>({apiItemDetails.Year})</p>
-                <img src={apiItemDetails.Poster} alt="poster" height="100px" />
+                <p>{apiItemDetails?.Title}</p>
+                <p>({apiItemDetails?.Year})</p>
+                <img src={apiItemDetails?.Poster} alt="poster" height="100px" />
               </div>
               {apiIdLibraryArray?.includes(reviewItem?.imdbID) ? (
                 <Rating

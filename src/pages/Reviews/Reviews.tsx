@@ -9,18 +9,44 @@ import { fetchReviews } from "../../store/reviews/actions";
 import { selectUser, selectToken } from "../../store/user/selectors";
 import WriteReview from "../../components/WriteReview/WriteReview";
 import Rating from "@material-ui/lab/Rating";
+import {
+  selectAllListItems,
+  selectListItemsLoading,
+} from "../../store/listItems/selectors";
+import {
+  selectAllProfiles,
+  selectProfilesLoading,
+} from "../../store/profiles/selectors";
+import { fetchListItems } from "../../store/listItems/actions";
+import { fetchProfiles } from "../../store/profiles/actions";
 
 export default function Reviews() {
   const dispatch = useDispatch();
   const reviewsLoading = useSelector(selectReviewsLoading);
+  const allListItems = useSelector(selectAllListItems);
+  const listItemsLoading = useSelector(selectListItemsLoading);
+  const allProfiles = useSelector(selectAllProfiles);
+  const profilesLoading = useSelector(selectProfilesLoading);
   const allReviews = useSelector(selectAllReviews);
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
   const history = useHistory();
 
+  const userProfile: any = allProfiles?.find((p: any) => {
+    return p.userId === user?.id;
+  });
+
+  // useEffect(() => {
+  //   dispatch(fetchReviews);
+  // }, [dispatch]);
+
   useEffect(() => {
-    dispatch(fetchReviews);
-  }, [dispatch, reviewsLoading]);
+    if (reviewsLoading || listItemsLoading || profilesLoading) {
+      dispatch(fetchReviews);
+      dispatch(fetchListItems);
+      dispatch(fetchProfiles);
+    }
+  }, [dispatch, reviewsLoading, listItemsLoading, profilesLoading]);
 
   useEffect(() => {
     if (reviewsLoading) {
@@ -46,7 +72,7 @@ export default function Reviews() {
             </em>
             <Rating name="read-only" value={r.rating} readOnly />
 
-            {token && r.profileId === user.profile.id ? (
+            {token && r.profileId === userProfile?.id ? (
               <Link to={`/my-profile/${user.id}`} className="link">
                 <p>
                   {r.profile.firstName} {r.profile.lastName}

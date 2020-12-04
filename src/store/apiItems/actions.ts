@@ -56,6 +56,17 @@ export function fetchApiItems(
     );
     // console.log("API items response", response.data.Search);
 
+    // if (response.data.Error === "Movie not found!") {
+    //   setSearchStatus({ status: "Oops, movie not found!", data: [] });
+    // } else if (params.searchtext === undefined) {
+    //   setSearchStatus({ status: "Search for a movie", data: [] });
+    // } else {
+    //   setSearchStatus({ status: "Success!", data: response.data.Search });
+    //   setSearchText(params.searchtext);
+    // }
+
+    // console.log("Success!", response.data.Search);
+
     dispatch(apiItemsFetched(response.data.Search));
     dispatch(setApiItemsLoading(false));
   };
