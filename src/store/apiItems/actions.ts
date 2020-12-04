@@ -52,7 +52,7 @@ export function fetchApiItems(
     const queryParam = encodeURIComponent(searchText);
     console.log("Query Param:", queryParam);
     const response = await axios.get(
-      `http://www.omdbapi.com/?s=${queryParam}&apikey=2511cc5f`
+      `https://www.omdbapi.com/?s=${queryParam}&apikey=2511cc5f`
     );
     // console.log("API items response", response.data.Search);
 
@@ -79,7 +79,7 @@ export function fetchApiItemById(
     if (!movieId) return;
     try {
       const response = await axios.get(
-        `http://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f&plot=full`
+        `https://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f&plot=full`
       );
       console.log("API item DETAILS response", response.data);
 
@@ -96,7 +96,7 @@ export function fetchFavouriteApiItemById(
 ): ThunkAction<void, RootState, unknown, Action<string>> {
   return async function (dispatch, getState: any) {
     const response = await axios.get(
-      `http://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f&plot=full`
+      `https://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f&plot=full`
     );
     // console.log("Favourite API item DETAILS response", response.data);
 
