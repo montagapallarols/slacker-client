@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "./Reviews.css";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -59,32 +60,44 @@ export default function Reviews() {
       <h1>All Reviews</h1>
       {allReviews?.map((r: any) => {
         return (
-          <div key={r.id}>
-            <h4>{r.item.name}</h4>
-            {r.item.poster === "N/A" ? null : (
-              <img src={r.item.poster} alt="poster" height="150px" />
-            )}
-            <em>
-              <h5>{r.name}</h5>
-            </em>
-            <em>
-              <p>{r.content}</p>
-            </em>
-            <Rating name="read-only" value={r.rating} readOnly />
+          <div key={r.id} className="review-list">
+            <div className="review-content">
+              <h4>{r.item.name}</h4>
+              {r.item.poster === "N/A" ? null : (
+                <img src={r.item.poster} alt="poster" height="150px" />
+              )}
+              <em>
+                <h5>{r.name}</h5>
+              </em>
+              <div className="review-text">
+                <em>
+                  <p>{r.content}</p>
+                </em>
+              </div>
+              <Rating name="read-only" value={r.rating} readOnly />
 
-            {token && r.profileId === userProfile?.id ? (
-              <Link to={`/my-profile/${user.id}`} className="link">
-                <p>
-                  {r.profile.firstName} {r.profile.lastName}
-                </p>
-              </Link>
-            ) : (
-              <Link to={`/profiles/${r.profile.userId}`} className="link">
-                <p>
-                  {r.profile.firstName} {r.profile.lastName}
-                </p>
-              </Link>
-            )}
+              {token && r.profileId === userProfile?.id ? (
+                <Link to={`/my-profile/${user.id}`} className="link">
+                  <em>
+                    <strong>
+                      <p>
+                        {r.profile.firstName} {r.profile.lastName}
+                      </p>
+                    </strong>
+                  </em>
+                </Link>
+              ) : (
+                <Link to={`/profiles/${r.profile.userId}`} className="link">
+                  <em>
+                    <strong>
+                      <p>
+                        {r.profile.firstName} {r.profile.lastName}
+                      </p>
+                    </strong>
+                  </em>
+                </Link>
+              )}
+            </div>
           </div>
         );
       })}

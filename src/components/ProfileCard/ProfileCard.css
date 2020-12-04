@@ -9,7 +9,7 @@
 } */
 
 .profile-card {
-  flex: 1;
+  flex: 5;
   justify-content: space-around;
   margin: 20px 20px;
   background-color: rgb(255, 255, 255);

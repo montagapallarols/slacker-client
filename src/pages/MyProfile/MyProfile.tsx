@@ -108,7 +108,11 @@ export default function MyProfile() {
   return (
     <div>
       <h1>{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
-      <img src={userProfile?.imageUrl} className="profile-image" />
+      <img
+        src={userProfile?.imageUrl}
+        className="profile-image"
+        height="100px"
+      />
       <p></p>
 
       <div className="list">
