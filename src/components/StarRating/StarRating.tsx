@@ -1,11 +1,17 @@
-import React from "react";
-import { FaStar } from "react-icons/fa";
-export default function StarRating() {
+import React, { useState } from "react";
+import Rating from "@material-ui/lab/Rating";
+
+export default function StaticStarRating(props: any) {
+  const [value, setValue] = React.useState(0);
   return (
     <div>
-      {[...Array(5)].map((s: any) => {
-        return <FaStar size={40} />;
-      })}
+      <Rating
+        name="simple-controlled"
+        value={value}
+        onChange={(event, newValue: any) => {
+          setValue(newValue);
+        }}
+      />
     </div>
   );
 }

@@ -22,11 +22,9 @@ export default function SignUp() {
   }, [token, history]);
 
   function submitForm(event: MouseEvent) {
-    console.log("hi");
     event.preventDefault();
 
     dispatch(login(email, password));
-    console.log("Login with", email, password);
 
     setEmail("");
     setPassword("");

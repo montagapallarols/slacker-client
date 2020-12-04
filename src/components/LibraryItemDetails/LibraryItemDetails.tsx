@@ -23,6 +23,8 @@ import {
   selectAllCategories,
   selectAllListItems,
 } from "../../store/listItems/selectors";
+import StarRating from "../StarRating/StarRating";
+import { selectAllProfiles } from "../../store/profiles/selectors";
 
 export default function LibraryItemDetails() {
   const dispatch = useDispatch();
@@ -35,6 +37,7 @@ export default function LibraryItemDetails() {
   const user = useSelector(selectUser);
   const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
+  const allProfiles = useSelector(selectAllProfiles);
 
   interface ParamTypes {
     userId: string;
@@ -43,7 +46,6 @@ export default function LibraryItemDetails() {
   const { userId } = useParams<ParamTypes>();
   const profileUserId = parseInt(userId);
   const loggedInUser = profileUserId === user.id ? true : false;
-  // console.log("Logged in?", loggedInUser);
 
   const categoryId =
     apiItemDetails.Type === "movie"
@@ -59,15 +61,18 @@ export default function LibraryItemDetails() {
       ? 2
       : null;
 
-  const userLibraryList = user.profile.lists?.find((l: any) => {
+  const userProfile: any = allProfiles?.find((p: any) => {
+    return p.userId === user.id;
+  });
+  const userLibraryList = userProfile?.lists?.find((l: any) => {
     return l.type === "Library";
   });
-  const userLibraryListId = userLibraryList.id;
+  const userLibraryListId = userLibraryList?.id;
 
-  const userFavouriteList = user.profile.lists?.find((l: any) => {
+  const userFavouriteList = userProfile?.lists?.find((l: any) => {
     return l.type === "Favourites";
   });
-  const userFavouriteListId = userFavouriteList.id;
+  const userFavouriteListId = userFavouriteList?.id;
 
   interface ParamTypes {
     itemId: string;
@@ -76,26 +81,18 @@ export default function LibraryItemDetails() {
   const { itemId } = useParams<ParamTypes>();
 
   useEffect(() => {
-    // console.log("Item id", itemId);
     dispatch(fetchApiItemById(itemId));
   }, [dispatch, itemId]);
 
   useEffect(() => {
-    // console.log("Favourite Item id", itemId);
     dispatch(fetchFavouriteApiItemById(itemId));
   }, [dispatch, favouriteApiItemDetails]);
 
   function onClickAdd() {
-    // console.log("api item details", apiItemDetails);
-    // console.log("category id", categoryId);
-    // console.log("User library id", userLibraryListId);
     dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
   }
 
   function favouriteAdd() {
-    // console.log("api item details", apiItemDetails);
-    // console.log("category id", categoryId);
-    // console.log("User library id", userLibraryListId);
     dispatch(
       addItemToList(favouriteApiItemDetails, categoryId, userFavouriteListId)
     );
@@ -108,7 +105,6 @@ export default function LibraryItemDetails() {
   const itemInFavourites = allListItems?.find((i: any) => {
     return i.list.type === "Favourites" && i.item.apiId === itemId;
   });
-  // console.log("Item in favourites", itemInFavourites);
 
   function onClickRemove() {
     dispatch(removeItemFromLibrary(itemId));
@@ -120,15 +116,16 @@ export default function LibraryItemDetails() {
 
   return (
     <div>
-      <h2>{apiItemDetails.Title}</h2>
-      <p>{apiItemDetails.Year}</p>
-      <p>({apiItemDetails.Type})</p>
-      <p>Directed by {apiItemDetails.Director}</p>
+      <h2>{apiItemDetails?.Title}</h2>
+      <p>{apiItemDetails?.Year}</p>
+      <p>({apiItemDetails?.Type})</p>
+      <p>Directed by {apiItemDetails?.Director}</p>
       <em>
-        <p>{apiItemDetails.Genre}</p>
+        <p>{apiItemDetails?.Genre}</p>
       </em>
-      <img src={apiItemDetails.Poster} height="250px" />
-      <p>{apiItemDetails.Plot}</p>
+      <img src={apiItemDetails?.Poster} height="250px" />
+      <StarRating />
+      <p>{apiItemDetails?.Plot}</p>
 
       {loggedInUser ? (
         <div>

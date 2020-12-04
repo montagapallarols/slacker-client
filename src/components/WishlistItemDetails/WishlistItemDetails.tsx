@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchApiItems, fetchApiItemById } from "../../store/apiItems/actions";
+import { fetchApiItemById } from "../../store/apiItems/actions";
 import {
   addItemToList,
   removeItemFromWishlist,
@@ -17,15 +17,14 @@ import {
   selectAllCategories,
   selectAllListItems,
 } from "../../store/listItems/selectors";
+import { selectAllProfiles } from "../../store/profiles/selectors";
 
 export default function WishlistItemDetails() {
   const dispatch = useDispatch();
-  const apiItemsLoading = useSelector(selectApiItemsLoading);
-  const allApiItems = useSelector(selectAllApiItems);
   const apiItemDetails: any = useSelector(selectApiItemDetails);
   const user = useSelector(selectUser);
-  const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
+  const allProfiles = useSelector(selectAllProfiles);
 
   interface ParamTypes {
     userId: string;
@@ -34,7 +33,6 @@ export default function WishlistItemDetails() {
   const { userId } = useParams<ParamTypes>();
   const profileUserId = parseInt(userId);
   const loggedInUser = profileUserId === user.id ? true : false;
-  // console.log("Logged in?", loggedInUser);
 
   const categoryId =
     apiItemDetails.Type === "movie"
@@ -43,10 +41,13 @@ export default function WishlistItemDetails() {
       ? 2
       : null;
 
-  const userLibraryList = user.profile.lists?.find((l: any) => {
+  const userProfile: any = allProfiles?.find((p: any) => {
+    return p.userId === user.id;
+  });
+  const userLibraryList = userProfile?.lists?.find((l: any) => {
     return l.type === "Wishlist";
   });
-  const userLibraryListId = userLibraryList.id;
+  const userLibraryListId = userLibraryList?.id;
 
   interface ParamTypes {
     itemId: string;
@@ -55,14 +56,10 @@ export default function WishlistItemDetails() {
   const { itemId } = useParams<ParamTypes>();
 
   useEffect(() => {
-    // console.log("Item id", itemId);
     dispatch(fetchApiItemById(itemId));
   }, [dispatch, itemId]);
 
   function onClickAdd() {
-    // console.log("api item details", apiItemDetails);
-    // console.log("category id", categoryId);
-    // console.log("User library id", userLibraryListId);
     dispatch(addItemToList(apiItemDetails, categoryId, userLibraryListId));
   }
 
@@ -78,17 +75,17 @@ export default function WishlistItemDetails() {
 
   return (
     <div>
-      <h2>{apiItemDetails.Title}</h2>
-      <p>{apiItemDetails.Year}</p>
-      <p>({apiItemDetails.Type})</p>
-      <p>Directed by {apiItemDetails.Director}</p>
+      <h2>{apiItemDetails?.Title}</h2>
+      <p>{apiItemDetails?.Year}</p>
+      <p>({apiItemDetails?.Type})</p>
+      <p>Directed by {apiItemDetails?.Director}</p>
       <em>
-        <p>{apiItemDetails.Genre}</p>
+        <p>{apiItemDetails?.Genre}</p>
       </em>
-      {apiItemDetails.Poster === "N/A" ? null : (
-        <img src={apiItemDetails.Poster} alt="poster" height="250px" />
+      {apiItemDetails?.Poster === "N/A" ? null : (
+        <img src={apiItemDetails?.Poster} alt="poster" height="250px" />
       )}
-      <p>{apiItemDetails.Plot}</p>
+      <p>{apiItemDetails?.Plot}</p>
       {loggedInUser ? (
         <div>
           {itemInWishlist ? (
@@ -100,7 +97,6 @@ export default function WishlistItemDetails() {
               Add to Wishlist
             </Button>
           )}
-          {/* <Button variant="outline-dark">Favourites</Button> */}
         </div>
       ) : null}
     </div>

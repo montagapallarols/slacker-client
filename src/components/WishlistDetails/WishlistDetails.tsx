@@ -1,6 +1,6 @@
 import React, { useEffect, useState, MouseEvent } from "react";
 import "./WishlistDetails.css";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -12,7 +12,6 @@ import {
   removeSearchItems,
 } from "../../store/apiItems/actions";
 import {
-  selectApiItemsLoading,
   selectAllApiItems,
   selectApiItemDetails,
 } from "../../store/apiItems/selectors";
@@ -20,25 +19,48 @@ import { selectUser } from "../../store/user/selectors";
 import {
   selectAllCategories,
   selectAllListItems,
+  selectListItemsLoading,
 } from "../../store/listItems/selectors";
 import {
   removeItemFromWishlist,
   addItemToList,
+  fetchListItems,
+  fetchCategories,
 } from "../../store/listItems/actions";
+import { selectAllProfiles } from "../../store/profiles/selectors";
+import { fetchProfiles } from "../../store/profiles/actions";
 
 export default function WishlistDetails() {
   const dispatch = useDispatch();
-  const apiItemsLoading = useSelector(selectApiItemsLoading);
+  const history = useHistory();
   const allApiItems = useSelector(selectAllApiItems);
   const apiItemDetails: any = useSelector(selectApiItemDetails);
   const user = useSelector(selectUser);
-  const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
+  const listItemsLoading = useSelector(selectListItemsLoading);
+  const allProfiles = useSelector(selectAllProfiles);
+  const allCategories = useSelector(selectAllCategories);
 
   useEffect(() => {
-    console.log("Clear");
+    dispatch(fetchProfiles);
+  }, [dispatch]);
+
+  useEffect(() => {
     dispatch(removeSearchItems);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!user.token) {
+      history.push("/");
+    }
+  }, [user.token, history]);
+
+  useEffect(() => {
+    if (listItemsLoading || !allCategories) {
+      dispatch(fetchListItems);
+      dispatch(fetchCategories);
+    }
+  }, [dispatch, listItemsLoading, allCategories]);
 
   const categoryId =
     apiItemDetails.Type === "movie"
@@ -61,10 +83,14 @@ export default function WishlistDetails() {
     ? "Hide"
     : `Search and add ${categoryName}`;
 
-  const userWishlistList = user.profile.lists?.find((l: any) => {
+  const userProfile: any = allProfiles?.find((p: any) => {
+    return p.userId === user?.id;
+  });
+
+  const userWishlistList = userProfile?.lists?.find((l: any) => {
     return l.type === "Wishlist";
   });
-  const userLibraryListId = userWishlistList.id;
+  const userLibraryListId = userWishlistList?.id;
 
   function onClickSearch(event: MouseEvent) {
     event.preventDefault();
@@ -85,7 +111,7 @@ export default function WishlistDetails() {
   const listItemsInWishlist = allListItems?.filter((i: any) => {
     return (
       i.list.type === "Wishlist" &&
-      i.list.profileId === user.profile.id &&
+      i.list.profileId === userProfile?.id &&
       i.item.type === itemType
     );
   });
@@ -143,7 +169,7 @@ export default function WishlistDetails() {
                   {i.Poster === "N/A" ? null : (
                     <img src={i.Poster} alt="poster" height="200px" />
                   )}
-                  {apiIdWishlistArray?.includes(i.imdbID) ? (
+                  {apiIdWishlistArray.includes(i.imdbID) ? (
                     <Button
                       onClick={handleClickRemove}
                       value={i.imdbID}
@@ -165,7 +191,6 @@ export default function WishlistDetails() {
                   >
                     <Button variant="outline-dark">More details</Button>
                   </Link>
-                  {/* <Button variant="outline-dark">Favourites</Button> */}
                 </div>
               );
             })}
@@ -199,7 +224,6 @@ export default function WishlistDetails() {
               >
                 <Button variant="outline-dark">Details</Button>
               </Link>
-              {/* <Button variant="outline-dark">Favourites</Button> */}
             </div>
           );
         })}

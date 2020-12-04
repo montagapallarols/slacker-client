@@ -4,10 +4,6 @@ import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchApiItems, fetchApiItemById } from "../../store/apiItems/actions";
 import {
-  addItemToList,
-  removeItemFromLibrary,
-} from "../../store/listItems/actions";
-import {
   selectApiItemsLoading,
   selectAllApiItems,
   selectApiItemDetails,
@@ -17,6 +13,7 @@ import {
   selectAllCategories,
   selectAllListItems,
 } from "../../store/listItems/selectors";
+import StarRating from "../StarRating/StarRating";
 
 export default function FavouritesItemDetails() {
   const dispatch = useDispatch();
@@ -40,15 +37,16 @@ export default function FavouritesItemDetails() {
 
   return (
     <div>
-      <h2>{apiItemDetails.Title}</h2>
-      <p>{apiItemDetails.Year}</p>
-      <p>({apiItemDetails.Type})</p>
-      <p>Directed by {apiItemDetails.Director}</p>
+      <h2>{apiItemDetails?.Title}</h2>
+      <p>{apiItemDetails?.Year}</p>
+      <p>({apiItemDetails?.Type})</p>
+      <p>Directed by {apiItemDetails?.Director}</p>
       <em>
-        <p>{apiItemDetails.Genre}</p>
+        <p>{apiItemDetails?.Genre}</p>
       </em>
-      <img src={apiItemDetails.Poster} height="250px" />
-      <p>{apiItemDetails.Plot}</p>
+      <img src={apiItemDetails?.Poster} height="250px" />
+      <StarRating />
+      <p>{apiItemDetails?.Plot}</p>
     </div>
   );
 }

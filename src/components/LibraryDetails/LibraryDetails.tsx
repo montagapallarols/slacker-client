@@ -1,6 +1,6 @@
 import React, { useEffect, useState, MouseEvent } from "react";
 import "./LibraryDetails.css";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -13,7 +13,7 @@ import {
   fetchFavouriteApiItemById,
 } from "../../store/apiItems/actions";
 import {
-  selectApiItemsLoading,
+  // selectApiItemsLoading,
   selectAllApiItems,
   selectApiItemDetails,
   selectFavouriteApiItemDetails,
@@ -22,29 +22,55 @@ import { selectUser } from "../../store/user/selectors";
 import {
   selectAllCategories,
   selectAllListItems,
+  selectListItemsLoading,
 } from "../../store/listItems/selectors";
 import {
   removeItemFromLibrary,
   addItemToList,
   removeItemFromFavourites,
+  fetchListItems,
+  fetchCategories,
 } from "../../store/listItems/actions";
+import StarRating from "../StarRating/StarRating";
+import {
+  selectAllProfiles,
+  selectProfilesLoading,
+} from "../../store/profiles/selectors";
+import { fetchProfiles } from "../../store/profiles/actions";
 
 export default function ListDetails() {
   const dispatch = useDispatch();
-  const apiItemsLoading = useSelector(selectApiItemsLoading);
+  const history = useHistory();
+  // const apiItemsLoading = useSelector(selectApiItemsLoading);
   const allApiItems = useSelector(selectAllApiItems);
   const apiItemDetails: any = useSelector(selectApiItemDetails);
+  const allProfiles = useSelector(selectAllProfiles);
   const favouriteApiItemDetails: any = useSelector(
     selectFavouriteApiItemDetails
   );
   const user = useSelector(selectUser);
   const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
+  const listItemsLoading = useSelector(selectListItemsLoading);
+  const profilesLoading = useSelector(selectProfilesLoading);
 
   useEffect(() => {
-    console.log("Clear");
     dispatch(removeSearchItems);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (!user.token) {
+      history.push("/");
+    }
+  }, [user.token, history]);
+
+  useEffect(() => {
+    if (listItemsLoading || profilesLoading || !allCategories) {
+      dispatch(fetchListItems);
+      dispatch(fetchCategories);
+      dispatch(fetchProfiles);
+    }
+  }, [dispatch, listItemsLoading, profilesLoading, allCategories]);
 
   const categoryId =
     apiItemDetails.Type === "movie"
@@ -80,15 +106,20 @@ export default function ListDetails() {
     ? "Hide"
     : `Search and add ${categoryName}`;
 
-  const userLibraryList = user.profile.lists?.find((l: any) => {
+  const userProfile: any = allProfiles?.find((p: any) => {
+    return p.userId === user.id;
+  });
+  const userLibraryList = userProfile?.lists?.find((l: any) => {
     return l.type === "Library";
   });
-  const userLibraryListId = userLibraryList.id;
 
-  const userFavouriteList = user.profile.lists?.find((l: any) => {
+  const userLibraryListId = userLibraryList?.id;
+
+  const userFavouriteList = userProfile?.lists?.find((l: any) => {
     return l.type === "Favourites";
   });
-  const userFavouriteListId = userFavouriteList.id;
+
+  const userFavouriteListId = userFavouriteList?.id;
 
   function onClickSearch(event: MouseEvent) {
     event.preventDefault();
@@ -109,7 +140,7 @@ export default function ListDetails() {
   const listItemsInLibrary = allListItems?.filter((i: any) => {
     return (
       i.list.type === "Library" &&
-      i.list.profileId === user.profile.id &&
+      i.list.profileId === userProfile?.id &&
       i.item.type === itemType
     );
   });
@@ -119,7 +150,7 @@ export default function ListDetails() {
   });
 
   const listItemsInFavourites = allListItems?.filter((i: any) => {
-    return i.list.type === "Favourites" && i.list.profileId === user.profile.id;
+    return i.list.type === "Favourites" && i.list.profileId === userProfile?.id;
   });
   // console.log("List items in Favourites", listItemsInFavourites);
 
@@ -134,7 +165,7 @@ export default function ListDetails() {
 
   useEffect(() => {
     dispatch(addItemToList(itemToAdd, categoryId, userLibraryListId));
-  }, [dispatch, apiItemDetails]);
+  }, [dispatch, itemToAdd, categoryId, userLibraryListId]);
 
   function onClickFavouritesAdd(event: any) {
     setFavouriteItemId(event.target.value);
@@ -149,7 +180,7 @@ export default function ListDetails() {
         userFavouriteListId
       )
     );
-  }, [dispatch, favouriteApiItemDetails]);
+  }, [dispatch, favouriteItemToAdd, favouriteCategoryId, userFavouriteListId]);
 
   function favouritesRemove(event: any) {
     event.preventDefault();
@@ -195,6 +226,7 @@ export default function ListDetails() {
                   <em>
                     <p>{i.Type}</p>
                   </em>
+
                   {i.Poster === "N/A" ? null : (
                     <img src={i.Poster} alt="poster" height="200px" />
                   )}
@@ -255,6 +287,7 @@ export default function ListDetails() {
               <em>
                 <p>{i.item.type}</p>
               </em>
+              <StarRating />
               {i.item.poster === "N/A" ? null : (
                 <img src={i.item.poster} alt="poster" height="200px" />
               )}

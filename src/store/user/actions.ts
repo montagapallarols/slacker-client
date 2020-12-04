@@ -1,4 +1,4 @@
-import { serverUrl, DEFAULT_MESSAGE_TIMEOUT } from "../../config/constants";
+import { serverUrl } from "../../config/constants";
 import axios from "axios";
 import { selectToken, selectUser } from "./selectors";
 import {

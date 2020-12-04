@@ -56,6 +56,17 @@ export function fetchApiItems(
     );
     // console.log("API items response", response.data.Search);
 
+    // if (response.data.Error === "Movie not found!") {
+    //   setSearchStatus({ status: "Oops, movie not found!", data: [] });
+    // } else if (params.searchtext === undefined) {
+    //   setSearchStatus({ status: "Search for a movie", data: [] });
+    // } else {
+    //   setSearchStatus({ status: "Success!", data: response.data.Search });
+    //   setSearchText(params.searchtext);
+    // }
+
+    // console.log("Success!", response.data.Search);
+
     dispatch(apiItemsFetched(response.data.Search));
     dispatch(setApiItemsLoading(false));
   };
@@ -65,13 +76,18 @@ export function fetchApiItemById(
   movieId: string
 ): ThunkAction<void, RootState, unknown, Action<string>> {
   return async function (dispatch, getState: any) {
-    const response = await axios.get(
-      `http://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f&plot=full`
-    );
-    // console.log("API item DETAILS response", response.data);
+    if (!movieId) return;
+    try {
+      const response = await axios.get(
+        `http://www.omdbapi.com/?i=${movieId}&apikey=2511cc5f&plot=full`
+      );
+      console.log("API item DETAILS response", response.data);
 
-    dispatch(apiItemByIdFetched(response.data));
-    dispatch(setApiItemsLoading(false));
+      dispatch(apiItemByIdFetched(response.data));
+      dispatch(setApiItemsLoading(false));
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
 
