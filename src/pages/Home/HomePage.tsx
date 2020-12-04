@@ -10,10 +10,14 @@ import {
   fetchFavouritesByCategory,
   fetchAllFavourites,
 } from "../../store/listItems/actions";
-import { selectProfilesLoading } from "../../store/profiles/selectors";
+import {
+  selectProfilesLoading,
+  // selectAllProfiles,
+} from "../../store/profiles/selectors";
 import {
   selectListItemsLoading,
   selectAllCategories,
+  selectAllFavourites,
 } from "../../store/listItems/selectors";
 // import { selectFavouriteItemsByCategory } from "../../store/listItems/selectors";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
@@ -24,26 +28,48 @@ export default function HomePage() {
   const profilesLoading = useSelector(selectProfilesLoading);
   const listItemsLoading = useSelector(selectListItemsLoading);
   const allCategories = useSelector(selectAllCategories);
+  const allFavourites = useSelector(selectAllFavourites);
+  // const allProfiles = useSelector(selectAllProfiles);
   // const favouriteItemsByCategory = useSelector(selectFavouriteItemsByCategory);
 
   const [filterList, setFilterList] = useState("Profiles");
   const [categoryFilterId, setCategoryFilterId] = useState("");
 
-  useEffect(() => {
-    dispatch(fetchProfiles);
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchProfiles);
+  // }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(fetchCategories);
+  // }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(fetchListItems);
+  // }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(fetchAllFavourites);
+  // }, [dispatch]);
 
   useEffect(() => {
-    dispatch(fetchCategories);
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchListItems);
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(fetchAllFavourites);
-  }, [dispatch]);
+    if (
+      listItemsLoading ||
+      profilesLoading ||
+      !allFavourites ||
+      !allCategories
+    ) {
+      dispatch(fetchListItems);
+      dispatch(fetchProfiles);
+      dispatch(fetchAllFavourites);
+      dispatch(fetchCategories);
+    }
+  }, [
+    dispatch,
+    listItemsLoading,
+    profilesLoading,
+    allFavourites,
+    allCategories,
+  ]);
 
   function onSearchProfiles() {
     setFilterList("Profiles");

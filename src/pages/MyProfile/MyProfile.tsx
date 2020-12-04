@@ -56,11 +56,13 @@ export default function MyProfile() {
       reviewsLoading ||
       listItemsLoading ||
       profilesLoading ||
+      !allFavourites ||
       !allCategories
     ) {
       dispatch(fetchReviews);
       dispatch(fetchListItems);
       dispatch(fetchProfiles);
+      dispatch(fetchAllFavourites);
       dispatch(fetchCategories);
     }
   }, [
