@@ -13,7 +13,7 @@ import {
   fetchFavouriteApiItemById,
 } from "../../store/apiItems/actions";
 import {
-  selectApiItemsLoading,
+  // selectApiItemsLoading,
   selectAllApiItems,
   selectApiItemDetails,
   selectFavouriteApiItemDetails,
@@ -32,7 +32,10 @@ import {
   fetchCategories,
 } from "../../store/listItems/actions";
 import StarRating from "../StarRating/StarRating";
-import { selectAllProfiles } from "../../store/profiles/selectors";
+import {
+  selectAllProfiles,
+  selectProfilesLoading,
+} from "../../store/profiles/selectors";
 import { fetchProfiles } from "../../store/profiles/actions";
 
 export default function ListDetails() {
@@ -49,10 +52,7 @@ export default function ListDetails() {
   const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
   const listItemsLoading = useSelector(selectListItemsLoading);
-
-  useEffect(() => {
-    dispatch(fetchProfiles);
-  }, [dispatch]);
+  const profilesLoading = useSelector(selectProfilesLoading);
 
   useEffect(() => {
     dispatch(removeSearchItems);
@@ -65,11 +65,12 @@ export default function ListDetails() {
   }, [user.token, history]);
 
   useEffect(() => {
-    if (listItemsLoading || !allCategories) {
+    if (listItemsLoading || profilesLoading || !allCategories) {
       dispatch(fetchListItems);
       dispatch(fetchCategories);
+      dispatch(fetchProfiles);
     }
-  }, [dispatch, listItemsLoading, allCategories]);
+  }, [dispatch, listItemsLoading, profilesLoading, allCategories]);
 
   const categoryId =
     apiItemDetails.Type === "movie"
@@ -164,7 +165,7 @@ export default function ListDetails() {
 
   useEffect(() => {
     dispatch(addItemToList(itemToAdd, categoryId, userLibraryListId));
-  }, [dispatch, apiItemDetails]);
+  }, [dispatch, itemToAdd, categoryId, userLibraryListId]);
 
   function onClickFavouritesAdd(event: any) {
     setFavouriteItemId(event.target.value);
@@ -179,7 +180,7 @@ export default function ListDetails() {
         userFavouriteListId
       )
     );
-  }, [dispatch, favouriteApiItemDetails]);
+  }, [dispatch, favouriteItemToAdd, favouriteCategoryId, userFavouriteListId]);
 
   function favouritesRemove(event: any) {
     event.preventDefault();

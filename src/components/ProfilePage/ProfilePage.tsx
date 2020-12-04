@@ -105,6 +105,19 @@ export default function ProfilePage() {
               return (
                 <div key={c.id} className="item-card">
                   <p>{c.name}</p>
+                  {c.name === "Films" ? (
+                    <img
+                      src="https://storage.googleapis.com/ff-storage-p01/festivals/logos/000/039/385/large/logo.jpg?1498668430"
+                      alt="logo"
+                      height="100px"
+                    />
+                  ) : (
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUHuZo6NHZMspV5r5Lv_JT3_sCp9PEkl774g&usqp=CAU"
+                      alt="logo"
+                      height="80px"
+                    />
+                  )}
                   <Link to={`/profiles/${userIdNum}/library/${c.name}`}>
                     <Button variant="outline-dark">See list</Button>
                   </Link>
@@ -123,6 +136,19 @@ export default function ProfilePage() {
               return (
                 <div key={c.id} className="item-card">
                   <p>{c.name}</p>
+                  {c.name === "Films" ? (
+                    <img
+                      src="https://storage.googleapis.com/ff-storage-p01/festivals/logos/000/039/385/large/logo.jpg?1498668430"
+                      alt="logo"
+                      height="100px"
+                    />
+                  ) : (
+                    <img
+                      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUHuZo6NHZMspV5r5Lv_JT3_sCp9PEkl774g&usqp=CAU"
+                      alt="logo"
+                      height="80px"
+                    />
+                  )}
                   <Link to={`/profiles/${userIdNum}/wishlist/${c.name}`}>
                     <Button variant="outline-dark">See list</Button>
                   </Link>

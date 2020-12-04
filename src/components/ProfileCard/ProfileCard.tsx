@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./ProfileCard.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { selectAllProfiles } from "../../store/profiles/selectors";
 import { selectAllListItems } from "../../store/listItems/selectors";
 import { selectUser, selectToken } from "../../store/user/selectors";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import { fetchProfiles } from "../../store/profiles/actions";
+import { fetchListItems } from "../../store/listItems/actions";
 
 export default function ProfileCard() {
+  const dispatch = useDispatch();
   const allProfiles = useSelector(selectAllProfiles);
   const allListItems = useSelector(selectAllListItems);
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
+
+  useEffect(() => {
+    dispatch(fetchProfiles);
+    dispatch(fetchListItems);
+  }, [dispatch]);
+
   return (
     <div>
       {allProfiles?.map((p: any) => {
@@ -32,15 +41,15 @@ export default function ProfileCard() {
               </p>
             </em>
             {allListItems?.map((list: any) => {
-              return list.list.type === "Favourites" &&
-                list.list.profileId === p.id ? (
-                <div key={list.item.id}>
+              return list.list?.type === "Favourites" &&
+                list.list?.profileId === p.id ? (
+                <div key={list.item?.id}>
                   {/* <p>{list.item.name}</p> */}
-                  <img src={list.item.poster} alt="poster" height="100px" />
+                  <img src={list.item?.poster} alt="poster" height="100px" />
                 </div>
               ) : null;
             })}
-            {token && p.userId === user.id ? (
+            {token && p.userId === user?.id ? (
               <Link to={`/my-profile/${p.userId}`} className="link">
                 <Button variant="outline-dark">View Profile</Button>
               </Link>
