@@ -59,6 +59,10 @@ h1 {
   text-decoration: none;
 }
 
+/* .film-image {
+  padding-right: 21px;
+} */
+
 @media (max-width: 800px) {
   .flex-container {
     flex-direction: column;

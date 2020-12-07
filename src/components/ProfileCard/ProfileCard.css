@@ -8,8 +8,35 @@
   margin: 20px 0px;
 } */
 
+.profile-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: space-between;
+}
+
 .profile-card {
-  flex: 5;
+  flex: 1;
+  justify-content: space-around;
+  margin: 20px 250px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 1px 2px 8px -1px rgba(27, 27, 27, 0.75);
+  border: 0.5px solid rgb(29, 29, 29);
+  border-radius: 5px;
+  padding: 8px;
+}
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: space-between;
+}
+
+.card-item {
+  flex: 1;
   justify-content: space-around;
   margin: 20px 20px;
   background-color: rgb(255, 255, 255);
@@ -17,4 +44,5 @@
   border: 1px solid rgb(29, 29, 29);
   border-radius: 5px;
   padding: 8px;
+  width: 90px;
 }

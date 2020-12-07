@@ -37,22 +37,6 @@ export default function HomePage() {
   const [filterList, setFilterList] = useState("Profiles");
   const [categoryFilterId, setCategoryFilterId] = useState("");
 
-  // useEffect(() => {
-  //   dispatch(fetchProfiles);
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(fetchCategories);
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(fetchListItems);
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(fetchAllFavourites);
-  // }, [dispatch]);
-
   useEffect(() => {
     if (
       listItemsLoading ||
@@ -138,15 +122,14 @@ export default function HomePage() {
           ))}
         </div>
         <br></br>
-        <div className="profile-list">
-          {filterList === "Profiles" ? (
-            <ProfileCard />
-          ) : filterList === "Films" ? (
-            <FavouriteCard />
-          ) : (
-            <FavouriteCard />
-          )}
-        </div>
+
+        {filterList === "Profiles" ? (
+          <ProfileCard />
+        ) : filterList === "Films" ? (
+          <FavouriteCard />
+        ) : (
+          <FavouriteCard />
+        )}
       </div>
     );
   }

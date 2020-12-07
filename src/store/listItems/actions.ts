@@ -111,7 +111,7 @@ export async function fetchAllFavourites(dispatch: any, getState: any) {
   //   dispatch(setLoading(true));
 
   const response = await axios.get(`${serverUrl}/lists/listItems/favourites`);
-  // console.log("All favourites response", response.data);
+  console.log("All favourites response", response.data);
 
   dispatch(allFavouritesFetched(response.data));
   dispatch(setListItemsLoading(false));

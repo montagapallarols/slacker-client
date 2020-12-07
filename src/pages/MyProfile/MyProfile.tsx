@@ -52,14 +52,18 @@ export default function MyProfile() {
   }, [user.token, history]);
 
   useEffect(() => {
+    if (reviewsLoading) {
+      dispatch(fetchReviews);
+    }
+  }, [dispatch, reviewsLoading]);
+
+  useEffect(() => {
     if (
-      reviewsLoading ||
       listItemsLoading ||
       profilesLoading ||
       !allFavourites ||
       !allCategories
     ) {
-      dispatch(fetchReviews);
       dispatch(fetchListItems);
       dispatch(fetchProfiles);
       dispatch(fetchAllFavourites);
@@ -67,16 +71,11 @@ export default function MyProfile() {
     }
   }, [
     dispatch,
-    reviewsLoading,
     listItemsLoading,
     profilesLoading,
     allFavourites,
     allCategories,
   ]);
-
-  useEffect(() => {
-    dispatch(fetchAllFavourites);
-  }, [dispatch, allFavourites]);
 
   interface ParamTypes {
     userId: string;
@@ -101,9 +100,9 @@ export default function MyProfile() {
     dispatch(removeItemFromFavourites(event.target.value));
   }
 
-  // if (!user.token) {
-  //   return <Redirect to="/"></Redirect>;
-  // }
+  useEffect(() => {
+    dispatch(fetchAllFavourites);
+  }, [dispatch, allFavourites]);
 
   return (
     <div>
@@ -168,6 +167,7 @@ export default function MyProfile() {
                       src="https://storage.googleapis.com/ff-storage-p01/festivals/logos/000/039/385/large/logo.jpg?1498668430"
                       alt="logo"
                       height="100px"
+                      className="film-image"
                     />
                   ) : (
                     <img
@@ -199,6 +199,7 @@ export default function MyProfile() {
                       src="https://storage.googleapis.com/ff-storage-p01/festivals/logos/000/039/385/large/logo.jpg?1498668430"
                       alt="logo"
                       height="100px"
+                      className="film-image"
                     />
                   ) : (
                     <img

@@ -42,11 +42,11 @@ export default function Reviews() {
   // }, [dispatch]);
 
   useEffect(() => {
-    if (reviewsLoading || listItemsLoading || profilesLoading) {
-      dispatch(fetchReviews);
-      dispatch(fetchListItems);
-      dispatch(fetchProfiles);
-    }
+    // if (reviewsLoading || listItemsLoading || profilesLoading) {
+    dispatch(fetchReviews);
+    dispatch(fetchListItems);
+    dispatch(fetchProfiles);
+    // }
   }, [dispatch, reviewsLoading, listItemsLoading, profilesLoading]);
 
   useEffect(() => {
