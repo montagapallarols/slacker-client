@@ -158,11 +158,11 @@ export default function ProfilePage() {
           </div>
         </div>
       </div>
-      <h3>{userProfile?.firstName}'s Reviews</h3>
+      <h3 className="reviews-title">{userProfile?.firstName}'s Reviews</h3>
       {profileReviews?.map((r: any) => {
         return (
           <div key={r.id}>
-            <h4>{r.item.name}</h4>
+            <h4 className="review-item-name">{r.item.name}</h4>
             <img src={r.item.poster} alt="poster" height="100px" />
             <em>
               <h5>{r.name}</h5>

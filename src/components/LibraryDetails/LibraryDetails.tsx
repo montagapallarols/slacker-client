@@ -236,7 +236,7 @@ export default function ListDetails() {
                       value={i.imdbID}
                       variant="outline-dark"
                     >
-                      Remove from Library
+                      Remove
                     </Button>
                   ) : (
                     <Button
@@ -296,7 +296,7 @@ export default function ListDetails() {
                 value={i.item.apiId}
                 variant="outline-dark"
               >
-                Remove from Library
+                Remove
               </Button>
               <Link
                 to={`/my-profile/${user.id}/library/${categoryName}/${i.item.apiId}`}

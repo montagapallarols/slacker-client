@@ -23,45 +23,38 @@ import {
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import FavouriteCard from "../../components/FavouriteCard/FavouriteCard";
 import { selectToken } from "../../store/user/selectors";
+import {
+  selectAllReviews,
+  selectReviewsLoading,
+} from "../../store/reviews/selectors";
+import { fetchReviews } from "../../store/reviews/actions";
 
 export default function HomePage() {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const profilesLoading = useSelector(selectProfilesLoading);
   const listItemsLoading = useSelector(selectListItemsLoading);
+  const reviewsLoading = useSelector(selectReviewsLoading);
   const allCategories = useSelector(selectAllCategories);
   const allFavourites = useSelector(selectAllFavourites);
+  const allReviews = useSelector(selectAllReviews);
   // const allProfiles = useSelector(selectAllProfiles);
   // const favouriteItemsByCategory = useSelector(selectFavouriteItemsByCategory);
 
   const [filterList, setFilterList] = useState("Profiles");
   const [categoryFilterId, setCategoryFilterId] = useState("");
 
-  // useEffect(() => {
-  //   dispatch(fetchProfiles);
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(fetchCategories);
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(fetchListItems);
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(fetchAllFavourites);
-  // }, [dispatch]);
-
   useEffect(() => {
     if (
       listItemsLoading ||
       profilesLoading ||
+      reviewsLoading ||
       !allFavourites ||
       !allCategories
     ) {
       dispatch(fetchListItems);
       dispatch(fetchProfiles);
+      dispatch(fetchReviews);
       dispatch(fetchAllFavourites);
       dispatch(fetchCategories);
     }
@@ -93,7 +86,9 @@ export default function HomePage() {
           height="170px"
         />
         <em>
-          <h4>Keeping lists in a notes app can become an incoherent mess. </h4>
+          <h4 className="app-intro">
+            Keeping lists in a notes app can become an incoherent mess.{" "}
+          </h4>
         </em>
         <div className="app-description">
           <p>
@@ -119,7 +114,7 @@ export default function HomePage() {
             </p>
           </div>
         )}
-        <h3>Show me</h3>
+
         <div>
           <Button onClick={onSearchProfiles} variant="outline-dark">
             All profiles
@@ -138,15 +133,8 @@ export default function HomePage() {
           ))}
         </div>
         <br></br>
-        <div className="profile-list">
-          {filterList === "Profiles" ? (
-            <ProfileCard />
-          ) : filterList === "Films" ? (
-            <FavouriteCard />
-          ) : (
-            <FavouriteCard />
-          )}
-        </div>
+
+        {filterList === "Profiles" ? <ProfileCard /> : <FavouriteCard />}
       </div>
     );
   }

@@ -42,11 +42,11 @@ export default function Reviews() {
   // }, [dispatch]);
 
   useEffect(() => {
-    if (reviewsLoading || listItemsLoading || profilesLoading) {
-      dispatch(fetchReviews);
-      dispatch(fetchListItems);
-      dispatch(fetchProfiles);
-    }
+    // if (reviewsLoading || listItemsLoading || profilesLoading) {
+    dispatch(fetchReviews);
+    dispatch(fetchListItems);
+    dispatch(fetchProfiles);
+    // }
   }, [dispatch, reviewsLoading, listItemsLoading, profilesLoading]);
 
   useEffect(() => {
@@ -62,7 +62,7 @@ export default function Reviews() {
         return (
           <div key={r.id} className="review-list">
             <div className="review-content">
-              <h4>{r.item.name}</h4>
+              <h4 className="review-item-name">{r.item.name}</h4>
               {r.item.poster === "N/A" ? null : (
                 <img src={r.item.poster} alt="poster" height="150px" />
               )}

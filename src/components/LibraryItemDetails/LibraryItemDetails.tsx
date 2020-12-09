@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./LibraryItemDetails.css";
 import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
@@ -116,16 +117,22 @@ export default function LibraryItemDetails() {
 
   return (
     <div>
-      <h2>{apiItemDetails?.Title}</h2>
-      <p>{apiItemDetails?.Year}</p>
-      <p>({apiItemDetails?.Type})</p>
-      <p>Directed by {apiItemDetails?.Director}</p>
-      <em>
-        <p>{apiItemDetails?.Genre}</p>
-      </em>
-      <img src={apiItemDetails?.Poster} height="250px" />
-      <StarRating />
-      <p>{apiItemDetails?.Plot}</p>
+      <div>
+        <h2 className="item-title">{apiItemDetails?.Title}</h2>
+        <p>{apiItemDetails?.Year}</p>
+        <p>({apiItemDetails?.Type})</p>
+        <p>Directed by {apiItemDetails?.Director}</p>
+        <em>
+          <p>{apiItemDetails?.Genre}</p>
+        </em>
+        <img
+          className="poster-image"
+          src={apiItemDetails?.Poster}
+          height="350px"
+        />
+        <StarRating />
+      </div>
+      <p className="plot">{apiItemDetails?.Plot}</p>
 
       {loggedInUser ? (
         <div>

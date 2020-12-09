@@ -22,42 +22,48 @@ export default function ProfileCard() {
   }, [dispatch]);
 
   return (
-    <div>
+    <div className="profile-list">
       {allProfiles?.map((p: any) => {
         return (
-          <div key={p.id} className="profile-card">
-            <h3>{`${p.firstName} ${p.lastName}`}</h3>
-            <img src={p.imageUrl} height="100px" />
-            <br></br>
-            <em>
-              <p>
-                {p.lists.map((list: any) => {
-                  return list.type === "Favourites" ? (
-                    <strong key={list.id}>
-                      {`${p.firstName}'s`} {list.type}
-                    </strong>
+          <div key={p.id}>
+            <div className="profile-card">
+              <h3 className="profile-name">{`${p.firstName} ${p.lastName}`}</h3>
+              <img className="profile-image" src={p.imageUrl} height="40px" />
+              <p></p>
+              <em>
+                <p>
+                  {p.lists.map((list: any) => {
+                    return list.type === "Favourites" ? (
+                      <strong key={list.id}>{list.type}</strong>
+                    ) : null;
+                  })}
+                </p>
+              </em>
+              <div className="card-list">
+                {allListItems?.map((list: any) => {
+                  return list.list?.type === "Favourites" &&
+                    list.list?.profileId === p.id ? (
+                    <div key={list.item?.id} className="card-item">
+                      {/* <p>{list.item.name}</p> */}
+                      <img
+                        src={list.item?.poster}
+                        alt="poster"
+                        height="100px"
+                      />
+                    </div>
                   ) : null;
                 })}
-              </p>
-            </em>
-            {allListItems?.map((list: any) => {
-              return list.list?.type === "Favourites" &&
-                list.list?.profileId === p.id ? (
-                <div key={list.item?.id}>
-                  {/* <p>{list.item.name}</p> */}
-                  <img src={list.item?.poster} alt="poster" height="100px" />
-                </div>
-              ) : null;
-            })}
-            {token && p.userId === user?.id ? (
-              <Link to={`/my-profile/${p.userId}`} className="link">
-                <Button variant="outline-dark">View Profile</Button>
-              </Link>
-            ) : (
-              <Link to={`/profiles/${p.userId}`} className="link">
-                <Button variant="outline-dark">View Profile</Button>
-              </Link>
-            )}
+              </div>
+              {token && p.userId === user?.id ? (
+                <Link to={`/my-profile/${p.userId}`} className="link">
+                  <Button variant="outline-dark">View Profile</Button>
+                </Link>
+              ) : (
+                <Link to={`/profiles/${p.userId}`} className="link">
+                  <Button variant="outline-dark">View Profile</Button>
+                </Link>
+              )}
+            </div>
           </div>
         );
       })}
