@@ -1,4 +1,5 @@
 import { RootState } from "../types";
+import { favouritesByCategoryFetched } from "./actions";
 
 export function selectListItemsLoading(state: RootState) {
   return state.listItems.loading;

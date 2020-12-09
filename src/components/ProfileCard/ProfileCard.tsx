@@ -27,16 +27,14 @@ export default function ProfileCard() {
         return (
           <div key={p.id}>
             <div className="profile-card">
-              <h3>{`${p.firstName} ${p.lastName}`}</h3>
-              <img src={p.imageUrl} height="100px" />
-              <br></br>
+              <h3 className="profile-name">{`${p.firstName} ${p.lastName}`}</h3>
+              <img className="profile-image" src={p.imageUrl} height="40px" />
+              <p></p>
               <em>
                 <p>
                   {p.lists.map((list: any) => {
                     return list.type === "Favourites" ? (
-                      <strong key={list.id}>
-                        {`${p.firstName}'s`} {list.type}
-                      </strong>
+                      <strong key={list.id}>{list.type}</strong>
                     ) : null;
                   })}
                 </p>

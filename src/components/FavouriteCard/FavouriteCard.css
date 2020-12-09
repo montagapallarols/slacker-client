@@ -1,0 +1,19 @@
+.sort-item-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: space-between;
+}
+
+.sort-item-card {
+  flex: 1;
+  justify-content: space-around;
+  margin: 15px 15px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 1px 2px 8px -1px rgba(27, 27, 27, 0.75);
+  border: 1px solid rgb(29, 29, 29);
+  border-radius: 5px;
+  padding: 8px;
+  width: 90px;
+}

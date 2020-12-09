@@ -106,7 +106,7 @@ export default function MyProfile() {
 
   return (
     <div>
-      <h1>{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
+      <h1 className="profile-name">{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
       <img
         src={userProfile?.imageUrl}
         className="profile-image"
@@ -217,11 +217,11 @@ export default function MyProfile() {
           </div>
         </div>
       </div>
-      <h3>My Reviews</h3>
+      <h3 className="reviews-title">My Reviews</h3>
       {profileReviews?.map((r: any) => {
         return (
           <div key={r.id}>
-            <h4>{r.item.name}</h4>
+            <h4 className="review-item-name">{r.item.name}</h4>
             {r.item.poster === "N/A" ? null : (
               <img src={r.item.poster} alt="poster" height="100px" />
             )}
