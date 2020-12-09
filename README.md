@@ -1,7 +1,7 @@
-# Welcome to Slacker! A community of film fans 🎥
+# 👋 Welcome to Slacker! A community of film fans 🎥
 
 
-## What this app is about
+## What this app is about 📝
 
 The idea for this app came about from the fact that (at least for me) keeping lists in a notes app can sometimes become an incoherent mess.
 So this is a space for users to curate, review and keep a record of the films and series they've enjoyed and create lists of those they want to enjoy later.
