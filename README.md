@@ -1,4 +1,4 @@
-# Welcome to Slacker! A community of film fans
+# Welcome to Slacker! A community of film fans 🎥
 
 
 ## What this app is about
