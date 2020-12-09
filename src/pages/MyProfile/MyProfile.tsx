@@ -229,7 +229,7 @@ export default function MyProfile() {
               <h5>{r.name}</h5>
             </em>
             <em>
-              <p>{r.content}</p>
+              <p className="plot">{r.content}</p>
             </em>
             <Rating name="read-only" value={r.rating} readOnly />
             <em>

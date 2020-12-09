@@ -85,7 +85,7 @@ export default function WishlistItemDetails() {
       {apiItemDetails?.Poster === "N/A" ? null : (
         <img src={apiItemDetails?.Poster} alt="poster" height="250px" />
       )}
-      <p>{apiItemDetails?.Plot}</p>
+      <p className="plot">{apiItemDetails?.Plot}</p>
       {loggedInUser ? (
         <div>
           {itemInWishlist ? (

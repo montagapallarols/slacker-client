@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import "./FavouritesItemDetails.css";
 import { useParams } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useDispatch, useSelector } from "react-redux";
@@ -46,7 +47,7 @@ export default function FavouritesItemDetails() {
       </em>
       <img src={apiItemDetails?.Poster} height="250px" />
       <StarRating />
-      <p>{apiItemDetails?.Plot}</p>
+      <p className="plot">{apiItemDetails?.Plot}</p>
     </div>
   );
 }
