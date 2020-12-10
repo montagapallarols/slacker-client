@@ -186,8 +186,8 @@ export function removeItemFromFavourites(id: string) {
       const response = await axios.delete(
         `${serverUrl}/lists/favourites/listItems/${id}`
       );
-      // console.log("Favourites item removed response", response.data.id);
-      dispatch(deleteFavouritesListItem(response.data.id));
+      console.log("Favourites item removed response", response.data);
+      dispatch(allFavouritesFetched(response.data));
       dispatch(setListItemsLoading(false));
     } catch (e) {
       console.log(e);
