@@ -58,23 +58,24 @@ export default function MyProfile() {
   }, [dispatch, reviewsLoading]);
 
   useEffect(() => {
-    if (
-      listItemsLoading ||
-      profilesLoading ||
-      !allFavourites ||
-      !allCategories
-    ) {
-      dispatch(fetchListItems);
-      dispatch(fetchProfiles);
-      dispatch(fetchAllFavourites);
-      dispatch(fetchCategories);
-    }
+    // if (
+    //   listItemsLoading ||
+    //   profilesLoading ||
+    //   !allFavourites ||
+    //   !allCategories
+    // ) {
+    console.log("USE EFFECT");
+    dispatch(fetchListItems);
+    dispatch(fetchProfiles);
+    dispatch(fetchAllFavourites);
+    dispatch(fetchCategories);
+    // }
   }, [
     dispatch,
-    listItemsLoading,
-    profilesLoading,
-    allFavourites,
-    allCategories,
+    // listItemsLoading,
+    // profilesLoading,
+    // allFavourites,
+    // allCategories,
   ]);
 
   interface ParamTypes {
@@ -100,9 +101,9 @@ export default function MyProfile() {
     dispatch(removeItemFromFavourites(event.target.value));
   }
 
-  useEffect(() => {
-    dispatch(fetchAllFavourites);
-  }, [dispatch, allFavourites]);
+  // useEffect(() => {
+  //   dispatch(fetchAllFavourites);
+  // }, [dispatch, allFavourites]);
 
   return (
     <div>
