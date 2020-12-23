@@ -79,7 +79,7 @@ export default function HomePage() {
   } else {
     return (
       <div className="welcome-text">
-        <h1 className="title">Welcome to Slacker!</h1>
+        <h1 className="title">Slacker</h1>
         <img
           src="https://storage.googleapis.com/ff-storage-p01/festivals/logos/000/039/385/large/logo.jpg?1498668430"
           alt="logo"
@@ -133,8 +133,11 @@ export default function HomePage() {
           ))}
         </div>
         <br></br>
-
-        {filterList === "Profiles" ? <ProfileCard /> : <FavouriteCard />}
+        <div className="container">
+          <div className="row">
+            {filterList === "Profiles" ? <ProfileCard /> : <FavouriteCard />}
+          </div>
+        </div>
       </div>
     );
   }

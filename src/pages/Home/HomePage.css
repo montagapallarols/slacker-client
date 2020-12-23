@@ -16,16 +16,15 @@ h4 {
 }
 
 .app-description {
-  /* width: 80%; */
   padding: 40px 400px;
   font-size: 1.1rem;
 }
 
 .title {
-  font-family: "Segoe UI";
+  font-family: "Source Sans Pro", sans-serif;
 }
 
 .app-intro {
-  font-family: "Segoe UI";
+  font-family: "Roboto", sans-serif;
   font-size: 2rem;
 }

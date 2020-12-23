@@ -65,12 +65,15 @@ export default function ListDetails() {
   }, [user.token, history]);
 
   useEffect(() => {
-    if (listItemsLoading || profilesLoading || !allCategories) {
-      dispatch(fetchListItems);
-      dispatch(fetchCategories);
-      dispatch(fetchProfiles);
-    }
-  }, [dispatch, listItemsLoading, profilesLoading, allCategories]);
+    // if (listItemsLoading || profilesLoading || !allCategories) {
+    dispatch(fetchListItems);
+    dispatch(fetchCategories);
+    dispatch(fetchProfiles);
+    // }
+  }, [
+    dispatch,
+    // , listItemsLoading, profilesLoading, allCategories
+  ]);
 
   const categoryId =
     apiItemDetails.Type === "movie"
