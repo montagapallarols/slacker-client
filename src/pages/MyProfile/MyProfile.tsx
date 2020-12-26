@@ -30,6 +30,14 @@ import Loading from "../../components/Loading";
 import Rating from "@material-ui/lab/Rating";
 import { fetchReviews } from "../../store/reviews/actions";
 import { fetchProfiles } from "../../store/profiles/actions";
+import {
+  BsHeartFill,
+  BsHeart,
+  BsStarFill,
+  BsStar,
+  BsClockFill,
+  BsClock,
+} from "react-icons/bs";
 
 export default function MyProfile() {
   const dispatch = useDispatch();
@@ -58,25 +66,12 @@ export default function MyProfile() {
   }, [dispatch, reviewsLoading]);
 
   useEffect(() => {
-    // if (
-    //   listItemsLoading ||
-    //   profilesLoading ||
-    //   !allFavourites ||
-    //   !allCategories
-    // ) {
     console.log("USE EFFECT");
     dispatch(fetchListItems);
     dispatch(fetchProfiles);
     dispatch(fetchAllFavourites);
     dispatch(fetchCategories);
-    // }
-  }, [
-    dispatch,
-    // listItemsLoading,
-    // profilesLoading,
-    // allFavourites,
-    // allCategories,
-  ]);
+  }, [dispatch]);
 
   interface ParamTypes {
     userId: string;
@@ -101,10 +96,6 @@ export default function MyProfile() {
     dispatch(removeItemFromFavourites(event.target.value));
   }
 
-  // useEffect(() => {
-  //   dispatch(fetchAllFavourites);
-  // }, [dispatch, allFavourites]);
-
   return (
     <div>
       <h1 className="profile-name">{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
@@ -117,7 +108,9 @@ export default function MyProfile() {
 
       <div className="list">
         <div className="list-card">
-          <h3>Favourites</h3>
+          <h3>
+            <BsStarFill /> Favourites
+          </h3>
           <div className="item-list">
             {userFavourites?.map((f: any) => {
               return (
@@ -157,7 +150,10 @@ export default function MyProfile() {
 
       <div className="list">
         <div className="list-card">
-          <h3>Library</h3>
+          <h3>
+            <BsHeartFill /> Library
+          </h3>
+
           <div className="item-list">
             {allCategories?.map((c: any) => {
               return (
@@ -189,7 +185,9 @@ export default function MyProfile() {
 
       <div className="list">
         <div className="list-card">
-          <h3>Wishlist</h3>
+          <h3>
+            <BsClockFill /> Wishlist
+          </h3>
           <div className="item-list">
             {allCategories?.map((c: any) => {
               return (

@@ -48,3 +48,9 @@ h4 {
   background-position: 0% 10%;
   margin-bottom: 30px;
 }
+
+@media (max-width: 800px) {
+  .background {
+    background-position: center;
+  }
+}
