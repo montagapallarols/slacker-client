@@ -81,11 +81,7 @@ export default function HomePage() {
       <div className="welcome-text">
         <div className="background">
           <h1 className="title">SLACKER</h1>
-          {/* <img
-            src="https://storage.googleapis.com/ff-storage-p01/festivals/logos/000/039/385/large/logo.jpg?1498668430"
-            alt="logo"
-            height="170px"
-          /> */}
+
           <em>
             <h4 className="app-intro">
               Keeping lists in a notes app can become an incoherent mess.{" "}

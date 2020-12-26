@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./MyProfile.css";
-import Button from "react-bootstrap/Button";
 import { Link, useParams, Redirect, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserProfile, selectUser } from "../../store/user/selectors";
@@ -38,6 +37,7 @@ import {
   BsClockFill,
   BsClock,
 } from "react-icons/bs";
+import { Col, Image, Button, Form } from "react-bootstrap";
 
 export default function MyProfile() {
   const dispatch = useDispatch();
@@ -52,6 +52,8 @@ export default function MyProfile() {
   const reviewsLoading = useSelector(selectReviewsLoading);
   const allReviews = useSelector(selectAllReviews);
   const history = useHistory();
+
+  const [editProfile, setEditProfile] = useState(false);
 
   useEffect(() => {
     if (!user.token) {
@@ -83,6 +85,8 @@ export default function MyProfile() {
     return p.userId === user?.id;
   });
 
+  const [imageUrl, setImageUrl] = useState(userProfile.imageUrl);
+
   const userFavourites = allFavourites?.filter((f: any) => {
     return f.list.profileId === userProfile?.id;
   });
@@ -102,9 +106,31 @@ export default function MyProfile() {
       <img
         src={userProfile?.imageUrl}
         className="profile-image"
-        height="100px"
+        height="180px"
+        width="171px"
       />
+
       <p></p>
+      <Button onClick={() => setEditProfile(!editProfile)} variant="info">
+        Edit profile
+      </Button>
+      <div>
+        {editProfile ? (
+          <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
+            <Form.Group controlId="formUrl">
+              <Form.Label>Image url</Form.Label>
+              <Form.Control
+                value={imageUrl}
+                onChange={(event) => setImageUrl(event.target.value)}
+                type="url"
+                placeholder=""
+                required
+              />
+            </Form.Group>
+            <Button variant="success">Change picture</Button>
+          </Form>
+        ) : null}
+      </div>
 
       <div className="list">
         <div className="list-card">
