@@ -115,7 +115,6 @@ export default function MyProfile() {
             {userFavourites?.map((f: any) => {
               return (
                 <div key={f.itemId}>
-                  <StarRating />
                   <Link
                     to={`/my-profile/${user.id}/favourites/${f.item.apiId}`}
                     className="link"

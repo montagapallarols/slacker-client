@@ -37,11 +37,18 @@ import {
   selectProfilesLoading,
 } from "../../store/profiles/selectors";
 import { fetchProfiles } from "../../store/profiles/actions";
+import {
+  BsHeartFill,
+  BsHeart,
+  BsStarFill,
+  BsStar,
+  BsClockFill,
+  BsClock,
+} from "react-icons/bs";
 
 export default function ListDetails() {
   const dispatch = useDispatch();
   const history = useHistory();
-  // const apiItemsLoading = useSelector(selectApiItemsLoading);
   const allApiItems = useSelector(selectAllApiItems);
   const apiItemDetails: any = useSelector(selectApiItemDetails);
   const allProfiles = useSelector(selectAllProfiles);
@@ -290,7 +297,7 @@ export default function ListDetails() {
               <em>
                 <p>{i.item.type}</p>
               </em>
-              <StarRating />
+
               {i.item.poster === "N/A" ? null : (
                 <img src={i.item.poster} alt="poster" height="200px" />
               )}
