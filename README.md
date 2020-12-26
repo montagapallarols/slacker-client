@@ -1,46 +1,66 @@
-# Getting Started with Create React App
+# 👋 Welcome to Slacker! A community of film fans 🎥
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## What this app is about 📝
 
-In the project directory, you can run:
+The idea for this app came about from the fact that (at least for me) keeping lists in a notes app can sometimes become a bit of an incoherent mess.
+Although this app is still in progress (I still have many features in mind that I'd like to implement), this is a space for users to curate, review and keep a record of the films and series they've enjoyed and create lists of those they want to enjoy later.
 
-### `npm start`
+### Pages overview: ###
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- A **Home** page where users can sign up / login and see a list of other users and their recommendations. 
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- A **Profile** page where you can curate your recommendations, your library and your wish list.
 
-### `npm test`
+- An **Explore** page where users can see what's trending and publish interesting/random lists for other users. (EXTRA FEATURE)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- A **Reviews** page where users can see each other's reviews.
 
-### `npm run build`
+### Project goals ### 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+After two very intense months of learning full stack web development at Codaisseur, building this app will help to solidify all the knowledge acquired: 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Build a full stack application from scratch
+- Design the app wireframes 
+- Create a data model design & set up database relations
+- Use an external API to fetch and organize data
+- Integrate a new technology, in this case Typescript
+- Write user stories
+- Work with structured git version control
+- Work with Github Projects (Kanban)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### User stories ###
 
-### `npm run eject`
+- As a user, I want to be able to see a list of all users and favourite media on the homepage and have the ability to sign up/log in. 
+- As a **new user**, I want to be able to sign up and have my own profile. If signed up already, I want to be able to log in. 
+- As a **logged in** user I am able to curate my profile by adding/removing items to my lists.
+- (EXTRA) As a user, I want to be able to go to the ***Explore*** page where I can see what’s trending.
+- (EXTRA) As a user, I want to be able to explore lists published by other users as well as publish my own lists for other users to see. 
+- As a user, I want to be able to see all the reviews that other users have left. 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Languages and tools 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+<img height="32" width="32" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/visual-studio-code/visual-studio-code.png" /> <img height="32" width="32" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/html/html.png" /> <img height="32" width="32" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/css/css.png" /> <img height="32" width="32" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/typescript/typescript.png" /> <img height="32" width="32" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/react/react.png" /> <img height="32" width="32" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/redux/redux.png" /> <img height="32" width="32" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/nodejs/nodejs.png" /> <img height="32" width="32" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/sql/sql.png" /> <img height="32" width="32" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/postgresql/postgresql.png" /> <img height="32" width="32" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/git/git.png" /> <img height="32" width="32" src="https://raw.githubusercontent.com/github/explore/78df643247d429f6cc873026c0622819ad797942/topics/github/github.png" />
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- HTML, CSS, JavaScript
+- React-Redux
+- TypeScript
+- Node JS
 
-## Learn More
+### Wireframes ###
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[Click here to see the wireframes](https://app.diagrams.net/#G1wZU0LWpdw-Ne6754GKs4tKYch2t5lCIn)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Database diagram ###
+
+[Click here to see the database diagram](https://dbdiagram.io/d/5fbcecde3a78976d7b7d3344)
+
+### Backend repo ###
+
+[Click here to see the backend repository](https://github.com/montipallarols/slacker-server)
+
+
+
+
+
