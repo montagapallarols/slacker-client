@@ -16,16 +16,41 @@ h4 {
 }
 
 .app-description {
-  /* width: 80%; */
-  padding: 40px 400px;
+  margin: 0 auto 0px auto;
+  max-width: 70%;
+  padding-bottom: 30px;
   font-size: 1.1rem;
+  color: #fcf8e8;
 }
 
 .title {
-  font-family: "Segoe UI";
+  font-size: 50px;
+  color: #ded7b1;
+  letter-spacing: 30px;
+  margin-bottom: 40px;
 }
 
 .app-intro {
-  font-family: "Segoe UI";
+  font-family: "Roboto", sans-serif;
   font-size: 2rem;
+  color: #fcf8e8;
+  margin-bottom: 30px;
+}
+
+.background {
+  background-size: cover;
+  background-image: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.8),
+      rgba(0, 0, 0, 0.3)
+    ),
+    url("https://external-preview.redd.it/5Z46TFp75aYIjpjcfwmA-DTad0tAtrp0OfAU364m708.jpg?auto=webp&s=1da51ffb854bea9b4f9b34b81c56969395648342");
+  background-position: 0% 10%;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 800px) {
+  .background {
+    background-position: center;
+  }
 }

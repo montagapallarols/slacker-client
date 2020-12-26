@@ -41,7 +41,6 @@ function App() {
       <Navigation />
       <MessageBox />
       {isLoading ? <Loading /> : null}
-      {/* {userWithToken ? <Redirect to="/login" /> : null} */}
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/login" component={Login} />
