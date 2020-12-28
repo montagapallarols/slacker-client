@@ -27,7 +27,7 @@ export default function ProfileCard() {
         return (
           <div key={p.id}>
             <div className="profile-card">
-              <h3 className="profile-name">{`${p.firstName} ${p.lastName}`}</h3>
+              <h3 className="profile-user">{`${p.firstName} ${p.lastName}`}</h3>
               <img
                 className="profile-image"
                 src={p.imageUrl}

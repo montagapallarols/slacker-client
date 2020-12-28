@@ -20,3 +20,7 @@
 .review-text {
   padding: 20px 200px;
 }
+
+.review-item-name {
+  font-family: "Lora", serif;
+}

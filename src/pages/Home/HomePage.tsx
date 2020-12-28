@@ -98,20 +98,22 @@ export default function HomePage() {
               series or add them to your wishlist so you can enjoy them later.
             </p>
           </div>
+          {token ? null : (
+            <div>
+              <p className="signup-text">
+                {" "}
+                <Link className="link-text" to="/signup">
+                  Sign up
+                </Link>{" "}
+                to create your profile!
+              </p>
+
+              {/* <p>
+                Already have an account? Log in <Link to="/login">here</Link>
+              </p> */}
+            </div>
+          )}
         </div>
-        {token ? null : (
-          <div>
-            <p>Sign up to create your profile!</p>
-            <br></br>
-            <Link to="/signup">
-              <Button variant="dark">Sign up</Button>
-            </Link>
-            <br></br>
-            <p>
-              Already have an account? Log in <Link to="/login">here</Link>
-            </p>
-          </div>
-        )}
 
         <div>
           <Button onClick={onSearchProfiles} variant="outline-dark">

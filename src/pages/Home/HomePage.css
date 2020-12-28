@@ -45,8 +45,25 @@ h4 {
       rgba(0, 0, 0, 0.3)
     ),
     url("https://external-preview.redd.it/5Z46TFp75aYIjpjcfwmA-DTad0tAtrp0OfAU364m708.jpg?auto=webp&s=1da51ffb854bea9b4f9b34b81c56969395648342");
-  background-position: 0% 10%;
+  background-position: 0% 14%;
   margin-bottom: 30px;
+  padding: 50px;
+}
+
+.signup-text {
+  font-size: 0.9rem;
+  color: #fcf8e8;
+  padding-bottom: -200px;
+}
+
+.link-text {
+  /* color: #a3d2ca; */
+  color: #cd5d7d;
+}
+
+.link-text:hover {
+  text-decoration: none;
+  color: #a3d2ca;
 }
 
 @media (max-width: 800px) {

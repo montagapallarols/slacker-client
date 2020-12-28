@@ -102,18 +102,20 @@ export default function MyProfile() {
 
   return (
     <div>
-      <h1 className="profile-name">{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
-      <img
-        src={userProfile?.imageUrl}
-        className="profile-image"
-        height="180px"
-        width="171px"
-      />
+      <div className="background-image">
+        <h1 className="profile-name">{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
+        <img
+          src={userProfile?.imageUrl}
+          className="profile-image"
+          height="180px"
+          width="171px"
+        />
 
-      <p></p>
-      <Button onClick={() => setEditProfile(!editProfile)} variant="info">
-        Edit profile
-      </Button>
+        <p></p>
+        <Button onClick={() => setEditProfile(!editProfile)} variant="info">
+          Edit profile
+        </Button>
+      </div>
       <div>
         {editProfile ? (
           <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
