@@ -47,6 +47,21 @@
   width: 90px;
 }
 
+.profile-card-image {
+  display: inline-block;
+  position: relative;
+  width: 130px;
+  height: 130px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.profile-card-image img {
+  width: auto;
+  height: 100%;
+  margin-left: -50px;
+}
+
 /* .profile-name {
   font-family: "Segoe UI";
 } */

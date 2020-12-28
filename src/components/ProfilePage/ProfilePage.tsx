@@ -71,12 +71,9 @@ export default function ProfilePage() {
     <div>
       <div className="background-image">
         <h1 className="profile-name">{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
-        <img
-          src={userProfile?.imageUrl}
-          className="profile-image"
-          height="180px"
-          width="171px"
-        />
+        <div className="profile-image">
+          <img src={userProfile?.imageUrl} height="180px" width="171px" />
+        </div>
         <p></p>
       </div>
 
