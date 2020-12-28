@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import AvatarEditor from "react-avatar-editor";
 import "./MyProfile.css";
 import { Link, useParams, Redirect, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -87,6 +88,8 @@ export default function MyProfile() {
   const userProfileId = userProfile.id;
 
   const [imageUrl, setImageUrl] = useState(userProfile.imageUrl);
+  const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
+  console.log("Position", position);
 
   const userFavourites = allFavourites?.filter((f: any) => {
     return f.list.profileId === userProfile?.id;
@@ -111,12 +114,7 @@ export default function MyProfile() {
       <div className="background-image">
         <h1 className="profile-name">{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
         <div className="profile-image">
-          <img
-            src={userProfile?.imageUrl}
-            // className="profile-image"
-            // height="180px"
-            // width="175px"
-          />
+          <img src={userProfile?.imageUrl} />
         </div>
         <p></p>
         <Button
@@ -142,10 +140,22 @@ export default function MyProfile() {
             </Form.Group>
             {imageUrl ? (
               <div>
-                <p>Image preview:</p>
-                <div className="profile-image">
+                <p>Drag image to reposition:</p>
+                {/* <div className="profile-image">
                   <img src={imageUrl} alt="profile picture" />
-                </div>
+                </div> */}
+                <AvatarEditor
+                  className="profile-image"
+                  image={imageUrl}
+                  // width={250}
+                  // height={250}
+                  border={0}
+                  color={[255, 255, 255, 0.6]} // RGBA
+                  scale={1}
+                  rotate={0}
+                  position={position}
+                  onPositionChange={(event) => setPosition(event)}
+                />
               </div>
             ) : null}
             <Button
