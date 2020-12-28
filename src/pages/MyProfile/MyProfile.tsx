@@ -112,7 +112,11 @@ export default function MyProfile() {
         />
 
         <p></p>
-        <Button onClick={() => setEditProfile(!editProfile)} variant="info">
+        <Button
+          className="edit-button"
+          onClick={() => setEditProfile(!editProfile)}
+          variant="info"
+        >
           Edit profile
         </Button>
       </div>

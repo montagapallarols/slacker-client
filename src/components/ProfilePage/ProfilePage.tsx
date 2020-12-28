@@ -41,7 +41,7 @@ export default function ProfilePage() {
   useEffect(() => {
     dispatch(fetchProfiles);
     dispatch(fetchListItems);
-  }, [allProfiles, allListItems]);
+  }, [dispatch]);
 
   interface ParamTypes {
     userId: any;
@@ -69,14 +69,16 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <h1>{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
-      <img
-        src={userProfile?.imageUrl}
-        className="profile-image"
-        height="180px"
-        width="171px"
-      />
-      <p></p>
+      <div className="background-image">
+        <h1>{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
+        <img
+          src={userProfile?.imageUrl}
+          className="profile-image"
+          height="180px"
+          width="171px"
+        />
+        <p></p>
+      </div>
 
       <div className="list">
         <div className="list-card">

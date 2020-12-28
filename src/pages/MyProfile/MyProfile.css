@@ -1,5 +1,7 @@
 .profile-name {
   color: #f5f4f4;
+  font-weight: bold;
+  font-size: 3rem;
 }
 
 .profile-image {
@@ -61,7 +63,12 @@ h1 {
       url("https://static01.nyt.com/images/2019/11/06/opinion/04scorsese/04scorsese-superJumbo.jpg?quality=90&auto=webp");
   background-position: 0% 28%;
   margin-bottom: 30px;
-  padding: 50px;
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.edit-button {
+  margin-top: 40px;
 }
 
 @media (max-width: 800px) {
