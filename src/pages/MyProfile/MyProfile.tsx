@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
+import AvatarEditor from "react-avatar-editor";
 import "./MyProfile.css";
-import Button from "react-bootstrap/Button";
 import { Link, useParams, Redirect, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserProfile, selectUser } from "../../store/user/selectors";
@@ -29,7 +29,7 @@ import { selectAppLoading } from "../../store/appState/selectors";
 import Loading from "../../components/Loading";
 import Rating from "@material-ui/lab/Rating";
 import { fetchReviews } from "../../store/reviews/actions";
-import { fetchProfiles } from "../../store/profiles/actions";
+import { fetchProfiles, updateProfile } from "../../store/profiles/actions";
 import {
   BsHeartFill,
   BsHeart,
@@ -38,6 +38,7 @@ import {
   BsClockFill,
   BsClock,
 } from "react-icons/bs";
+import { Col, Image, Button, Form } from "react-bootstrap";
 
 export default function MyProfile() {
   const dispatch = useDispatch();
@@ -52,6 +53,8 @@ export default function MyProfile() {
   const reviewsLoading = useSelector(selectReviewsLoading);
   const allReviews = useSelector(selectAllReviews);
   const history = useHistory();
+
+  const [editProfile, setEditProfile] = useState(false);
 
   useEffect(() => {
     if (!user.token) {
@@ -68,7 +71,7 @@ export default function MyProfile() {
   useEffect(() => {
     console.log("USE EFFECT");
     dispatch(fetchListItems);
-    dispatch(fetchProfiles);
+    // dispatch(fetchProfiles);
     dispatch(fetchAllFavourites);
     dispatch(fetchCategories);
   }, [dispatch]);
@@ -82,6 +85,11 @@ export default function MyProfile() {
   const userProfile: any = allProfiles?.find((p: any) => {
     return p.userId === user?.id;
   });
+  const userProfileId = userProfile.id;
+
+  const [imageUrl, setImageUrl] = useState(userProfile.imageUrl);
+  const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
+  console.log("Position", position);
 
   const userFavourites = allFavourites?.filter((f: any) => {
     return f.list.profileId === userProfile?.id;
@@ -96,15 +104,70 @@ export default function MyProfile() {
     dispatch(removeItemFromFavourites(event.target.value));
   }
 
+  function changePicture() {
+    dispatch(updateProfile(userProfileId, imageUrl));
+    setEditProfile(false);
+  }
+
   return (
     <div>
-      <h1 className="profile-name">{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
-      <img
-        src={userProfile?.imageUrl}
-        className="profile-image"
-        height="100px"
-      />
-      <p></p>
+      <div className="background-image">
+        <h1 className="profile-name">{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
+        <div className="profile-image">
+          <img src={userProfile?.imageUrl} />
+        </div>
+        <p></p>
+        <Button
+          className="edit-button"
+          onClick={() => setEditProfile(!editProfile)}
+          variant="info"
+        >
+          Edit profile
+        </Button>
+      </div>
+      <div>
+        {editProfile ? (
+          <Form as={Col} md={{ span: 6, offset: 3 }} className="mt-5">
+            <Form.Group controlId="formUrl">
+              <Form.Label>Image url</Form.Label>
+              <Form.Control
+                value={imageUrl}
+                onChange={(event) => setImageUrl(event.target.value)}
+                type="url"
+                placeholder=""
+                required
+              />
+            </Form.Group>
+            {imageUrl ? (
+              <div>
+                <p>Drag image to reposition:</p>
+                {/* <div className="profile-image">
+                  <img src={imageUrl} alt="profile picture" />
+                </div> */}
+                <AvatarEditor
+                  className="profile-image"
+                  image={imageUrl}
+                  // width={250}
+                  // height={250}
+                  border={0}
+                  color={[255, 255, 255, 0.6]} // RGBA
+                  scale={1}
+                  rotate={0}
+                  position={position}
+                  onPositionChange={(event) => setPosition(event)}
+                />
+              </div>
+            ) : null}
+            <Button
+              className="change-button"
+              onClick={changePicture}
+              variant="success"
+            >
+              Change picture
+            </Button>
+          </Form>
+        ) : null}
+      </div>
 
       <div className="list">
         <div className="list-card">

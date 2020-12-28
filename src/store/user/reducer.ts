@@ -34,12 +34,6 @@ const userReducer = (state = initialState, action: UserActionTypes) => {
       localStorage.removeItem("token");
       return { ...initialState };
 
-    // case SET_MESSAGE:
-    //   return { ...state, message: action.payload };
-
-    // case CLEAR_MESSAGE:
-    //   return { ...state, message: null };
-
     default:
       return state;
   }

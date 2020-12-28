@@ -27,8 +27,10 @@ export default function ProfileCard() {
         return (
           <div key={p.id}>
             <div className="profile-card">
-              <h3 className="profile-name">{`${p.firstName} ${p.lastName}`}</h3>
-              <img className="profile-image" src={p.imageUrl} height="40px" />
+              <h3 className="profile-user">{`${p.firstName} ${p.lastName}`}</h3>
+              <div className="profile-card-image">
+                <img src={p.imageUrl} height="180px" width="171px" />
+              </div>
               <p></p>
               <em>
                 <p>

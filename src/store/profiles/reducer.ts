@@ -3,6 +3,7 @@ import {
   ProfileActionTypes,
   SET_LOADING,
   PROFILES_FETCHED,
+  PROFILE_UPDATED,
 } from "./types";
 
 const initialState: ProfileState = {
@@ -25,6 +26,14 @@ export default function reducer(
       return {
         ...state,
         all: [...action.payload],
+      };
+    }
+    case "PROFILE_UPDATED": {
+      return {
+        ...state,
+        all: state.all?.map((p: any) => {
+          return p.id === action.payload.id ? { ...action.payload } : { ...p };
+        }),
       };
     }
     default: {

@@ -19,6 +19,14 @@ import {
 } from "../../store/reviews/selectors";
 import { fetchProfiles } from "../../store/profiles/actions";
 import Rating from "@material-ui/lab/Rating";
+import {
+  BsHeartFill,
+  BsHeart,
+  BsStarFill,
+  BsStar,
+  BsClockFill,
+  BsClock,
+} from "react-icons/bs";
 
 export default function ProfilePage() {
   const dispatch = useDispatch();
@@ -33,7 +41,7 @@ export default function ProfilePage() {
   useEffect(() => {
     dispatch(fetchProfiles);
     dispatch(fetchListItems);
-  }, [allProfiles, allListItems]);
+  }, [dispatch]);
 
   interface ParamTypes {
     userId: any;
@@ -61,13 +69,19 @@ export default function ProfilePage() {
 
   return (
     <div>
-      <h1>{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
-      <img src={userProfile?.imageUrl} className="profile-image" />
-      <p></p>
+      <div className="background-image">
+        <h1 className="profile-name">{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
+        <div className="profile-image">
+          <img src={userProfile?.imageUrl} height="180px" width="171px" />
+        </div>
+        <p></p>
+      </div>
 
       <div className="list">
         <div className="list-card">
-          <h3>Favourites</h3>
+          <h3>
+            <BsStarFill /> Favourites
+          </h3>
           <div className="item-list">
             {userFavourites?.map((f: any) => {
               return (
@@ -99,7 +113,9 @@ export default function ProfilePage() {
 
       <div className="list">
         <div className="list-card">
-          <h3>Library</h3>
+          <h3>
+            <BsHeartFill /> Library
+          </h3>
           <div className="item-list">
             {allCategories?.map((c: any) => {
               return (
@@ -130,7 +146,9 @@ export default function ProfilePage() {
 
       <div className="list">
         <div className="list-card">
-          <h3>Wishlist</h3>
+          <h3>
+            <BsClockFill /> Wishlist
+          </h3>
           <div className="item-list">
             {allCategories?.map((c: any) => {
               return (
