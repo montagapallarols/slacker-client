@@ -27,7 +27,7 @@ export function profilesFetched(profiles: object[]) {
   };
 }
 
-export function profileUpdated(profile: object) {
+export function profileUpdated(profile: any) {
   return {
     type: "PROFILE_UPDATED",
     payload: profile,
@@ -45,7 +45,7 @@ export async function fetchProfiles(dispatch: any, getState: any) {
 }
 
 export const updateProfile = (
-  profileId?: string,
+  userProfileId?: number,
   imageUrl?: string
 ): ThunkAction<void, RootState, unknown, Action<string>> => {
   return async (dispatch, getState: any) => {
@@ -53,9 +53,9 @@ export const updateProfile = (
 
     try {
       const response = await axios.patch(
-        `${serverUrl}/profiles/${profileId}`,
+        `${serverUrl}/profiles/${userProfileId}`,
         {
-          profileId,
+          profileId: userProfileId,
           imageUrl,
         },
         {
@@ -63,7 +63,7 @@ export const updateProfile = (
         }
       );
       console.log("UPDATE PROFILE RESPONSE", response.data);
-      // dispatch(profileUpdated(response.data));
+      dispatch(profileUpdated(response.data));
       dispatch(
         showMessageWithTimeout(
           "success",

@@ -4,8 +4,18 @@
 }
 
 .profile-image {
+  display: inline-block;
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
   border-radius: 50%;
-  height: 150px;
+}
+
+.profile-image img {
+  width: auto;
+  height: 100%;
+  margin-left: -100px;
 }
 
 h1 {
@@ -68,6 +78,10 @@ h1 {
 
 .edit-button {
   margin-top: 40px;
+}
+
+.change-button {
+  margin-top: 20px;
 }
 
 @media (max-width: 800px) {

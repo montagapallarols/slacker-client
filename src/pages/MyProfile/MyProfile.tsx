@@ -70,7 +70,7 @@ export default function MyProfile() {
   useEffect(() => {
     console.log("USE EFFECT");
     dispatch(fetchListItems);
-    dispatch(fetchProfiles);
+    // dispatch(fetchProfiles);
     dispatch(fetchAllFavourites);
     dispatch(fetchCategories);
   }, [dispatch]);
@@ -103,19 +103,21 @@ export default function MyProfile() {
 
   function changePicture() {
     dispatch(updateProfile(userProfileId, imageUrl));
+    setEditProfile(false);
   }
 
   return (
     <div>
       <div className="background-image">
         <h1 className="profile-name">{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
-        <img
-          src={userProfile?.imageUrl}
-          className="profile-image"
-          height="180px"
-          width="171px"
-        />
-
+        <div className="profile-image">
+          <img
+            src={userProfile?.imageUrl}
+            // className="profile-image"
+            // height="180px"
+            // width="175px"
+          />
+        </div>
         <p></p>
         <Button
           className="edit-button"
@@ -138,7 +140,19 @@ export default function MyProfile() {
                 required
               />
             </Form.Group>
-            <Button onClick={changePicture} variant="success">
+            {imageUrl ? (
+              <div>
+                <p>Image preview:</p>
+                <div className="profile-image">
+                  <img src={imageUrl} alt="profile picture" />
+                </div>
+              </div>
+            ) : null}
+            <Button
+              className="change-button"
+              onClick={changePicture}
+              variant="success"
+            >
               Change picture
             </Button>
           </Form>
