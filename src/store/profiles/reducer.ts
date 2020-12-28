@@ -27,6 +27,14 @@ export default function reducer(
         all: [...action.payload],
       };
     }
+    // case "PROFILE_UPDATED": {
+    //   return {
+    //     ...state,
+    //     all: state.all?.map((p) => {
+    //       p.id === action.payload.id ?
+    //     })
+    //   };
+    // }
     default: {
       return state;
     }

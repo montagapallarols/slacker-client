@@ -28,7 +28,7 @@ import { selectAppLoading } from "../../store/appState/selectors";
 import Loading from "../../components/Loading";
 import Rating from "@material-ui/lab/Rating";
 import { fetchReviews } from "../../store/reviews/actions";
-import { fetchProfiles } from "../../store/profiles/actions";
+import { fetchProfiles, updateProfile } from "../../store/profiles/actions";
 import {
   BsHeartFill,
   BsHeart,
@@ -84,6 +84,7 @@ export default function MyProfile() {
   const userProfile: any = allProfiles?.find((p: any) => {
     return p.userId === user?.id;
   });
+  const userProfileId = userProfile.id;
 
   const [imageUrl, setImageUrl] = useState(userProfile.imageUrl);
 
@@ -98,6 +99,10 @@ export default function MyProfile() {
   function handleClickRemove(event: any) {
     event.preventDefault();
     dispatch(removeItemFromFavourites(event.target.value));
+  }
+
+  function changePicture() {
+    dispatch(updateProfile(userProfileId, imageUrl));
   }
 
   return (
@@ -133,7 +138,9 @@ export default function MyProfile() {
                 required
               />
             </Form.Group>
-            <Button variant="success">Change picture</Button>
+            <Button onClick={changePicture} variant="success">
+              Change picture
+            </Button>
           </Form>
         ) : null}
       </div>

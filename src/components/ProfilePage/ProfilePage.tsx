@@ -70,7 +70,7 @@ export default function ProfilePage() {
   return (
     <div>
       <div className="background-image">
-        <h1>{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
+        <h1 className="profile-name">{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
         <img
           src={userProfile?.imageUrl}
           className="profile-image"
