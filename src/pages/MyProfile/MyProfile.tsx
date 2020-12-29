@@ -116,6 +116,7 @@ export default function MyProfile() {
         <div className="profile-image">
           <img src={userProfile?.imageUrl} />
         </div>
+
         <p></p>
         <Button
           className="edit-button"
@@ -140,7 +141,7 @@ export default function MyProfile() {
             </Form.Group>
             {imageUrl ? (
               <div>
-                <p>Drag image to reposition:</p>
+                <p>Image preview:</p>
                 {/* <div className="profile-image">
                   <img src={imageUrl} alt="profile picture" />
                 </div> */}
