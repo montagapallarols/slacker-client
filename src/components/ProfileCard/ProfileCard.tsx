@@ -28,7 +28,6 @@ export default function ProfileCard() {
           <Card style={{ width: "18rem", margin: "30px" }} key={p.id}>
             {/* <div className="profile-card-image"> */}
             <Card.Img
-              // style={{ borderRadius: "50%" }}
               variant="top"
               src={p.imageUrl}
               height="180px"

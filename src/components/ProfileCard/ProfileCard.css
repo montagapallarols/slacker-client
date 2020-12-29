@@ -43,8 +43,11 @@
   box-shadow: 1px 2px 8px -1px rgba(27, 27, 27, 0.75);
   border: 1px solid rgb(29, 29, 29);
   border-radius: 5px; */
-  padding: 1px;
-  /* width: 0px; */
+  padding: 8px 0;
+}
+
+.card-item img {
+  height: 50px;
 }
 
 .profile-card-image {
