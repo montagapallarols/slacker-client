@@ -26,20 +26,16 @@ export default function ProfileCard() {
       {allProfiles?.map((p: any) => {
         return (
           <Card style={{ width: "18rem", margin: "30px" }} key={p.id}>
-            {/* <div className="profile-card-image"> */}
             <Card.Img
               variant="top"
               src={p.imageUrl}
               height="180px"
               width="171px"
             />
-            {/* </div> */}
+
             <Card.Body>
               <Card.Title>{`${p.firstName} ${p.lastName}`}</Card.Title>
-              <Card.Text>
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </Card.Text>
+              <Card.Text></Card.Text>
               <em>
                 <p>
                   {p.lists.map((list: any) => {

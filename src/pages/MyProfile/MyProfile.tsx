@@ -188,7 +188,7 @@ export default function MyProfile() {
                       {allCategories?.map((c: any) => {
                         return c.id === f.item.categoryId ? (
                           <em key={c.id}>
-                            <p>({c.name})</p>
+                            <p className="category-name">({c.name})</p>
                           </em>
                         ) : null;
                       })}
