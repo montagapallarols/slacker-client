@@ -37,16 +37,10 @@ export default function Reviews() {
     return p.userId === user?.id;
   });
 
-  // useEffect(() => {
-  //   dispatch(fetchReviews);
-  // }, [dispatch]);
-
   useEffect(() => {
-    // if (reviewsLoading || listItemsLoading || profilesLoading) {
     dispatch(fetchReviews);
     dispatch(fetchListItems);
     dispatch(fetchProfiles);
-    // }
   }, [dispatch, reviewsLoading, listItemsLoading, profilesLoading]);
 
   useEffect(() => {
