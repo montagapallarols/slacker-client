@@ -74,14 +74,15 @@ h1 {
   background-image: linear-gradient(
       0deg,
       rgba(0, 0, 0, 0.5),
-      rgba(0, 0, 0, 0.6)
+      rgba(0, 0, 0, 0.3)
     ),
     /* url("https://bucket.mn2s.com/wp-content/uploads/2019/06/26105546/cinema-paradiso-mn2s.jpg"); */
-      url("https://static01.nyt.com/images/2019/11/06/opinion/04scorsese/04scorsese-superJumbo.jpg?quality=90&auto=webp");
+      /* url("https://static01.nyt.com/images/2019/11/06/opinion/04scorsese/04scorsese-superJumbo.jpg?quality=90&auto=webp"); */
+      url("https://i.pinimg.com/originals/55/5a/89/555a89990526dc98bc0e6b5565086325.jpg");
   background-position: 0% 28%;
   margin-bottom: 30px;
   padding-top: 20px;
-  padding-bottom: 40px;
+  padding-bottom: 15px;
 }
 
 .edit-button {

@@ -120,7 +120,6 @@ export default function LibraryItemDetails() {
       <div>
         <h2 className="item-title">{apiItemDetails?.Title}</h2>
         <p>{apiItemDetails?.Year}</p>
-        <p>({apiItemDetails?.Type})</p>
         <p>Directed by {apiItemDetails?.Director}</p>
         <em>
           <p>{apiItemDetails?.Genre}</p>

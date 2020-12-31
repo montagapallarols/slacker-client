@@ -77,7 +77,6 @@ export default function WishlistItemDetails() {
     <div>
       <h2>{apiItemDetails?.Title}</h2>
       <p>{apiItemDetails?.Year}</p>
-      <p>({apiItemDetails?.Type})</p>
       <p>Directed by {apiItemDetails?.Director}</p>
       <em>
         <p>{apiItemDetails?.Genre}</p>
