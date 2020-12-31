@@ -145,16 +145,14 @@ export default function MyProfile() {
             {imageUrl ? (
               <div>
                 <p>Image preview:</p>
-                {/* <div className="profile-image">
-                  <img src={imageUrl} alt="profile picture" />
-                </div> */}
+
                 <AvatarEditor
                   className="profile-image"
                   image={imageUrl}
                   // width={250}
                   // height={250}
                   border={0}
-                  color={[255, 255, 255, 0.6]} // RGBA
+                  color={[255, 255, 255, 0.6]}
                   scale={1}
                   rotate={0}
                   position={position}
@@ -262,7 +260,7 @@ export default function MyProfile() {
                         <Card.Title>{c.name}</Card.Title>
                         <Card.Text></Card.Text>
                         <Link to={`/my-profile/${user.id}/library/${c.name}`}>
-                          <Button variant="outline-dark">See list</Button>
+                          <Button variant="dark">See list</Button>
                         </Link>
                       </Card.Body>
                     </Card>
@@ -301,7 +299,7 @@ export default function MyProfile() {
                         <Card.Title>{c.name}</Card.Title>
                         <Card.Text></Card.Text>
                         <Link to={`/my-profile/${user.id}/wishlist/${c.name}`}>
-                          <Button variant="outline-dark">See list</Button>
+                          <Button variant="dark">See list</Button>
                         </Link>
                       </Card.Body>
                     </Card>
