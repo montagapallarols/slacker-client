@@ -38,7 +38,7 @@ import {
   BsClockFill,
   BsClock,
 } from "react-icons/bs";
-import { Col, Image, Button, Form, Card } from "react-bootstrap";
+import { Col, Image, Button, Form, Card, Badge } from "react-bootstrap";
 import { Divider, Grid } from "@material-ui/core";
 
 export default function MyProfile() {
@@ -121,13 +121,13 @@ export default function MyProfile() {
         </div>
 
         <p></p>
-        <Button
-          className="edit-button"
-          onClick={() => setEditProfile(!editProfile)}
-          variant="info"
-        >
-          Edit profile
-        </Button>
+
+        <h5>
+          <Badge variant="secondary" style={{ marginRight: "10px" }}>
+            2 Followers
+          </Badge>
+          <Badge variant="secondary">2 Following</Badge>
+        </h5>
       </div>
       <div>
         {editProfile ? (
@@ -173,15 +173,19 @@ export default function MyProfile() {
       <Button
         onClick={() => setProfileButton("lists")}
         style={{ margin: "10px" }}
-        variant="outline-dark"
+        variant="dark"
       >
         Lists
       </Button>
-      <Button
-        onClick={() => setProfileButton("reviews")}
-        variant="outline-dark"
-      >
+      <Button onClick={() => setProfileButton("reviews")} variant="dark">
         Reviews
+      </Button>
+      <Button
+        onClick={() => setEditProfile(!editProfile)}
+        style={{ margin: "10px" }}
+        variant="dark"
+      >
+        Edit profile
       </Button>
       {profileButton === "lists" ? (
         <div>

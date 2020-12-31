@@ -72,23 +72,24 @@ export default function ProfilePage() {
   return (
     <div>
       <div className="background-image">
-        <h1 className="profile-name">{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
+        <h1 className="profile-name">
+          {`${userProfile?.firstName} ${userProfile?.lastName}`}
+        </h1>
+
         <div className="profile-image">
           <img src={userProfile?.imageUrl} height="180px" width="171px" />
         </div>
         <p></p>
+        <Button variant="secondary">Follow</Button>
       </div>
       <Button
         onClick={() => setProfileButton("lists")}
         style={{ margin: "10px" }}
-        variant="outline-dark"
+        variant="dark"
       >
         Lists
       </Button>
-      <Button
-        onClick={() => setProfileButton("reviews")}
-        variant="outline-dark"
-      >
+      <Button onClick={() => setProfileButton("reviews")} variant="dark">
         Reviews
       </Button>
       {profileButton === "lists" ? (
