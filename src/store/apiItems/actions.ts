@@ -5,6 +5,12 @@ import {
   API_ITEMS_FETCHED,
   ApiItemsActionTypes,
 } from "./types";
+import {
+  appLoading,
+  appDoneLoading,
+  showMessageWithTimeout,
+  setMessage,
+} from "../appState/actions";
 import { AppThunk } from "../types";
 import { RootState } from "../rootReducer";
 import { Action } from "redux";
@@ -49,26 +55,23 @@ export function fetchApiItems(
   searchText: any
 ): ThunkAction<void, RootState, unknown, Action<string>> {
   return async function (dispatch, getState: any) {
-    const queryParam = encodeURIComponent(searchText);
-    console.log("Query Param:", queryParam);
-    const response = await axios.get(
-      `https://www.omdbapi.com/?s=${queryParam}&apikey=2511cc5f`
-    );
-    // console.log("API items response", response.data.Search);
+    try {
+      const queryParam = encodeURIComponent(searchText);
+      console.log("Query Param:", queryParam);
+      const response = await axios.get(
+        `https://www.omdbapi.com/?s=${queryParam}&apikey=2511cc5f`
+      );
+      // console.log("API items response", response.data.Search);
 
-    // if (response.data.Error === "Movie not found!") {
-    //   setSearchStatus({ status: "Oops, movie not found!", data: [] });
-    // } else if (params.searchtext === undefined) {
-    //   setSearchStatus({ status: "Search for a movie", data: [] });
-    // } else {
-    //   setSearchStatus({ status: "Success!", data: response.data.Search });
-    //   setSearchText(params.searchtext);
-    // }
+      if (response.data.Search === undefined) {
+        dispatch(setMessage("danger", true, "Movie not found!"));
+      }
 
-    // console.log("Success!", response.data.Search);
-
-    dispatch(apiItemsFetched(response.data.Search));
-    dispatch(setApiItemsLoading(false));
+      dispatch(apiItemsFetched(response.data.Search));
+      dispatch(setApiItemsLoading(false));
+    } catch (e) {
+      console.log(e);
+    }
   };
 }
 
