@@ -34,14 +34,7 @@ import {
   selectProfilesLoading,
 } from "../../store/profiles/selectors";
 import { fetchProfiles } from "../../store/profiles/actions";
-import {
-  BsHeartFill,
-  BsHeart,
-  BsStarFill,
-  BsStar,
-  BsClockFill,
-  BsClock,
-} from "react-icons/bs";
+import { selectMessage } from "../../store/appState/selectors";
 
 export default function ListDetails() {
   const dispatch = useDispatch();
@@ -57,6 +50,7 @@ export default function ListDetails() {
   const allListItems = useSelector(selectAllListItems);
   const listItemsLoading = useSelector(selectListItemsLoading);
   const profilesLoading = useSelector(selectProfilesLoading);
+  const message = useSelector(selectMessage);
 
   useEffect(() => {
     dispatch(removeSearchItems);
@@ -212,6 +206,7 @@ export default function ListDetails() {
                   placeholder={`Search ${categoryName.toLowerCase()}...`}
                 />
               </Form.Group>
+
               <Button variant="dark" type="submit" onClick={onClickSearch}>
                 Search
               </Button>

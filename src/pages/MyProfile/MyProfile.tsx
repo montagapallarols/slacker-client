@@ -91,7 +91,6 @@ export default function MyProfile() {
 
   const [imageUrl, setImageUrl] = useState(userProfile?.imageUrl);
   const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
-  console.log("Position", position);
 
   const userFavourites = allFavourites?.filter((f: any) => {
     return f.list.profileId === userProfile?.id;
