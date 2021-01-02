@@ -38,7 +38,7 @@ export default function ProfileCard() {
               <Card.Text></Card.Text>
               <em>
                 <p>
-                  {p.lists.map((list: any) => {
+                  {p.lists?.map((list: any) => {
                     return list.type === "Favourites" ? (
                       <strong key={list.id}>{list.type}</strong>
                     ) : null;

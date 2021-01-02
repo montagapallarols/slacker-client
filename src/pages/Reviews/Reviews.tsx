@@ -37,16 +37,10 @@ export default function Reviews() {
     return p.userId === user?.id;
   });
 
-  // useEffect(() => {
-  //   dispatch(fetchReviews);
-  // }, [dispatch]);
-
   useEffect(() => {
-    // if (reviewsLoading || listItemsLoading || profilesLoading) {
     dispatch(fetchReviews);
     dispatch(fetchListItems);
     dispatch(fetchProfiles);
-    // }
   }, [dispatch, reviewsLoading, listItemsLoading, profilesLoading]);
 
   useEffect(() => {
@@ -57,7 +51,9 @@ export default function Reviews() {
 
   return (
     <div>
-      <h1>All Reviews</h1>
+      <div className="reviews-background-image">
+        <h1 className="profile-name">All Reviews</h1>
+      </div>
       {allReviews?.map((r: any) => {
         return (
           <div key={r.id} className="review-list">

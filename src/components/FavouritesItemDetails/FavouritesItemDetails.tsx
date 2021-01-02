@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./FavouritesItemDetails.css";
 import { useParams } from "react-router-dom";
-import Button from "react-bootstrap/Button";
+import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchApiItems, fetchApiItemById } from "../../store/apiItems/actions";
 import {
@@ -40,7 +40,7 @@ export default function FavouritesItemDetails() {
     <div>
       <h2>{apiItemDetails?.Title}</h2>
       <p>{apiItemDetails?.Year}</p>
-      <p>({apiItemDetails?.Type})</p>
+
       <p>Directed by {apiItemDetails?.Director}</p>
       <em>
         <p>{apiItemDetails?.Genre}</p>

@@ -38,7 +38,7 @@ import {
   BsClockFill,
   BsClock,
 } from "react-icons/bs";
-import { Col, Image, Button, Form, Media } from "react-bootstrap";
+import { Col, Image, Button, Form, Card, Badge } from "react-bootstrap";
 import { Divider, Grid } from "@material-ui/core";
 
 export default function MyProfile() {
@@ -87,9 +87,9 @@ export default function MyProfile() {
   const userProfile: any = allProfiles?.find((p: any) => {
     return p.userId === user?.id;
   });
-  const userProfileId = userProfile.id;
+  const userProfileId = userProfile?.id;
 
-  const [imageUrl, setImageUrl] = useState(userProfile.imageUrl);
+  const [imageUrl, setImageUrl] = useState(userProfile?.imageUrl);
   const [position, setPosition] = useState({ x: 0.5, y: 0.5 });
   console.log("Position", position);
 
@@ -121,13 +121,6 @@ export default function MyProfile() {
         </div>
 
         <p></p>
-        <Button
-          className="edit-button"
-          onClick={() => setEditProfile(!editProfile)}
-          variant="info"
-        >
-          Edit profile
-        </Button>
       </div>
       <div>
         {editProfile ? (
@@ -145,16 +138,14 @@ export default function MyProfile() {
             {imageUrl ? (
               <div>
                 <p>Image preview:</p>
-                {/* <div className="profile-image">
-                  <img src={imageUrl} alt="profile picture" />
-                </div> */}
+
                 <AvatarEditor
                   className="profile-image"
                   image={imageUrl}
                   // width={250}
                   // height={250}
                   border={0}
-                  color={[255, 255, 255, 0.6]} // RGBA
+                  color={[255, 255, 255, 0.6]}
                   scale={1}
                   rotate={0}
                   position={position}
@@ -175,15 +166,19 @@ export default function MyProfile() {
       <Button
         onClick={() => setProfileButton("lists")}
         style={{ margin: "10px" }}
-        variant="outline-dark"
+        variant="dark"
       >
         Lists
       </Button>
-      <Button
-        onClick={() => setProfileButton("reviews")}
-        variant="outline-dark"
-      >
+      <Button onClick={() => setProfileButton("reviews")} variant="dark">
         Reviews
+      </Button>
+      <Button
+        onClick={() => setEditProfile(!editProfile)}
+        style={{ margin: "10px" }}
+        variant="info"
+      >
+        Edit profile
       </Button>
       {profileButton === "lists" ? (
         <div>
@@ -241,26 +236,31 @@ export default function MyProfile() {
               <div className="item-list">
                 {allCategories?.map((c: any) => {
                   return (
-                    <div key={c.id} className="item-card">
-                      <p>{c.name}</p>
+                    <Card
+                      style={{ width: "18rem", marginTop: "40px" }}
+                      key={c.id}
+                    >
                       {c.name === "Films" ? (
-                        <img
-                          src="https://storage.googleapis.com/ff-storage-p01/festivals/logos/000/039/385/large/logo.jpg?1498668430"
+                        <Card.Img
+                          variant="top"
+                          src="https://www.nyfa.edu/film-school-blog/wp-content/uploads/2015/02/projector.jpg"
                           alt="logo"
-                          height="100px"
-                          className="film-image"
                         />
                       ) : (
-                        <img
-                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUHuZo6NHZMspV5r5Lv_JT3_sCp9PEkl774g&usqp=CAU"
+                        <Card.Img
+                          variant="top"
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT79Dlq-fPrW1L2bVz2PJH73FwFHDpsWjhdw&usqp=CAU"
                           alt="logo"
-                          height="80px"
                         />
                       )}
-                      <Link to={`/my-profile/${user.id}/library/${c.name}`}>
-                        <Button variant="outline-dark">See list</Button>
-                      </Link>
-                    </div>
+                      <Card.Body>
+                        <Card.Title>{c.name}</Card.Title>
+                        <Card.Text></Card.Text>
+                        <Link to={`/my-profile/${user.id}/library/${c.name}`}>
+                          <Button variant="dark">See list</Button>
+                        </Link>
+                      </Card.Body>
+                    </Card>
                   );
                 })}
               </div>
@@ -275,26 +275,31 @@ export default function MyProfile() {
               <div className="item-list">
                 {allCategories?.map((c: any) => {
                   return (
-                    <div key={c.id} className="item-card">
-                      <p>{c.name}</p>
+                    <Card
+                      style={{ width: "18rem", marginTop: "40px" }}
+                      key={c.id}
+                    >
                       {c.name === "Films" ? (
-                        <img
-                          src="https://storage.googleapis.com/ff-storage-p01/festivals/logos/000/039/385/large/logo.jpg?1498668430"
+                        <Card.Img
+                          variant="top"
+                          src="https://www.nyfa.edu/film-school-blog/wp-content/uploads/2015/02/projector.jpg"
                           alt="logo"
-                          height="100px"
-                          className="film-image"
                         />
                       ) : (
-                        <img
-                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUHuZo6NHZMspV5r5Lv_JT3_sCp9PEkl774g&usqp=CAU"
+                        <Card.Img
+                          variant="top"
+                          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTT79Dlq-fPrW1L2bVz2PJH73FwFHDpsWjhdw&usqp=CAU"
                           alt="logo"
-                          height="80px"
                         />
                       )}
-                      <Link to={`/my-profile/${user.id}/wishlist/${c.name}`}>
-                        <Button variant="outline-dark">See list</Button>
-                      </Link>
-                    </div>
+                      <Card.Body>
+                        <Card.Title>{c.name}</Card.Title>
+                        <Card.Text></Card.Text>
+                        <Link to={`/my-profile/${user.id}/wishlist/${c.name}`}>
+                          <Button variant="dark">See list</Button>
+                        </Link>
+                      </Card.Body>
+                    </Card>
                   );
                 })}
               </div>

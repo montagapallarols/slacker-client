@@ -2,10 +2,7 @@ import React, { useEffect, useState, MouseEvent } from "react";
 import "./WishlistDetails.css";
 import { useParams, Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
-import Button from "react-bootstrap/Button";
-import { Col } from "react-bootstrap";
+import { Col, Card, Button, Container, Form } from "react-bootstrap";
 import {
   fetchApiItems,
   fetchApiItemById,
@@ -159,39 +156,26 @@ export default function WishlistDetails() {
           <div className="search-list">
             {allApiItems?.map((i: any) => {
               return (
-                <div key={i.imdbID} className="item-card">
-                  <h3>
-                    {i.Title} ({i.Year})
-                  </h3>
-                  <em>
-                    <p>{i.Type}</p>
-                  </em>
+                <Card style={{ width: "12rem", margin: "20px" }} key={i.imdbID}>
                   {i.Poster === "N/A" ? null : (
-                    <img src={i.Poster} alt="poster" height="200px" />
+                    <Link
+                      to={`/my-profile/${user.id}/wishlist/${categoryName}/${i.imdbID}`}
+                    >
+                      <Card.Img variant="top" src={i.Poster} alt="poster" />
+                    </Link>
                   )}
-                  {apiIdWishlistArray.includes(i.imdbID) ? (
+                  <Card.Body>
+                    <Card.Title>{i.Title}</Card.Title>
+                    <Card.Text>({i.Year})</Card.Text>
                     <Button
                       onClick={handleClickRemove}
                       value={i.imdbID}
                       variant="outline-dark"
                     >
-                      Remove from Wishlist
+                      Remove
                     </Button>
-                  ) : (
-                    <Button
-                      onClick={onClickAdd}
-                      value={i.imdbID}
-                      variant="outline-dark"
-                    >
-                      Add to Wishlist
-                    </Button>
-                  )}
-                  <Link
-                    to={`/my-profile/${user.id}/wishlist/${categoryName}/${i.imdbID}`}
-                  >
-                    <Button variant="outline-dark">More details</Button>
-                  </Link>
-                </div>
+                  </Card.Body>
+                </Card>
               );
             })}
           </div>
@@ -202,29 +186,26 @@ export default function WishlistDetails() {
       <div className="wishlist-list">
         {listItemsInWishlist?.map((i: any) => {
           return (
-            <div key={i.item.apiId} className="item-card">
-              <h3>
-                {i.item.name} ({i.item.year})
-              </h3>
-              <em>
-                <p>{i.item.type}</p>
-              </em>
+            <Card style={{ width: "12rem", margin: "20px" }} key={i.item.apiId}>
               {i.item.poster === "N/A" ? null : (
-                <img src={i.item.poster} alt="poster" height="200px" />
+                <Link
+                  to={`/my-profile/${user.id}/wishlist/${categoryName}/${i.item.apiId}`}
+                >
+                  <Card.Img variant="top" src={i.item.poster} alt="poster" />
+                </Link>
               )}
-              <Button
-                onClick={handleClickRemove}
-                value={i.item.apiId}
-                variant="outline-dark"
-              >
-                Remove from Wishlist
-              </Button>
-              <Link
-                to={`/my-profile/${user.id}/wishlist/${categoryName}/${i.item.apiId}`}
-              >
-                <Button variant="outline-dark">Details</Button>
-              </Link>
-            </div>
+              <Card.Body>
+                <Card.Title>{i.item.name}</Card.Title>
+                <Card.Text>({i.item.year})</Card.Text>
+                <Button
+                  onClick={handleClickRemove}
+                  value={i.item.apiId}
+                  variant="outline-dark"
+                >
+                  Remove
+                </Button>
+              </Card.Body>
+            </Card>
           );
         })}
       </div>
