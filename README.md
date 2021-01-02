@@ -9,6 +9,10 @@ Although this app is still in progress (I still have many features in mind that 
 ### App demo ###
 
 
+![slacker2](https://user-images.githubusercontent.com/64054997/103457044-1011be80-4cfc-11eb-8e4c-26bad5261ffc.gif)
+
+
+
 
 ### Pages overview: ###
 
