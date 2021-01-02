@@ -156,39 +156,26 @@ export default function WishlistDetails() {
           <div className="search-list">
             {allApiItems?.map((i: any) => {
               return (
-                <div key={i.imdbID} className="item-card">
-                  <h3>
-                    {i.Title} ({i.Year})
-                  </h3>
-                  <em>
-                    <p>{i.Type}</p>
-                  </em>
+                <Card style={{ width: "12rem", margin: "20px" }} key={i.imdbID}>
                   {i.Poster === "N/A" ? null : (
-                    <img src={i.Poster} alt="poster" height="200px" />
+                    <Link
+                      to={`/my-profile/${user.id}/wishlist/${categoryName}/${i.imdbID}`}
+                    >
+                      <Card.Img variant="top" src={i.Poster} alt="poster" />
+                    </Link>
                   )}
-                  {apiIdWishlistArray.includes(i.imdbID) ? (
+                  <Card.Body>
+                    <Card.Title>{i.Title}</Card.Title>
+                    <Card.Text>({i.Year})</Card.Text>
                     <Button
                       onClick={handleClickRemove}
                       value={i.imdbID}
                       variant="outline-dark"
                     >
-                      Remove from Wishlist
+                      Remove
                     </Button>
-                  ) : (
-                    <Button
-                      onClick={onClickAdd}
-                      value={i.imdbID}
-                      variant="outline-dark"
-                    >
-                      Add to Wishlist
-                    </Button>
-                  )}
-                  <Link
-                    to={`/my-profile/${user.id}/wishlist/${categoryName}/${i.imdbID}`}
-                  >
-                    <Button variant="outline-dark">More details</Button>
-                  </Link>
-                </div>
+                  </Card.Body>
+                </Card>
               );
             })}
           </div>

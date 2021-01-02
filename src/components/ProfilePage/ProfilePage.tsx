@@ -80,7 +80,6 @@ export default function ProfilePage() {
           <img src={userProfile?.imageUrl} height="180px" width="171px" />
         </div>
         <p></p>
-        <Button variant="secondary">Follow</Button>
       </div>
       <Button
         onClick={() => setProfileButton("lists")}

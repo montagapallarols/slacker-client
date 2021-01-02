@@ -221,18 +221,17 @@ export default function ListDetails() {
           <div className="search-list">
             {allApiItems?.map((i: any) => {
               return (
-                <div key={i.imdbID} className="item-card">
-                  <h3>
-                    {i.Title} ({i.Year})
-                  </h3>
-                  <em>
-                    <p>{i.Type}</p>
-                  </em>
-
+                <Card style={{ width: "12rem", margin: "20px" }} key={i.imdbID}>
                   {i.Poster === "N/A" ? null : (
-                    <img src={i.Poster} alt="poster" height="200px" />
+                    <Link
+                      to={`/my-profile/${user.id}/library/${categoryName}/${i.imdbID}`}
+                    >
+                      <Card.Img variant="top" src={i.Poster} alt="poster" />
+                    </Link>
                   )}
-                  {apiIdLibraryArray?.includes(i.imdbID) ? (
+                  <Card.Body>
+                    <Card.Title>{i.Title}</Card.Title>
+                    <Card.Text>({i.Year})</Card.Text>
                     <Button
                       onClick={handleClickRemove}
                       value={i.imdbID}
@@ -240,38 +239,26 @@ export default function ListDetails() {
                     >
                       Remove
                     </Button>
-                  ) : (
-                    <Button
-                      onClick={onClickAdd}
-                      value={i.imdbID}
-                      variant="outline-dark"
-                    >
-                      Add to Library
-                    </Button>
-                  )}
-                  <Link
-                    to={`/my-profile/${user.id}/library/${categoryName}/${i.imdbID}`}
-                  >
-                    <Button variant="outline-dark">Details</Button>
-                  </Link>
-                  {apiIdFavouritesArray?.includes(i.imdbID) ? (
-                    <Button
-                      variant="outline-dark"
-                      onClick={favouritesRemove}
-                      value={i.imdbID}
-                    >
-                      Remove from Favourites
-                    </Button>
-                  ) : (
-                    <Button
-                      onClick={onClickFavouritesAdd}
-                      value={i.imdbID}
-                      variant="outline-dark"
-                    >
-                      Favourites
-                    </Button>
-                  )}
-                </div>
+
+                    {apiIdFavouritesArray?.includes(i.imdbID) ? (
+                      <Button
+                        onClick={favouritesRemove}
+                        value={i.imdbID}
+                        variant="outline-dark"
+                      >
+                        Remove from Favourites
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={onClickFavouritesAdd}
+                        value={i.imdbID}
+                        variant="outline-dark"
+                      >
+                        Favourites
+                      </Button>
+                    )}
+                  </Card.Body>
+                </Card>
               );
             })}
           </div>

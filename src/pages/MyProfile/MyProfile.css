@@ -91,6 +91,7 @@ h1 {
 
 .change-button {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 800px) {

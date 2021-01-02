@@ -121,13 +121,6 @@ export default function MyProfile() {
         </div>
 
         <p></p>
-
-        <h5>
-          <Badge variant="secondary" style={{ marginRight: "10px" }}>
-            2 Followers
-          </Badge>
-          <Badge variant="secondary">2 Following</Badge>
-        </h5>
       </div>
       <div>
         {editProfile ? (
@@ -183,7 +176,7 @@ export default function MyProfile() {
       <Button
         onClick={() => setEditProfile(!editProfile)}
         style={{ margin: "10px" }}
-        variant="dark"
+        variant="info"
       >
         Edit profile
       </Button>
