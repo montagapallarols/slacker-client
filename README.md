@@ -8,7 +8,7 @@ Although this app is still in progress (I still have many features in mind that 
 
 ### App demo ###
 
-<img src="https://giphy.com/gifs/v2FjyC042sGcRH29cO" alt="gif" width="500"/>
+
 
 ### Pages overview: ###
 
