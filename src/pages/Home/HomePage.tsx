@@ -8,11 +8,25 @@ import { selectAllCategories } from "../../store/listItems/selectors";
 import ProfileCard from "../../components/ProfileCard/ProfileCard";
 import FavouriteCard from "../../components/FavouriteCard/FavouriteCard";
 import { selectToken } from "../../store/user/selectors";
+import { fetchListItems } from "../../store/listItems/actions";
+import { fetchProfiles } from "../../store/profiles/actions";
 
 export default function HomePage() {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const allCategories = useSelector(selectAllCategories);
+
+  useEffect(() => {
+    console.log("Use effect");
+    dispatch(fetchListItems);
+    dispatch(fetchProfiles);
+  }, [
+    dispatch,
+    // listItemsLoading,
+    // profilesLoading,
+    // allFavourites,
+    // allCategories,
+  ]);
 
   const [filterList, setFilterList] = useState("Profiles");
   const [categoryFilterId, setCategoryFilterId] = useState("");
