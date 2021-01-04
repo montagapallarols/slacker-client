@@ -46,10 +46,7 @@ export default function ListDetails() {
     selectFavouriteApiItemDetails
   );
   const user = useSelector(selectUser);
-  const allCategories = useSelector(selectAllCategories);
   const allListItems = useSelector(selectAllListItems);
-  const listItemsLoading = useSelector(selectListItemsLoading);
-  const profilesLoading = useSelector(selectProfilesLoading);
   const message = useSelector(selectMessage);
 
   useEffect(() => {
