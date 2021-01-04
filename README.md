@@ -3,7 +3,6 @@
 
 ## What this app is about 📝
 
-The idea for this app came about from the fact that (at least for me) keeping lists in a notes app can sometimes become a bit of an incoherent mess.
 Although this app is still in progress (I still have many features in mind that I'd like to implement), this is a space for users to curate, review and keep a record of the films and series they've enjoyed and create lists of those they want to enjoy later.
 
 ### App demo ###
