@@ -1,29 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./FavouritesItemDetails.css";
 import { useParams } from "react-router-dom";
-import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchApiItems, fetchApiItemById } from "../../store/apiItems/actions";
-import {
-  selectApiItemsLoading,
-  selectAllApiItems,
-  selectApiItemDetails,
-} from "../../store/apiItems/selectors";
-import { selectUser } from "../../store/user/selectors";
-import {
-  selectAllCategories,
-  selectAllListItems,
-} from "../../store/listItems/selectors";
+import { fetchApiItemById } from "../../store/apiItems/actions";
+import { selectApiItemDetails } from "../../store/apiItems/selectors";
 import StarRating from "../StarRating/StarRating";
 
 export default function FavouritesItemDetails() {
   const dispatch = useDispatch();
-  const apiItemsLoading = useSelector(selectApiItemsLoading);
-  const allApiItems = useSelector(selectAllApiItems);
   const apiItemDetails: any = useSelector(selectApiItemDetails);
-  const user = useSelector(selectUser);
-  const allCategories = useSelector(selectAllCategories);
-  const allListItems = useSelector(selectAllListItems);
 
   interface ParamTypes {
     itemId: string;
@@ -45,7 +30,7 @@ export default function FavouritesItemDetails() {
       <em>
         <p>{apiItemDetails?.Genre}</p>
       </em>
-      <img src={apiItemDetails?.Poster} height="250px" />
+      <img src={apiItemDetails?.Poster} height="250px" alt="poster" />
       <StarRating />
       <p className="plot">{apiItemDetails?.Plot}</p>
     </div>

@@ -6,8 +6,8 @@ import { selectAllListItems } from "../../store/listItems/selectors";
 import { selectUser, selectToken } from "../../store/user/selectors";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { fetchProfiles } from "../../store/profiles/actions";
-import { fetchListItems } from "../../store/listItems/actions";
+// import { fetchProfiles } from "../../store/profiles/actions";
+// import { fetchListItems } from "../../store/listItems/actions";
 
 export default function ProfileCard() {
   const dispatch = useDispatch();
@@ -16,10 +16,10 @@ export default function ProfileCard() {
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
 
-  useEffect(() => {
-    dispatch(fetchProfiles);
-    dispatch(fetchListItems);
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchProfiles);
+  //   dispatch(fetchListItems);
+  // }, [dispatch]);
 
   return (
     <div className="profile-list">

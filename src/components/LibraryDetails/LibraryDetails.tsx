@@ -10,17 +10,12 @@ import {
   fetchFavouriteApiItemById,
 } from "../../store/apiItems/actions";
 import {
-  // selectApiItemsLoading,
   selectAllApiItems,
   selectApiItemDetails,
   selectFavouriteApiItemDetails,
 } from "../../store/apiItems/selectors";
 import { selectUser } from "../../store/user/selectors";
-import {
-  selectAllCategories,
-  selectAllListItems,
-  selectListItemsLoading,
-} from "../../store/listItems/selectors";
+import { selectAllListItems } from "../../store/listItems/selectors";
 import {
   removeItemFromLibrary,
   addItemToList,
@@ -28,13 +23,8 @@ import {
   fetchListItems,
   fetchCategories,
 } from "../../store/listItems/actions";
-import StarRating from "../StarRating/StarRating";
-import {
-  selectAllProfiles,
-  selectProfilesLoading,
-} from "../../store/profiles/selectors";
+import { selectAllProfiles } from "../../store/profiles/selectors";
 import { fetchProfiles } from "../../store/profiles/actions";
-import { selectMessage } from "../../store/appState/selectors";
 
 export default function ListDetails() {
   const dispatch = useDispatch();
@@ -47,7 +37,6 @@ export default function ListDetails() {
   );
   const user = useSelector(selectUser);
   const allListItems = useSelector(selectAllListItems);
-  const message = useSelector(selectMessage);
 
   useEffect(() => {
     dispatch(removeSearchItems);
