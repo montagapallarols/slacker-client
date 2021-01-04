@@ -19,14 +19,22 @@ import FavouritesItemDetails from "./components/FavouritesItemDetails/Favourites
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 import ProfileLibraryDetails from "./components/ProfileLibraryDetails/ProfileLibraryDetails";
 import ProfileWishlistDetails from "./components/ProfileWishlistDetails/ProfileWishlistDetails";
-import { selectToken, selectUser } from "./store/user/selectors";
+// import { selectToken, selectUser } from "./store/user/selectors";
 import { getUserWithStoredToken } from "./store/user/actions";
-import { selectAllReviews } from "./store/reviews/selectors";
-import { selectAllProfiles } from "./store/profiles/selectors";
+// import { selectAllReviews } from "./store/reviews/selectors";
+// import { selectAllProfiles } from "./store/profiles/selectors";
+import {
+  fetchListItems,
+  fetchCategories,
+  fetchAllFavourites,
+} from "./store/listItems/actions";
+import { fetchProfiles } from "./store/profiles/actions";
+import { fetchReviews } from "./store/reviews/actions";
 
 function App() {
   const dispatch = useDispatch();
   const isLoading = useSelector(selectAppLoading);
+
   // const user = useSelector(selectUser);
   // const userWithToken = useSelector(selectToken);
   // const allReviews = useSelector(selectAllReviews);
@@ -35,6 +43,21 @@ function App() {
   useEffect(() => {
     dispatch(getUserWithStoredToken());
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log("Use effect");
+    dispatch(fetchListItems);
+    dispatch(fetchProfiles);
+    dispatch(fetchReviews);
+    dispatch(fetchAllFavourites);
+    dispatch(fetchCategories);
+  }, [
+    dispatch,
+    // listItemsLoading,
+    // profilesLoading,
+    // allFavourites,
+    // allCategories,
+  ]);
 
   return (
     <div className="App">

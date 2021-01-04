@@ -1,25 +1,14 @@
-import React, { useEffect, useState, MouseEvent } from "react";
+import React from "react";
 import "./ProfileLibraryDetails.css";
 import { useParams, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Col, Card, Button, Container, Form } from "react-bootstrap";
-import {
-  selectApiItemsLoading,
-  selectAllApiItems,
-  selectApiItemDetails,
-  selectFavouriteApiItemDetails,
-} from "../../store/apiItems/selectors";
+import { useSelector } from "react-redux";
+import { Card } from "react-bootstrap";
+
 import { selectAllProfiles } from "../../store/profiles/selectors";
-import {
-  selectAllCategories,
-  selectAllListItems,
-} from "../../store/listItems/selectors";
+import { selectAllListItems } from "../../store/listItems/selectors";
 
 export default function ProfileLibraryDetails() {
-  const dispatch = useDispatch();
   const allProfiles = useSelector(selectAllProfiles);
-  const apiItemsLoading = useSelector(selectApiItemsLoading);
-  const allApiItems = useSelector(selectAllApiItems);
   const allListItems = useSelector(selectAllListItems);
 
   interface ParamTypes {

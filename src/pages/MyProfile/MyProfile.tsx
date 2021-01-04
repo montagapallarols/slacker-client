@@ -1,18 +1,13 @@
 import React, { useEffect, useState } from "react";
 import AvatarEditor from "react-avatar-editor";
 import "./MyProfile.css";
-import { Link, useParams, Redirect, useHistory } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserProfile, selectUser } from "../../store/user/selectors";
-import {
-  selectAllProfiles,
-  selectProfilesLoading,
-} from "../../store/profiles/selectors";
+import { selectUser } from "../../store/user/selectors";
+import { selectAllProfiles } from "../../store/profiles/selectors";
 import {
   selectAllFavourites,
-  selectAllListItems,
   selectAllCategories,
-  selectListItemsLoading,
 } from "../../store/listItems/selectors";
 import {
   removeItemFromFavourites,
@@ -20,36 +15,22 @@ import {
   fetchAllFavourites,
   fetchCategories,
 } from "../../store/listItems/actions";
-import StarRating from "../../components/StarRating/StarRating";
+// import StarRating from "../../components/StarRating/StarRating";
 import {
   selectAllReviews,
   selectReviewsLoading,
 } from "../../store/reviews/selectors";
-import { selectAppLoading } from "../../store/appState/selectors";
-import Loading from "../../components/Loading";
 import Rating from "@material-ui/lab/Rating";
 import { fetchReviews } from "../../store/reviews/actions";
-import { fetchProfiles, updateProfile } from "../../store/profiles/actions";
-import {
-  BsHeartFill,
-  BsHeart,
-  BsStarFill,
-  BsStar,
-  BsClockFill,
-  BsClock,
-} from "react-icons/bs";
-import { Col, Image, Button, Form, Card, Badge } from "react-bootstrap";
-import { Divider, Grid } from "@material-ui/core";
+import { updateProfile } from "../../store/profiles/actions";
+import { BsHeartFill, BsStarFill, BsClockFill } from "react-icons/bs";
+import { Col, Button, Form, Card } from "react-bootstrap";
 
 export default function MyProfile() {
   const dispatch = useDispatch();
-  const isLoading = useSelector(selectAppLoading);
   const user = useSelector(selectUser);
   const allProfiles = useSelector(selectAllProfiles);
-  const profilesLoading = useSelector(selectProfilesLoading);
   const allFavourites = useSelector(selectAllFavourites);
-  const allListItems = useSelector(selectAllListItems);
-  const listItemsLoading = useSelector(selectListItemsLoading);
   const allCategories = useSelector(selectAllCategories);
   const reviewsLoading = useSelector(selectReviewsLoading);
   const allReviews = useSelector(selectAllReviews);
@@ -73,7 +54,6 @@ export default function MyProfile() {
   useEffect(() => {
     console.log("USE EFFECT");
     dispatch(fetchListItems);
-    // dispatch(fetchProfiles);
     dispatch(fetchAllFavourites);
     dispatch(fetchCategories);
   }, [dispatch]);
@@ -116,7 +96,7 @@ export default function MyProfile() {
         <h1 className="profile-name">{`${userProfile?.firstName} ${userProfile?.lastName}`}</h1>
 
         <div className="profile-image">
-          <img src={userProfile?.imageUrl} />
+          <img src={userProfile?.imageUrl} alt="profile-pic" />
         </div>
 
         <p></p>
