@@ -13,6 +13,9 @@ Although this app is still in progress (I still have many features in mind that 
 
 
 
+
+Check out the live website [here](https://slacker.netlify.app/)
+
 ### Pages overview: ###
 
 - A **Home** page where users can sign up / login and see a list of other users and their recommendations. 
