@@ -167,13 +167,23 @@ export default function WishlistDetails() {
                   <Card.Body>
                     <Card.Title>{i.Title}</Card.Title>
                     <Card.Text>({i.Year})</Card.Text>
-                    <Button
-                      onClick={handleClickRemove}
-                      value={i.imdbID}
-                      variant="outline-dark"
-                    >
-                      Remove
-                    </Button>
+                    {apiIdWishlistArray?.includes(i.imdbID) ? (
+                      <Button
+                        onClick={handleClickRemove}
+                        value={i.imdbID}
+                        variant="outline-dark"
+                      >
+                        Remove
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={onClickAdd}
+                        value={i.imdbID}
+                        variant="outline-dark"
+                      >
+                        Add to Wishlist
+                      </Button>
+                    )}
                   </Card.Body>
                 </Card>
               );
