@@ -10,20 +10,24 @@ import FavouriteCard from "../../components/FavouriteCard/FavouriteCard";
 import { selectToken } from "../../store/user/selectors";
 import { fetchListItems } from "../../store/listItems/actions";
 import { fetchProfiles } from "../../store/profiles/actions";
+import { selectProfilesLoading } from "../../store/profiles/selectors";
 
 export default function HomePage() {
   const dispatch = useDispatch();
   const token = useSelector(selectToken);
   const allCategories = useSelector(selectAllCategories);
+  const profilesLoading = useSelector(selectProfilesLoading);
 
   useEffect(() => {
     console.log("Use effect");
-    dispatch(fetchListItems);
-    dispatch(fetchProfiles);
+    if (profilesLoading) {
+      dispatch(fetchProfiles);
+    }
+    // dispatch(fetchListItems);
   }, [
     dispatch,
     // listItemsLoading,
-    // profilesLoading,
+    profilesLoading,
     // allFavourites,
     // allCategories,
   ]);

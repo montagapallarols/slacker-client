@@ -7,7 +7,7 @@ import { selectUser, selectToken } from "../../store/user/selectors";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { fetchProfiles } from "../../store/profiles/actions";
-import { fetchListItems } from "../../store/listItems/actions";
+// import { fetchListItems } from "../../store/listItems/actions";
 
 export default function ProfileCard() {
   const dispatch = useDispatch();
@@ -18,7 +18,6 @@ export default function ProfileCard() {
 
   useEffect(() => {
     dispatch(fetchProfiles);
-    dispatch(fetchListItems);
   }, [dispatch]);
 
   return (
@@ -68,8 +67,6 @@ export default function ProfileCard() {
                   <Button variant="info">View Profile</Button>
                 </Link>
               )}
-
-              {/* <Button variant="info">Go somewhere</Button> */}
             </Card.Body>
           </Card>
         );
