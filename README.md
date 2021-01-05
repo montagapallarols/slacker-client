@@ -5,6 +5,8 @@
 
 Although this app is still in progress (I still have many features in mind that I'd like to implement), this is a space for users to curate, review and keep a record of the films and series they've enjoyed and create lists of those they want to enjoy later.
 
+Check out the live website [here](https://slacker.netlify.app/)
+
 ### App demo ###
 
 
@@ -14,7 +16,7 @@ Although this app is still in progress (I still have many features in mind that 
 
 
 
-Check out the live website [here](https://slacker.netlify.app/)
+
 
 ### Pages overview: ###
 
