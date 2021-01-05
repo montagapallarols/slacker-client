@@ -18,13 +18,6 @@ export default function HomePage() {
   const allCategories = useSelector(selectAllCategories);
   const profilesLoading = useSelector(selectProfilesLoading);
 
-  useEffect(() => {
-    console.log("USE EFFECT");
-    if (profilesLoading) {
-      dispatch(fetchProfiles);
-    }
-  }, [dispatch, profilesLoading]);
-
   const [filterList, setFilterList] = useState("Profiles");
   const [categoryFilterId, setCategoryFilterId] = useState("");
 

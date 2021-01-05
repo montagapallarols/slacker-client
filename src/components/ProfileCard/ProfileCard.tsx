@@ -16,10 +16,6 @@ export default function ProfileCard() {
   const user = useSelector(selectUser);
   const token = useSelector(selectToken);
 
-  useEffect(() => {
-    dispatch(fetchProfiles);
-  }, [dispatch]);
-
   return (
     <div className="profile-list">
       {allProfiles?.map((p: any) => {
