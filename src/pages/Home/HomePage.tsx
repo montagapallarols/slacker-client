@@ -19,18 +19,11 @@ export default function HomePage() {
   const profilesLoading = useSelector(selectProfilesLoading);
 
   useEffect(() => {
-    console.log("Use effect");
+    console.log("USE EFFECT");
     if (profilesLoading) {
       dispatch(fetchProfiles);
     }
-    // dispatch(fetchListItems);
-  }, [
-    dispatch,
-    // listItemsLoading,
-    profilesLoading,
-    // allFavourites,
-    // allCategories,
-  ]);
+  }, [dispatch, profilesLoading]);
 
   const [filterList, setFilterList] = useState("Profiles");
   const [categoryFilterId, setCategoryFilterId] = useState("");
