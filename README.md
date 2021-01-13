@@ -65,6 +65,7 @@ After two very intense months of learning full stack web development at Codaisse
 - React-Redux
 - TypeScript
 - Node JS
+- OMDb API
 
 ### Wireframes ###
 
