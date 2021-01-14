@@ -38,7 +38,7 @@ export default function ProfileLibraryDetails() {
   return (
     <div>
       <h2>
-        {userProfile?.user?.firstName}'s {categoryName} Library
+        {userProfile?.user?.firstName}'s {categoryName} Wishlist
       </h2>
       <div className="library-list">
         {listItemsInWishlist?.map((i: any) => {
