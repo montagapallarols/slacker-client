@@ -7,6 +7,12 @@ Although this app is still in progress (I still have many features in mind that 
 
 Check out the live website [here](https://slacker.netlify.app/)
 
+If you'd like to play around with the app, you can sign up or login with:
+
+email: alice@email.com
+
+password: alice
+
 ### App demo ###
 
 
@@ -59,6 +65,7 @@ After two very intense months of learning full stack web development at Codaisse
 - React-Redux
 - TypeScript
 - Node JS
+- OMDb API
 
 ### Wireframes ###
 
