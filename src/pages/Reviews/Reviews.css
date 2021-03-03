@@ -1,3 +1,12 @@
+.reviews-section {
+  overflow: hidden;
+}
+
+.reviews-title {
+  color: #f5f4f4;
+  font-size: 2.7rem;
+}
+
 .review-list {
   display: flex;
   flex-wrap: wrap;
@@ -18,7 +27,11 @@
 }
 
 .review-text {
-  padding: 20px 200px;
+  padding: 20px 0px;
+}
+
+.review-poster {
+  margin-bottom: 20px;
 }
 
 .review-item-name {
@@ -37,4 +50,14 @@
   background-position: 0% 28%;
   margin-bottom: 30px;
   padding: 80px;
+}
+
+@media (max-width: 800px) {
+  .reviews-title {
+    padding: 0;
+  }
+
+  .review-content {
+    margin: 20px 30px;
+  }
 }

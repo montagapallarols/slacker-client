@@ -1,8 +1,3 @@
-title {
-  padding: 50px;
-  margin-top: 30px;
-}
-
 h4 {
   padding: 10px;
 }
@@ -66,8 +61,30 @@ h4 {
   color: #a3d2ca;
 }
 
+.home-button {
+  margin: 5px;
+}
+
 @media (max-width: 800px) {
   .background {
     background-position: center;
+  }
+
+  .title {
+    overflow: hidden;
+    padding: 0;
+    margin: 30px 0%;
+    letter-spacing: 20px;
+    font-size: 2rem;
+  }
+
+  .app-intro {
+    font-size: 1.6rem;
+    padding: 0;
+    line-height: 40px;
+  }
+
+  .app-description {
+    max-width: 100%;
   }
 }

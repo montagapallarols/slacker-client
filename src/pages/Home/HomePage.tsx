@@ -64,11 +64,16 @@ export default function HomePage() {
       </div>
 
       <div>
-        <Button onClick={onSearchProfiles} variant="outline-dark">
+        <Button
+          className="home-button"
+          onClick={onSearchProfiles}
+          variant="outline-dark"
+        >
           All profiles
-        </Button>{" "}
+        </Button>
         {allCategories?.map((category: any) => (
           <Button
+            className="home-button"
             key={category.id}
             variant="outline-dark"
             onClick={() => {
@@ -78,7 +83,7 @@ export default function HomePage() {
           >
             All Favourite {category.name}
           </Button>
-        ))}
+        ))}{" "}
       </div>
       <br></br>
       <div className="container">

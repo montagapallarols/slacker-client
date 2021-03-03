@@ -50,9 +50,9 @@ export default function Reviews() {
   }, [reviewsLoading, history]);
 
   return (
-    <div>
+    <div className="reviews-section">
       <div className="reviews-background-image">
-        <h1 className="profile-name">All Reviews</h1>
+        <h1 className="reviews-title">All Reviews</h1>
       </div>
       {allReviews?.map((r: any) => {
         return (
@@ -60,7 +60,12 @@ export default function Reviews() {
             <div className="review-content">
               <h4 className="review-item-name">{r.item.name}</h4>
               {r.item.poster === "N/A" ? null : (
-                <img src={r.item.poster} alt="poster" height="150px" />
+                <img
+                  className="review-poster"
+                  src={r.item.poster}
+                  alt="poster"
+                  height="150px"
+                />
               )}
               <em>
                 <h5>{r.name}</h5>
